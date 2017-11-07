@@ -1,8 +1,9 @@
-# Library for metrics
+# Library for testing machine learning algorithms
 
-This repository contains some metrics and config files.
+This repository contains some metrics and configuration in order
+to test, at the moment, supervised classifiers.
 
-# How to install virtualenv
+## How to install virtualenv
 
 It is recommended to install the framework in a virtual environment
 
@@ -16,5 +17,14 @@ In order to activate the virtual environment
 source env/bin/activate
 ```
 
-To deactivate, just write ```deactivate```.
+To deactivate, just write ```deactivate```. Then, it is necessary
+to install the requirements
+
+```
+pip install -r requirements.txt
+```
+
+## An example
+
+A complete example can be seen at *entry_point.py*
 
