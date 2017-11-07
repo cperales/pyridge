@@ -13,7 +13,7 @@ def rbf_kernel(X, Y, C):
     """
     K = np.zeros((X.shape[0],Y.shape[0]))
     for i, x in enumerate(X):
-        for j,y in enumerate(Y):
+        for j, y in enumerate(Y):
             K[i, j] = np.exp(-(np.linalg.norm(x - y)**2) / C)
     return K
 

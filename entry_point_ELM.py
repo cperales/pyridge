@@ -1,11 +1,12 @@
 from algorithm import DiverseLinearSVM
-from metric.result_metric import accuracy
+from postprocess.result_metric import accuracy
 import json
 import pandas as pd
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-algorithm_dict = {'DiverseLinearSVM': DiverseLinearSVM}
+algorithm_dict = {'DiverseLinearSVM': DiverseLinearSVM,
+                  'KernelELM'}
 metric_dict = {'accuracy': accuracy}
 
 if __name__ == '__main__':

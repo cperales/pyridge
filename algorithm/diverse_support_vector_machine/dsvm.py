@@ -5,7 +5,6 @@ import logging
 from ..classifier import Classifier
 from .svm_solver import *
 from .generate_data import plot_data_with_labels, generate_gaussian
-logging.basicConfig(level=logging.DEBUG)
 
 
 class DiverseLinearSVM(Classifier):

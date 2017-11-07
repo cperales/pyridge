@@ -12,3 +12,6 @@ class Classifier(object):
 
     def classify(self):
         pass
+
+    def cross_validation(self):
+        pass
