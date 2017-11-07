@@ -1,3 +1,6 @@
+# Metrics once classifier is fit and new data is classified
+
+
 def accuracy(predicted_targets, real_targets):
     """
     Accuracy.

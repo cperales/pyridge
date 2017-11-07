@@ -1,5 +1,5 @@
 from algorithm import DiverseLinearSVM
-from metric import accuracy
+from metric.result_metric import accuracy
 import json
 import pandas as pd
 import logging
@@ -10,7 +10,7 @@ metric_dict = {'accuracy': accuracy}
 
 if __name__ == '__main__':
     # Reading JSON
-    with open('config-files/prueba_carlos.json', 'r') as cfg:
+    with open('config/prueba_carlos.json', 'r') as cfg:
         config_options = json.load(cfg)
 
     # Training data and target
