@@ -2,12 +2,13 @@ import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import logging
+from ..classifier import Classifier
 from .svm_solver import *
 from .generate_data import plot_data_with_labels, generate_gaussian
 logging.basicConfig(level=logging.DEBUG)
 
 
-class DiverseLinearSVM(object):
+class DiverseLinearSVM(Classifier):
     """
     Implementation of the diverse linear support vector machine.
     """
@@ -20,7 +21,7 @@ class DiverseLinearSVM(object):
         self.b = None
         self.prev_w = None
 
-    def fit_model(self, data, target, soft=True, diverse=False):
+    def fit(self, data, target, soft=True, diverse=False):
         """
         Fit the model according to the given training data.
         """

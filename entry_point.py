@@ -45,7 +45,7 @@ if __name__ == '__main__':
     clf.__dict__.update(hyperparameters)
 
     # Fitting classifier
-    clf.fit_model(data=training_data, target=training_target)
+    clf.fit(data=training_data, target=training_target)
 
     # Running test
     predicted_labels = clf.classify(data=testing_data)
