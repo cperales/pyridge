@@ -33,5 +33,8 @@ class KernelClassifier(Classifier):
     """
     Generic class for a supervised classifier with mapping function inside, besides linear.
     """
+    kernel = {'rbf': rbf_kernel,
+              'linear': linear_kernel}
+
     def __init__(self):
         pass
