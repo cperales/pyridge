@@ -1,0 +1,9 @@
+# Folders
+env/
+data/
+.idea/
+experiments/
+__pycache__/
+
+# Files
+*.zip
