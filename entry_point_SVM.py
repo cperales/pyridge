@@ -14,7 +14,7 @@ metric_dict = {'accuracy': accuracy}
 
 if __name__ == '__main__':
     # Reading JSON
-    with open('config/prueba_carlos_svm.json', 'r') as cfg:
+    with open('config/hepatitis_SVM_rbf.json', 'r') as cfg:
         config_options = json.load(cfg)
 
     # Training data and target

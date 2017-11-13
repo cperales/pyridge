@@ -5,7 +5,8 @@
     "folder": "data/hepatitis/matlab/"
     },
   "Algorithm": {
-    "name": "DiverseLinearSVM",
+    "name": "SVM",
+    "kernel": "linear",
     "hyperparameters": {
       "c": 1.1,
       "d": 1.2
