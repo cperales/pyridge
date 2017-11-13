@@ -1,16 +1,20 @@
-from algorithm import DiverseLinearSVM
+from algorithm import KernelSVM, DiverseLinearSVM
 from postprocess.result_metric import accuracy
 import json
 import pandas as pd
+from scipy.stats import zscore
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
-algorithm_dict = {'DiverseLinearSVM': DiverseLinearSVM}
+algorithm_dict = {'DiverseLinearSVM': DiverseLinearSVM,
+                  'DiverseSVM': DiverseLinearSVM,
+                  'SVM': KernelSVM,
+                  'KernelSVM': KernelSVM}
 metric_dict = {'accuracy': accuracy}
 
 if __name__ == '__main__':
     # Reading JSON
-    with open('config/prueba_carlos.json', 'r') as cfg:
+    with open('config/prueba_carlos_svm.json', 'r') as cfg:
         config_options = json.load(cfg)
 
     # Training data and target
@@ -22,7 +26,7 @@ if __name__ == '__main__':
     training_file_matrix = training_file.as_matrix()
     training_file_matrix_t = training_file_matrix.transpose()
     training_target = training_file_matrix_t[0].transpose()
-    training_data = training_file_matrix_t[1:].transpose()
+    training_data = zscore(training_file_matrix_t[1:].transpose(), axis=0)
 
     # Testing data and target
     testing_file_name = config_options['Data']['folder'] + \
@@ -34,14 +38,15 @@ if __name__ == '__main__':
     testing_file_matrix = testing_file.as_matrix()
     testing_file_matrix_t = testing_file_matrix.transpose()
     testing_target = testing_file_matrix_t[0].transpose()
-    testing_data = testing_file_matrix_t[1:].transpose()
+    testing_data = zscore(testing_file_matrix_t[1:].transpose(), axis=0)
 
     # Reading parameters
     hyperparameters = config_options['Algorithm']['hyperparameters']
+    kernel = config_options['Algorithm']['kernel']
 
     # Instancing classifier
     # clf = algorithm_dict[config_options['Algorithm']['name']](hyperparameters)
-    clf = algorithm_dict[config_options['Algorithm']['name']]()
+    clf = algorithm_dict[config_options['Algorithm']['name']](kernel=kernel)
     clf.__dict__.update(hyperparameters)
 
     # Fitting classifier

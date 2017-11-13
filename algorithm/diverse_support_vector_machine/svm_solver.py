@@ -48,7 +48,7 @@ def fit(x, y):
     return alphas
 
 
-def fit_soft(x, y, c=1.0):
+def fit_soft(x, y, kernel, c=1.0):
     """
     Fit alphas for dual problem soft margin SVM.
 
@@ -62,7 +62,8 @@ def fit_soft(x, y, c=1.0):
     # we'll solve the dual
     # obtain the kernel
     K = y[:, None] * x
-    K = np.dot(K, K.T)
+    # K = np.dot(K, K.T)
+    K = kernel(K)
     P = matrix(K)
     q = matrix(-np.ones((num, 1)))
     g = np.concatenate((-np.eye(num), np.eye(num)))

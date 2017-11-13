@@ -1,19 +1,23 @@
-import pickle
-import numpy as np
-import matplotlib.pyplot as plt
 import logging
-from ..classifier import Classifier
+# from ..classifier import Classifier
+from ..kernel_classifier import KernelClassifier
 from .svm_solver import *
 from .generate_data import plot_data_with_labels, generate_gaussian
 
 
-class DiverseLinearSVM(Classifier):
+class DiverseLinearSVM(KernelClassifier):
     """
     Implementation of the diverse linear support vector machine.
     """
     def __init__(self, **kwargs):
         self.c = kwargs['c'] if 'c' in kwargs else 1.0
         self.d = kwargs['d'] if 'd' in kwargs else 1.0
+
+        if 'kernel' in kwargs and kwargs['kernel'].lower() != 'linear':
+            logging.warning('Only linear kernel is allowed for Diverse SVM')
+            kwargs['kernel'] = 'linear'
+
+        self.kernel = self.kernel_dict[kwargs['kernel'].lower()]
         self.train_data = None
         self.train_target = None
         self.w = None
@@ -27,24 +31,22 @@ class DiverseLinearSVM(Classifier):
         self.add_train(train_data=data, train_target=target)
         # Data can be added as a pickle using read_data method
         if diverse is True:
-            alphas = fit_diverse(self.train_data, self.train_target, self.prev_w)
+            alphas = fit_diverse(x=self.train_data, y=self.train_target, w=self.prev_w)
         else:
             if soft is True:
-                alphas = fit_soft(self.train_data, self.train_target, self.c)
+                alphas = fit_soft(x=self.train_data, y=self.train_target, c=self.c, kernel=self.kernel)
             else:
                 alphas = fit(self.train_data, self.train_target)
 
         # get weights
+        alphas = alphas / np.linalg.norm(alphas)
         w = np.sum(alphas * self.train_target[:, None] * self.train_data, axis=0)
-        # # get b
-        # cond = (alphas > 1e-4).reshape(-1)
-        # b = self.train_target[cond] - np.dot(self.train_data[cond], w)
-        b_vector = self.train_target - np.dot(self.train_data, w)
-        b = b_vector.sum() / b_vector.size
+        b_vector = self.train_target - np.dot(self.train_data, w)  # np.dot(w, self.train_data.T) == np.dot(self.train_data, w)
+        b = np.mean(b_vector)
 
-        # normalize
-        norm = np.linalg.norm(w)
-        w, b = w / norm, b / norm
+        # # normalize
+        # norm = np.linalg.norm(alphas)
+        # w, b = w / norm, b / norm
 
         # Self values
         self.w = w
@@ -139,5 +141,5 @@ class DiverseLinearSVM(Classifier):
 
         :param data:
         """
-        targets = np.array([np.dot(self.w, elem) - self.b for elem in data])
+        targets = np.array([self.kernel(self.w, elem) + self.b for elem in data])
         return np.sign(targets)
