@@ -39,7 +39,7 @@ class DiverseLinearSVM(KernelClassifier):
                 alphas = fit(self.train_data, self.train_target)
 
         # get weights
-        alphas = alphas / np.linalg.norm(alphas)
+        # alphas = alphas / np.linalg.norm(alphas)
         w = np.sum(alphas * self.train_target[:, None] * self.train_data, axis=0)
         b_vector = self.train_target - np.dot(self.train_data, w)  # np.dot(w, self.train_data.T) == np.dot(self.train_data, w)
         b = np.mean(b_vector)

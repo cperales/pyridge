@@ -6,7 +6,7 @@
     },
   "Algorithm": {
     "name": "SVM",
-    "kernel": "linear",
+    "kernel": "rbf",
     "hyperparameters": {
       "c": 1.1,
       "d": 1.2
