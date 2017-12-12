@@ -22,3 +22,7 @@ def j_encode(targ, n_targ=None):
         T[i] = np.array(row, dtype=np.float)
 
     return T
+
+
+def j_decode(T):
+    pass

@@ -59,7 +59,7 @@ metric_value_dict = {}
 for metric in config_options['Report']['metrics']:
     metric_function = metric_dict[metric.lower()]
     metric_value = metric_function(predicted_targets=predicted_labels,
-                                   real_targets=testing_target)
+                                   real_targets=j_encode(testing_target))
     metric_value_dict.update({metric: metric_value})
     logging.debug('{} = {}'.format(metric, metric_value))
 # acc = accuracy(predicted_targets=predicted_labels,
