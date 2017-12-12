@@ -2,8 +2,26 @@
 env/
 data/
 .idea/
-experiments/
+experiment/
 __pycache__/
 
-# Files
+# Editing files
+*.m~
+*.ods#
+
+# Data files
+*.xlsx
+*.csv
+*.ods
 *.zip
+
+# Configuration files
+*.json
+
+# Latex
+*.tex
+*.out
+*.aux
+*.pdf
+*.log
+*.gz
