@@ -1,12 +1,16 @@
 from generic import NeuralMethod
 from utility.target_encode import j_renorm
 import numpy as np
+import logging
 
 
 class NELM(NeuralMethod):
     """
     Neural Extreme Learning Machine
     """
+    def __init__(self):
+        logging.debug('Neural Extreme Learning Machine instanced')
+
     def fit(self, train, parameters):
         self.t = train['target'].shape[1]
         self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] != 0 else self.t

@@ -1,5 +1,5 @@
 from .cv_method import CVMethod
-
+import numpy as np
 
 neuron_fun_dict = {'sin': np.sin,
                    'hard': lambda x: np.array(x > 0.0, dtype=float),
@@ -22,7 +22,7 @@ class NeuralMethod(CVMethod):
         # Neuron function
         self.neuron_fun = neuron_fun_dict[method_conf['neuronFun']]
         # Number of neurons in the hidden layer
-        self.grid_param['hidden_neurons'] = method_conf['hidden_neurons']
+        self.grid_param['hidden_neurons'] = method_conf['hiddenNeurons']
         # Regularization
         self.grid_param['C'] = method_conf['C'] if 'C' in method_conf else 0
         # Ensemble
