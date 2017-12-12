@@ -23,8 +23,8 @@ training_file = pd.read_csv(training_file_name,
                             header=None)
 training_file_matrix = training_file.as_matrix()
 training_file_matrix_t = training_file_matrix.transpose()
-training_target = training_file_matrix_t[0].transpose()
-training_data = training_file_matrix_t[1:].transpose()
+training_target = training_file_matrix_t[-1].transpose()
+training_data = training_file_matrix_t[:-1].transpose()
 
 # Testing data and target
 testing_file_name = os.path.join(config_options['Data']['folder'],
@@ -34,8 +34,8 @@ testing_file = pd.read_csv(testing_file_name,
                            header=None)
 testing_file_matrix = testing_file.as_matrix()
 testing_file_matrix_t = testing_file_matrix.transpose()
-testing_target = testing_file_matrix_t[0].transpose()
-testing_data = testing_file_matrix_t[1:].transpose()
+testing_target = testing_file_matrix_t[-1].transpose()
+testing_data = testing_file_matrix_t[:-1].transpose()
 
 # Reading parameters
 hyperparameters = config_options['Algorithm']['hyperparameters']
@@ -49,10 +49,10 @@ clf.set_conf(hyperparameters)
 # For testing
 parameters = {'C': 0, 'hidden_neurons': 50}
 training_J_target = j_encode(training_target)
-clf.fit(train={'data': training_data, 'target': training_target}, parameters=parameters)
+clf.fit(train={'data': training_data, 'target': training_J_target}, parameters=parameters)
 
 # Running test
-predicted_labels = clf.classify(data=testing_data)
+predicted_labels = clf.predict(test_data=testing_data)
 
 # Metrics
 metric_value_dict = {}
