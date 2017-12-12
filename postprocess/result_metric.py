@@ -14,12 +14,3 @@ def accuracy(predicted_targets, real_targets):
     # comp = predicted_targets[:, None] == real_targets[:, None]
     acc = np.mean(comp)
     return acc
-
-
-def gm(something):
-    pass
-
-
-def ms(something):
-    pass
-
