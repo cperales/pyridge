@@ -8,6 +8,9 @@ __pycache__/
 *.m~
 *.ods#
 
+# Profile
+*.prof
+
 # Data files
 *.xlsx
 *.csv
