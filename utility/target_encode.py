@@ -3,7 +3,7 @@ import numpy as np
 
 def j_renorm(T):
     idx = T.argmax(axis=1)
-    out = np.zeros_like(T, dtype=float)
+    out = np.zeros_like(T, dtype=np.float64)
     out[np.arange(T.shape[0]), idx] = 1
     return out
 
@@ -16,10 +16,10 @@ def j_encode(targ, n_targ=None):
     else:
         ava_targ = np.arange(1, n_targ + 1)
 
-    T = np.zeros((n, n_targ))
+    T = np.zeros((n, n_targ), dtype=np.float64)
     for i in range(n):
         row = [targ[i] == ava_targ]
-        T[i] = np.array(row, dtype=np.float)
+        T[i] = np.array(row, dtype=np.float64)
 
     return T
 
