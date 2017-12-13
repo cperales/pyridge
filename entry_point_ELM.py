@@ -44,12 +44,13 @@ hyperparameters = config_options['Algorithm']['hyperparameters']
 # clf = algorithm_dict[config_options['Algorithm']['name']](hyperparameters)
 clf = algorithm_dict[config_options['Algorithm']['name']]()
 clf.set_conf(hyperparameters)
-
-# Fitting classifier
-# For testing
-parameters = {'C': 0, 'hidden_neurons': 50}
 training_J_target = j_encode(training_target)
-clf.fit(train={'data': training_data, 'target': training_J_target}, parameters=parameters)
+
+# # Fitting classifier
+clf.config(train={'data': training_data, 'target': training_J_target})
+# # For testing
+# parameters = {'C': 0, 'hidden_neurons': 50}
+# clf.fit(train={'data': training_data, 'target': training_J_target}, parameters=parameters)
 
 # Running test
 predicted_labels = clf.predict(test_data=testing_data)

@@ -18,3 +18,15 @@ def accuracy(predicted_targets, real_targets):
     # comp = predicted_targets[:, None] == real_targets[:, None]
     acc = np.mean(comp)
     return acc
+
+
+def loss(predicted_targets, real_targets):
+    """
+
+    :param predicted_targets:
+    :param real_targets:
+    :return:
+    """
+    acc = accuracy(predicted_targets=predicted_targets,
+                   real_targets=real_targets)
+    return 1 - acc
