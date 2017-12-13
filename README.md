@@ -1,7 +1,8 @@
 # Library for testing machine learning algorithms
 
-This repository contains some metrics and configuration in order
-to test, at the moment, supervised classifiers.
+This repository contains some metrics and configuration in order to test, at the moment, supervised classifiers.
+
+Main motivation of this repository is translating from MATLAB to Python 3 what [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science in [Universidad Loyola Andalucia](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos).
 
 ## How to install virtualenv
 
