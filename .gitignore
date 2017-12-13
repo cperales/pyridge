@@ -1,6 +1,5 @@
 # Folders
 env/
-data/
 .idea/
 experiment/
 __pycache__/
@@ -15,9 +14,6 @@ __pycache__/
 *.ods
 *.zip
 
-# Configuration files
-*.json
-
 # Latex
 *.tex
 *.out
@@ -25,3 +21,52 @@ __pycache__/
 *.pdf
 *.log
 *.gz
+
+# Python
+*.pyc
+
+# Other data folders
+*.svn/*
+data/ERA/
+data/ESL/
+data/LEV/
+data/SWD/
+data/anneal/
+data/automobile/
+data/balance-scale/
+data/bondrate/
+data/breast/
+data/car/
+data/card/
+data/contact-lenses/
+data/ecoli/
+data/eucalyptus/
+data/glass/
+data/haberman/
+data/hepatitis/
+data/jain/
+data/lymph/
+data/newthyroid/.svn/
+data/newthyroid/libsvm/
+data/newthyroid/nnep/
+data/newthyroid/weka/
+data/olivas/
+data/pasture/
+data/pathbased/
+data/puri/
+data/roles/
+data/roles3/
+data/saureus4/
+data/segmentation/
+data/spheres/
+data/spiral/
+data/squash-stored/
+data/squash-unstored/
+data/tae/
+data/tere/
+data/tere2/
+data/toy/
+data/v2-olivasv2/
+data/vehicle/
+data/winequality-red/
+data/zoo/

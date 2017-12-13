@@ -1,0 +1,51 @@
+{
+  "Report": {
+    "folder": "experiments/",
+    "report_name": "experiment_newthyroid",
+    "metrics": [
+      "accuracy"
+    ]
+  },
+  "Algorithm": {
+    "name": "NELM",
+    "hyperparameters": {
+      "C": [
+        0.01,
+        0.1,
+        1,
+        10,
+        100
+      ],
+      "hiddenNeurons": [
+        10,
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        110,
+        120,
+        130,
+        140,
+        150,
+        160,
+        170,
+        180,
+        190,
+        200
+      ],
+      "neuronFun": "sigmoid",
+      "type": "neuralNetwork"
+    }
+  },
+  "Data": {
+    "folder": "data/newthyroid/gpor",
+    "testingDataset": "test_newthyroid.1",
+    "standarized": false,
+    "trainingDataset": "train_newthyroid.1"
+  }
+}
