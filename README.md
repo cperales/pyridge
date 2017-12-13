@@ -26,5 +26,8 @@ pip install -r requirements.txt
 
 ## An example
 
-A complete example can be seen at *entry_point_ELM.py*
+Just run
 
+```
+python entry_point_ELM.py
+```

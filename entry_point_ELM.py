@@ -75,7 +75,12 @@ acc = acc / n_run
 # Profiling
 time_2 = perf_counter()
 prof.disable()  # don't profile the generation of stats
-prof.dump_stats('profile/mystats.prof')
+
+try:
+    prof.dump_stats('profile/mystats.prof')
+except:
+    pass
+
 logging.debug('{} seconds elapsed'.format(time_2 - time_1))
 
 logging.info('Average accuracy in {} iterations, algorithm {} and dataset {} is {}'.format(n_run,
