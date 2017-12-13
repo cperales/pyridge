@@ -1,6 +1,7 @@
 from algorithm import *
-from postprocess.result_metric import accuracy
+from postprocess.metric import accuracy
 from utility.target_encode import j_encode
+from sklearn import preprocessing
 import json
 import pandas as pd
 import logging
@@ -37,6 +38,9 @@ testing_file_matrix_t = testing_file_matrix.transpose()
 testing_target = testing_file_matrix_t[-1].transpose()
 testing_data = testing_file_matrix_t[:-1].transpose()
 
+training_data = preprocessing.scale(training_data)
+testing_data = preprocessing.scale(testing_data)
+
 # Reading parameters
 hyperparameters = config_options['Algorithm']['hyperparameters']
 
@@ -54,33 +58,34 @@ clf.config(train={'data': training_data, 'target': training_J_target})
 
 # Running test
 predicted_labels = clf.predict(test_data=testing_data)
-
+n_targ = predicted_labels.shape[1]
+testing_j_target = j_encode(testing_target, n_targ=n_targ)
 # Metrics
 metric_value_dict = {}
 for metric in config_options['Report']['metrics']:
     metric_function = metric_dict[metric.lower()]
     metric_value = metric_function(predicted_targets=predicted_labels,
-                                   real_targets=j_encode(testing_target))
+                                   real_targets=testing_j_target)
     metric_value_dict.update({metric: metric_value})
-    logging.debug('{} = {}'.format(metric, metric_value))
+    logging.info('{} = {}'.format(metric, metric_value))
 # acc = accuracy(predicted_targets=predicted_labels,
 #                real_targets=testing_target)
 
-# Report
-report = {
-    'Training dataset': training_file_name,
-    'Testing dataset': testing_file_name,
-    'Classifier': config_options['Algorithm']['name']}
-
-# Hyperparameters added
-report.update(hyperparameters)
-
-# Metrics added
-report.update(metric_value_dict)
-
-df_report = pd.DataFrame(report, index=[0])
-df_report.to_csv(config_options['Report']['folder'] +
-                 config_options['Report']['report_name'] +
-                 '.csv',
-                 sep=';')
+# # Report
+# report = {
+#     'Training dataset': training_file_name,
+#     'Testing dataset': testing_file_name,
+#     'Classifier': config_options['Algorithm']['name']}
+#
+# # Hyperparameters added
+# report.update(hyperparameters)
+#
+# # Metrics added
+# report.update(metric_value_dict)
+#
+# df_report = pd.DataFrame(report, index=[0])
+# df_report.to_csv(config_options['Report']['folder'] +
+#                  config_options['Report']['report_name'] +
+#                  '.csv',
+#                  sep=';')
 

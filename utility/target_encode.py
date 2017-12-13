@@ -14,7 +14,7 @@ def j_encode(targ, n_targ=None):
         ava_targ = np.unique(targ)
         n_targ = len(ava_targ)
     else:
-        ava_targ = np.arange(1, n_targ)
+        ava_targ = np.arange(1, n_targ + 1)
 
     T = np.zeros((n, n_targ))
     for i in range(n):
@@ -25,4 +25,8 @@ def j_encode(targ, n_targ=None):
 
 
 def j_decode(T):
-    pass
+    if T.shape[1] == 1:  # Already decoded
+        t = T
+    else:
+        t = np.argmax(T, axis=1) + 1
+    return t

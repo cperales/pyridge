@@ -22,7 +22,7 @@ class CVMethod(Classifier):
         best_cv_criteria = np.inf
         n_folds = 5
         # test_size = len(train['data']) / n_folds
-        kf = KFold(n_splits=n_folds)
+        kf = KFold(n_splits=n_folds, shuffle=True)
 
         for current_comb in itertools.product(*list_comb):
             # L = np.zeros(n_folds)
@@ -43,12 +43,13 @@ class CVMethod(Classifier):
                 test_fold = train['data'][test_index]
                 pred = self.predict(test_data=test_fold)
 
-                clf_param = self.save_param()
+                clf_param = self.save_clf_param()
                 clf_list.append(clf_param)
 
-                L.append(loss(train['target'][test_index], pred))
+                test_fold_target = train['target'][test_index]
+                L.append(loss(real_targets=test_fold_target, predicted_targets=pred))
 
-            L = np.array(L, dtype=np.float)
+            # L = np.array(L, dtype=np.float)
             current_cv_criteria = np.mean(L)
 
             if current_cv_criteria < best_cv_criteria:
@@ -57,4 +58,4 @@ class CVMethod(Classifier):
                 best_cv_criteria = current_cv_criteria
 
         # optimals = matrix_cell[]
-        self.load_clf(best_clf_param)
+        self.load_clf_param(best_clf_param)

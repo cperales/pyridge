@@ -1,5 +1,5 @@
 from generic import NeuralMethod
-from utility.target_encode import j_renorm
+from utility.target_encode import *
 import numpy as np
 import logging
 
@@ -42,3 +42,9 @@ class NELM(NeuralMethod):
         indicator = np.dot(H, self.output_weight)
         test_target = j_renorm(indicator)
         return test_target
+
+    def save_clf_param(self):
+        return self.__dict__
+
+    def load_clf_param(self, clf_param):
+        self.__dict__ = clf_param
