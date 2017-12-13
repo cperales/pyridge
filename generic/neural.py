@@ -1,9 +1,11 @@
 from .cv_method import CVMethod
 import numpy as np
+from scipy.special import expit
 
-neuron_fun_dict = {'sin': lambda x: np.sin,
+neuron_fun_dict = {'sin': np.sin,
                    'hard': lambda x: np.array(x > 0.0, dtype=float),
-                   'sigmoid': lambda x: 1.0/(1.0 + np.exp(-x))}
+                   # 'sigmoid': lambda x: 1.0/(1.0 + np.exp(-x))
+                   'sigmoid': expit}
 
 
 class NeuralMethod(CVMethod):
