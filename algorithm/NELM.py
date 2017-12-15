@@ -29,13 +29,14 @@ class NELM(NeuralMethod):
 
         if self.C == 0:  # No regularization
             # inv_H = np.linalg.pinv(H)
-            inv_H = np.linalg.inv(H)
-            self.output_weight = np.dot(inv_H, train['target'])
+            # inv_H = np.linalg.inv(H)
+            # self.output_weight = np.dot(inv_H, train['target'])
+            self.output_weight = np.linalg.solve(H, train['target'])
         else:
             alpha = np.eye(H.shape[0]) / self.C + np.dot(H, H.transpose())
             # inv_alpha = np.linalg.pinv(alpha)
             inv_alpha = np.linalg.inv(alpha)
-            self.output_weight = np.dot(H.transpose(), np.dot(inv_alpha, train['target']))
+            self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train['target']))
 
     def predict(self, test_data):
         n = test_data.shape[0]  # Number of instances to classify
