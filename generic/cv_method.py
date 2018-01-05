@@ -4,6 +4,7 @@ import numpy as np
 import itertools
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
+import logging
 
 
 class CVMethod(Classifier):
@@ -57,5 +58,7 @@ class CVMethod(Classifier):
                 best_clf_param = clf_list[position]
                 best_cv_criteria = current_cv_criteria
 
-        # optimals = matrix_cell[]
-        self.load_clf_param(best_clf_param)
+        # # optimals = matrix_cell[]
+        # self.load_clf_param(best_clf_param)
+        logging.debug('Best parameters for cross validations: %s', best_clf_param)
+        self.fit(train=train, parameters=best_clf_param)
