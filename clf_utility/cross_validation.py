@@ -6,12 +6,13 @@ from sklearn.model_selection import KFold
 import logging
 
 
-def cross_validation(classifier, train):
+def cross_validation(classifier, train, n_folds=5):
     """
 
     :param classifier:
     :param range_parameters:
     :param train:
+    :param n_folds:
     :return:
     """
     cv_param_names = list(classifier.grid_param.keys())
@@ -21,7 +22,6 @@ def cross_validation(classifier, train):
     # # Cross validation
     # Init the CV criteria
     best_cv_criteria = np.inf
-    n_folds = 5
     # test_size = len(train['data']) / n_folds
     kf = KFold(n_splits=n_folds, shuffle=True)
 
