@@ -1,13 +1,15 @@
-from algorithm import *
-from postprocess.metric import accuracy
-from utility.target_encode import j_encode
-from sklearn import preprocessing
 import json
-import pandas as pd
 import logging
 import os
 from time import perf_counter
 
+import pandas as pd
+from sklearn import preprocessing
+
+from algorithm import *
+from postprocess.metric import accuracy
+from preprocess.target_encode import j_encode
+from clf_utility import save_classifier
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -63,7 +65,7 @@ prof.enable()
 time_1 = perf_counter()
 
 
-n_run = 10
+n_run = 1
 acc = 0
 for i in range(n_run):
     clf.config(train={'data': training_data, 'target': training_J_target})
@@ -72,13 +74,16 @@ for i in range(n_run):
                     real_targets=testing_j_target)
 acc = acc / n_run
 
+# Saving classifier
+save_classifier(clf, 'ELM_newthyroid.clf')
+
 # Profiling
 time_2 = perf_counter()
 prof.disable()  # don't profile the generation of stats
 
 try:
     prof.dump_stats('profile/mystats.prof')
-except:
+except FileNotFoundError:
     pass
 
 logging.debug('{} seconds elapsed'.format(time_2 - time_1))

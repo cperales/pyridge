@@ -1,14 +1,18 @@
-from utility.target_encode import j_decode
 import numpy as np
+
+from preprocess.target_encode import j_decode
+
+
 # Metrics once classifier is fit and new data is classified
 
 
 def accuracy(predicted_targets, real_targets):
     """
-    Accuracy.
+    Simple accuracy, number of predicted targets that actually
+    coincide with real targets
 
-    :param predicted_targets:
-    :param real_targets:
+    :param predicted_targets: array of the targets according to the classifier.
+    :param real_targets: array of the real targets.
     :return:
     """
     pred_targ = j_decode(predicted_targets)
@@ -24,6 +28,7 @@ def accuracy(predicted_targets, real_targets):
 
 def loss(predicted_targets, real_targets):
     """
+    Invers of the accuracy. It is used for cross validation.
 
     :param predicted_targets:
     :param real_targets:
