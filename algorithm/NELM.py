@@ -1,9 +1,7 @@
 import logging
 
-import numpy as np
-
+from clf_utility.target_encode import *
 from generic import NeuralMethod
-from preprocess.target_encode import *
 
 
 class NELM(NeuralMethod):

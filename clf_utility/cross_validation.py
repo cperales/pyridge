@@ -1,4 +1,4 @@
-from postprocess import loss
+from clf_utility import loss
 import numpy as np
 import itertools
 # from sklearn.model_selection import train_test_split
@@ -14,14 +14,6 @@ def cross_validation(classifier, train):
     :param train:
     :return:
     """
-    # # # Set conf
-    # grid_param = dict()
-    # # Neurons in the hidden layer
-    # grid_param['hidden_neurons'] = np.array(range_parameters['hiddenNeurons'])
-    # # Regularization
-    # grid_param['C'] = np.array(range_parameters['C']) if 'C' in range_parameters \
-    #     else np.array([0], dtype=np.float)
-
     cv_param_names = list(classifier.grid_param.keys())
     list_comb = [classifier.grid_param[name] for name
                  in cv_param_names]

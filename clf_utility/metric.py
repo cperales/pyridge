@@ -1,6 +1,6 @@
 import numpy as np
 
-from preprocess.target_encode import j_decode
+from clf_utility.target_encode import j_decode
 
 
 # Metrics once classifier is fit and new data is classified
