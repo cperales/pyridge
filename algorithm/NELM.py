@@ -1,17 +1,33 @@
-from generic import NeuralMethod
-from utility.target_encode import *
-import numpy as np
 import logging
+
+import numpy as np
+
+from generic import NeuralMethod
+from preprocess.target_encode import *
 
 
 class NELM(NeuralMethod):
     """
-    Neural Extreme Learning Machine
+    Neural Extreme Learning Machine. Neural Network's version of the Extreme Learning Machine,
+    in which "first layer" neuron's weights are chosen randomly.
     """
     def __init__(self):
         logging.debug('Neural Extreme Learning Machine instanced')
 
     def fit(self, train, parameters):
+        """
+        Use some train (data and target) and parameters to fit the classifier and construct the rules.
+
+        :type train: dict
+        :param train: dictionary with two keys: 'data', with the features, and 'target' with an
+            array of the labels.
+
+        :type parameters: dict
+        :param parameters: dictionary with the parameters needed for training. It must contain:
+                - hidden_neurons: the number of the neurons in the hidden layer.
+                - C: regularization of H matrix.
+        :return:
+        """
         self.t = train['target'].shape[1]
         self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] != 0 else self.t
         self.C = parameters['C']
@@ -28,17 +44,19 @@ class NELM(NeuralMethod):
         H = self.neuron_fun(temp_H.transpose())  # n x h
 
         if self.C == 0:  # No regularization
-            # inv_H = np.linalg.pinv(H)
-            # inv_H = np.linalg.inv(H)
-            # self.output_weight = np.dot(inv_H, train['target'])
             self.output_weight = np.linalg.solve(H, train['target'])
         else:
             alpha = np.eye(H.shape[0]) / self.C + np.dot(H, H.transpose())
-            # inv_alpha = np.linalg.pinv(alpha)
-            inv_alpha = np.linalg.inv(alpha)
             self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train['target']))
 
     def predict(self, test_data):
+        """
+        Once instanced, classifier can predict test target from test data, using some mathematical
+        rules.
+
+        :param test_data:
+        :return:
+        """
         n = test_data.shape[0]  # Number of instances to classify
         # bias_matrix = np.resize(self.bias_vector, (self.hidden_neurons, n)).transpose()  # h x n
         bias_matrix = np.resize(self.bias_vector.transpose(), (n, self.hidden_neurons)).transpose()
@@ -49,7 +67,5 @@ class NELM(NeuralMethod):
         return test_target
 
     def save_clf_param(self):
-        return self.__dict__
-
-    def load_clf_param(self, clf_param):
-        self.__dict__ = clf_param
+        return {'C': self.C,
+                'hidden_neurons': self.hidden_neurons}
