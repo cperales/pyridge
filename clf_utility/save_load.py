@@ -11,7 +11,7 @@ def save_classifier(clf, name='classifier'):
     :return:
     """
     try:
-        file_name = os.path.join(os.path.sep, 'saved_clf', name)
+        file_name = os.path.join('saved_clf', name)
         name_clf = open(file_name, 'wb')
     except FileNotFoundError:
         name_clf = open(name, 'wb')
