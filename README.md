@@ -44,7 +44,7 @@ from algorithm import *
 clf = algorithm_dict[config_options['Algorithm']['name']]()
 clf.set_range_param(hyperparameters)
 train_dict = {'data': training_data, 'target': training_target}
-clf.config(train=train_dict)
+cross_validation(clf, train_dict)
 ``` 
 
 Once trained, using the classifier to predict a label for testing data is as easy as:
