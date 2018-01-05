@@ -44,8 +44,8 @@
   },
   "Data": {
     "folder": "data/newthyroid/gpor",
-    "testingDataset": "test_newthyroid.1",
+    "testingDataset": "test_newthyroid.0",
     "standarized": false,
-    "trainingDataset": "train_newthyroid.1"
+    "trainingDataset": "train_newthyroid.0"
   }
 }
