@@ -11,7 +11,10 @@ __pycache__/
 # Profile
 *.prof
 
-# Data files
+# Classifier
+*.clf
+
+# Data file
 *.xlsx
 *.csv
 *.ods
