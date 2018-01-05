@@ -10,6 +10,7 @@ from algorithm import *
 from postprocess.metric import accuracy
 from preprocess.target_encode import j_encode
 from clf_utility import save_classifier
+from clf_utility.cross_validation import *
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -52,10 +53,15 @@ hyperparameters = config_options['Algorithm']['hyperparameters']
 # Instancing classifier
 # clf = algorithm_dict[config_options['Algorithm']['name']](hyperparameters)
 clf = algorithm_dict[config_options['Algorithm']['name']]()
-clf.set_conf(hyperparameters)
+
+# cross_validation(clf, hyperparameters)
+
+clf.set_range_param(hyperparameters)
 training_J_target = j_encode(training_target)
 n_targ = training_J_target.shape[1]
 testing_j_target = j_encode(testing_target, n_targ=n_targ)
+
+train_dict = {'data': training_data, 'target': training_J_target}
 
 # # Fitting classifier
 # Profiling
@@ -65,10 +71,10 @@ prof.enable()
 time_1 = perf_counter()
 
 
-n_run = 1
+n_run = 10
 acc = 0
 for i in range(n_run):
-    clf.config(train={'data': training_data, 'target': training_J_target})
+    cross_validation(classifier=clf, train=train_dict)
     predicted_labels = clf.predict(test_data=testing_data)
     acc += accuracy(predicted_targets=predicted_labels,
                     real_targets=testing_j_target)

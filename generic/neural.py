@@ -1,4 +1,4 @@
-from .cv_method import CVMethod
+from .classifier import Classifier
 import numpy as np
 from scipy.special import expit
 
@@ -8,11 +8,14 @@ neuron_fun_dict = {'sin': np.sin,
                    'sigmoid': expit}
 
 
-class NeuralMethod(CVMethod):
+class NeuralMethod(Classifier):
     # Cross validated parameters
     neuron_fun = None
     hidden_neurons = 0
     lambda_nc = 0
+    C = 0
+    ensemble_size = 1
+    grid_param = {'C': C}
 
     # Neural network features
     input_weight = 0
@@ -20,7 +23,7 @@ class NeuralMethod(CVMethod):
     output_weight = 0
     t = 2  # At least, 2 labels are classified
 
-    def set_conf(self, method_conf):
+    def set_range_param(self, method_conf):
         # Neuron function
         self.neuron_fun = neuron_fun_dict[method_conf['neuronFun']]
         # Number of neurons in the hidden layer
