@@ -2,7 +2,7 @@
 
 This repository contains some metrics and configuration in order to test, at the moment, supervised classifiers.
 
-Main motivation of this repository is translating from MATLAB to Python 3 what [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science in [Universidad Loyola Andalucia](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos).
+Main motivation of this repository is translating from MATLAB to Python 3 what [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science in [Universidad Loyola Andalucia](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos). Documentation process is in progress, but some part is available in [https://cperales.github.io/PyELM/](https://cperales.github.io/PyELM/).
 
 ## How to install virtualenv
 
@@ -52,3 +52,12 @@ Once trained, using the classifier to predict a label for testing data is as eas
 ```python
 predicted_labels = clf.predict(test_data=testing_data)
 ```
+
+## Code documentation
+
+Documentation can be compiled locally in linux. In the main directory, run the following code:
+
+```bash
+sphinx-build docs/source docs/
+```
+
