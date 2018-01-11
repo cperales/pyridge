@@ -1,9 +1,10 @@
-from clf_utility import loss
 import numpy as np
 import itertools
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 import logging
+
+from pyelm.clf_utility import loss
 
 
 def cross_validation(classifier, train, n_folds=5):

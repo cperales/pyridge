@@ -4,32 +4,38 @@ This repository contains some metrics and configuration in order to test, at the
 
 Main motivation of this repository is translating from MATLAB to Python 3 what [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science in [Universidad Loyola Andalucia](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos). Documentation process is in progress, but some part is available in [https://cperales.github.io/PyELM/](https://cperales.github.io/PyELM/).
 
-## How to install virtualenv
+## How to install it within a virtual environment
 
 It is recommended to install the framework in a virtual environment
 
-```
+```bash
 virtualenv -p python3 env
 ```
 
 In order to activate the virtual environment
 
-```
+```bash
 source env/bin/activate
 ```
 
 To deactivate, just write ```deactivate```. Then, it is necessary
 to install the requirements
 
-```
+```bash
 pip install -r requirements.txt
+```
+
+To use it in any folder, you sould install it as a dependency:
+
+```bash
+pip install -e .
 ```
 
 ## An example
 
 Just run
 
-```
+```bash
 python entry_point_ELM.py
 ```
 
@@ -60,4 +66,3 @@ Documentation can be compiled locally in linux. In the main directory, run the f
 ```bash
 sphinx-build docs/source docs/
 ```
-

@@ -4,12 +4,21 @@ env/
 experiment/
 __pycache__/
 
-# Editing files
-*.m~
-*.ods#
+# Installation
+*egg-info/
+dist/
 
 # Profile
 *.prof
+
+# Documentation
+docs/_sources/
+docs/_modules/
+docs/_static/
+docs/.doctrees/
+docs/.buildinfo
+docs/searchindex.js
+docs/objects.inv
 
 # Classifier
 *.clf

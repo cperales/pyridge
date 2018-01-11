@@ -5,11 +5,11 @@ from time import perf_counter
 import pandas as pd
 from sklearn import preprocessing
 
-from algorithm import *
-from clf_utility import save_classifier
-from clf_utility.cross_validation import *
-from clf_utility.metric import accuracy
-from clf_utility.target_encode import j_encode
+from pyelm.algorithm import *
+from pyelm.clf_utility import save_classifier
+from pyelm.clf_utility.cross_validation import *
+from pyelm.clf_utility.metric import accuracy
+from pyelm.clf_utility.target_encode import j_encode
 
 logging.basicConfig(level=logging.DEBUG)
 
