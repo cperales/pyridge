@@ -14,7 +14,6 @@ dist/
 # Documentation
 docs/_sources/
 docs/_modules/
-docs/_static/
 docs/.doctrees/
 docs/.buildinfo
 docs/searchindex.js
