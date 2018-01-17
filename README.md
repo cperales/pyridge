@@ -1,8 +1,14 @@
-# Library for testing machine learning algorithms
+# PyELM
 
-This repository contains some metrics and configuration in order to test, at the moment, supervised classifiers.
+This repository contains some supervised machine learning algorithms from the family of
+[Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine) learners,
+which are a special type of feedforward neural network.
 
-Main motivation of this repository is translating from MATLAB to Python 3 what [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science in [Universidad Loyola Andalucia](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos). Documentation process is in progress, but some part is available in [https://cperales.github.io/PyELM/](https://cperales.github.io/PyELM/).
+Main motivation of this repository is translating from MATLAB to Python 3 what
+[I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science
+in [Universidad Loyola Andalucía](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos).
+
+Documentation is in progress, but some part is available [here](https://cperales.github.io/PyELM/).
 
 ## How to install it within a virtual environment
 
@@ -30,6 +36,13 @@ To use it in any folder, you sould install it as a dependency:
 ```bash
 pip install -e .
 ```
+
+or 
+
+```bash
+python setup.py install
+```
+
 
 ## An example
 
