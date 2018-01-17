@@ -72,6 +72,13 @@ Once trained, using the classifier to predict a label for testing data is as eas
 predicted_labels = clf.predict(test_data=testing_data)
 ```
 
+## Algorithms
+
+Right now, there are the following algorithms programmed:
+
+* Neural Extreme Learning Machine (NELM)
+* AdaBoost Neural Extreme Learning Machine (AdaBoostNELM)
+
 ## Code documentation
 
 Documentation can be compiled locally in linux. In the main directory, run the following code:

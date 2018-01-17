@@ -3,8 +3,9 @@ import itertools
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 import logging
-
 from pyelm.clf_utility import loss
+
+logger = logging.getLogger('PyELM')
 
 
 def cross_validation(classifier, train, n_folds=5):
@@ -23,18 +24,13 @@ def cross_validation(classifier, train, n_folds=5):
     # # Cross validation
     # Init the CV criteria
     best_cv_criteria = np.inf
-    # test_size = len(train['data']) / n_folds
     kf = KFold(n_splits=n_folds, shuffle=True)
 
     for current_comb in itertools.product(*list_comb):
-        # L = np.zeros(n_folds)
         L = []
         clf_list = []
 
         for train_index, test_index in kf.split(train['data']):
-            # print('Train:', b[train_index])
-            # print('Test:', b[test_index])
-
             param = {cv_param_names[i]: current_comb[i]
                      for i in range(len(cv_param_names))}
 
@@ -59,7 +55,5 @@ def cross_validation(classifier, train, n_folds=5):
             best_clf_param = clf_list[position]
             best_cv_criteria = current_cv_criteria
 
-    # # optimals = matrix_cell[]
-    # classifier.load_clf_param(best_clf_param)
-    logging.debug('Best parameters for cross validations: %s', best_clf_param)
+    logger.debug('Best parameters for cross validations: %s', best_clf_param)
     classifier.fit(train=train, parameters=best_clf_param)

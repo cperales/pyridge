@@ -1,15 +1,21 @@
+import numpy as np
+
 from pyelm import logger_pyelm
+from .nelm import NELM
 from pyelm.clf_utility.target_encode import *
-from pyelm.generic import NeuralMethod
 
 
-class NELM(NeuralMethod):
+class AdaBoostNELM(NELM):
     """
-    Neural Extreme Learning Machine. Neural Network's version of the Extreme Learning Machine,
-    in which "first layer" neuron's weights are chosen randomly.
+    AdaBoost meta algorithm applied to Neural Extreme Learning
+    Machine.
     """
+    weight = None
+    alpha = None
+    beta_ensemble = None
+
     def __init__(self):
-        logger_pyelm.debug('Neural Extreme Learning Machine instanced')
+        logger_pyelm.debug('AdaBoost Neural Extreme Learning Machine instanced')
 
     def fit(self, train, parameters):
         """
@@ -35,15 +41,37 @@ class NELM(NeuralMethod):
 
         self.input_weight = np.random.rand(h, m)  # h x m
         self.bias_vector = np.random.rand(h, 1)  # h x 1
+        self.weight = np.ones(n) / n
         bias_matrix = np.resize(self.bias_vector.transpose(), (n, h)).transpose()
         temp_H = np.dot(self.input_weight, train['data'].transpose()) + bias_matrix  # h x n
         H = self.neuron_fun(temp_H.transpose())  # n x h
+        self.beta_ensemble = []
 
-        if self.C == 0:  # No regularization
-            self.output_weight = np.linalg.solve(H, train['target'])
-        else:
-            alpha = np.eye(H.shape[0]) / self.C + np.dot(H, H.transpose())
-            self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train['target']))
+        for s in range(self.ensemble_size):
+            beta_s = self.fit_step(H=H, train_target=train['target'])
+            self.beta_ensemble.append(beta_s)
+
+    def fit_step(self, H, train_target):
+        """
+
+        :param H:
+        :param s:
+        :param train_target:
+        :return:
+        """
+        weight_matrix = np.diag(self.weight)
+        H_reg = np.eye(H.shape[1]) / self.C + np.dot(np.dot(H.transpose(), weight_matrix), H)
+        beta_s = np.linalg.solve(H_reg, np.dot(np.dot(H.transpose(), weight_matrix), train_target))
+
+        # Calculate errors
+        y_hat = np.dot(H, beta_s)
+
+        error_vector = (j_renorm(y_hat) == train_target).min(axis=1)
+        e_s = (self.weight * error_vector).sum() / self.weight.sum()
+        alpha_s = np.log((1 - e_s) / e_s) + np.log(beta_s.shape[1] - 1)
+        self.weight = self.weight * np.exp(alpha_s * error_vector)
+        self.weight = self.weight / self.weight.sum()  # Normalize
+        return beta_s
 
     def predict(self, test_data):
         """
@@ -54,13 +82,17 @@ class NELM(NeuralMethod):
         :return:
         """
         n = test_data.shape[0]  # Number of instances to classify
+        # bias_matrix = np.resize(self.bias_vector, (self.hidden_neurons, n)).transpose()  # h x n
         bias_matrix = np.resize(self.bias_vector.transpose(), (n, self.hidden_neurons)).transpose()
         temp_H = np.dot(self.input_weight, test_data.transpose()) + bias_matrix  # h x n
         H = self.neuron_fun(temp_H.transpose())
-        indicator = np.dot(H, self.output_weight)
-        test_target = j_renorm(indicator)
-        return test_target
 
-    def save_clf_param(self):
-        return {'C': self.C,
-                'hidden_neurons': self.hidden_neurons}
+        test_target = np.empty((n, self.t))
+        for s in range(self.ensemble_size):
+            beta_s = self.beta_ensemble[s]
+            indicator = np.dot(H, beta_s)
+            y_hat = j_renorm(indicator)
+            test_target += y_hat
+
+        test_target = j_renorm(test_target)
+        return test_target
