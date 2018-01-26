@@ -90,6 +90,6 @@ sphinx-build docs/source docs/
 
 ## Bibliography
 
-[@Huang2012][G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
+[@Huang2012](G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
 for regression and multiclass classification,” IEEE Trans. Syst. man, Cybern.
-Part B, Cybern., vol. 42, no. 2, pp. 513–29, 2012.]
+Part B, Cybern., vol. 42, no. 2, pp. 513–29, 2012.)
