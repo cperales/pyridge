@@ -7,7 +7,7 @@ from pyelm.clf_utility.target_encode import *
 
 class AdaBoostNELM(NELM):
     """
-    AdaBoost meta algorithm applied to Neural Extreme Learning
+    AdaBoost meta-algorithm applied to Neural Extreme Learning
     Machine.
     """
     weight = None
