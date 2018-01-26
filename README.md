@@ -8,7 +8,7 @@ Main motivation of this repository is translating from MATLAB to Python 3 what
 [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science
 in [Universidad Loyola Andalucía](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos).
 
-Documentation is in progress, but some part is available [here](https://cperales.github.io/PyELM/).
+Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/PyELM/).
 
 ## How to install it within a virtual environment
 
@@ -78,6 +78,7 @@ Right now, there are the following algorithms programmed:
 
 * Neural Extreme Learning Machine (NELM)
 * AdaBoost Neural Extreme Learning Machine (AdaBoostNELM)
+* Kernel Extreme Learning Machine (KELM)
 
 ## Code documentation
 
