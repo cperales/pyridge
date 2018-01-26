@@ -76,9 +76,9 @@ predicted_labels = clf.predict(test_data=testing_data)
 
 Right now, there are the following algorithms programmed:
 
-* Neural Extreme Learning Machine (NELM)
+* Neural Extreme Learning Machine (NELM) [@Huang2012]
 * AdaBoost Neural Extreme Learning Machine (AdaBoostNELM)
-* Kernel Extreme Learning Machine (KELM)
+* Kernel Extreme Learning Machine (KELM) [@Huang2012]
 
 ## Code documentation
 
@@ -87,3 +87,9 @@ Documentation can be compiled locally in linux. In the main directory, run the f
 ```bash
 sphinx-build docs/source docs/
 ```
+
+## Bibliography
+
+[@Huang2012][G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
+for regression and multiclass classification,” IEEE Trans. Syst. man, Cybern.
+Part B, Cybern., vol. 42, no. 2, pp. 513–29, 2012.]
