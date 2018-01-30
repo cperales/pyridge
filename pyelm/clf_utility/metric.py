@@ -8,8 +8,8 @@ from pyelm.clf_utility.target_encode import j_decode
 
 def accuracy(predicted_targets, real_targets):
     """
-    Simple accuracy, number of predicted targets that actually
-    coincide with real targets
+    Percentage of predicted targets that actually
+    coincide with real targets.
 
     :param predicted_targets: array of the targets according to the classifier.
     :param real_targets: array of the real targets.
@@ -28,7 +28,7 @@ def accuracy(predicted_targets, real_targets):
 
 def loss(predicted_targets, real_targets):
     """
-    Invers of the accuracy. It is used for cross validation.
+    Inverse of the accuracy. It is used for cross validation.
 
     :param predicted_targets:
     :param real_targets:

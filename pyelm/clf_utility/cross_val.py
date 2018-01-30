@@ -10,9 +10,9 @@ logger = logging.getLogger('PyELM')
 
 def cross_validation(classifier, train, n_folds=5):
     """
+    Cross validation function.
 
     :param classifier:
-    :param range_parameters:
     :param train:
     :param n_folds:
     :return:

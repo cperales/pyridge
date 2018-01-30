@@ -15,4 +15,5 @@ Classes (STILL WORKING):
 
    generic
    algorithms
+   functions
 

@@ -8,7 +8,7 @@ import logging
 
 from pyelm.algorithm import *
 from pyelm.clf_utility import save_classifier
-from pyelm.clf_utility.cross_validation import *
+from pyelm.clf_utility.cross_val import *
 from pyelm.clf_utility.metric import accuracy
 from pyelm.clf_utility.target_encode import j_encode
 
