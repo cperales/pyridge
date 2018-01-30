@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name="pyelm",
     description="Extreme Learning Machine in Python",
-    version="0.0.3",
+    version="0.3",
     author="Carlos Perales",
     author_email="cperales@uloyola.es",
     packages=[
