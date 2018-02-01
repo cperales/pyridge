@@ -11,6 +11,7 @@
         "type": "kernel",
         "kernelFun": "rbf",
         "C": [
+	  0,
           0.01,
           0.1,
           1,
@@ -28,7 +29,7 @@
       "name": "KELM"
   },
   "Data": {
-    "folder": "data/newthyroid/gpor",
+    "folder": "data/newthyroid",
     "testingDataset": "test_newthyroid.0",
     "standarized": false,
     "trainingDataset": "train_newthyroid.0"
