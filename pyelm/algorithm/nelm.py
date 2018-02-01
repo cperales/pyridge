@@ -50,6 +50,7 @@ class NELM(NeuralMethod):
         Once instanced, classifier can predict test target from test data, using some mathematical
         rules.
 
+        :type
         :param test_data:
         :return:
         """

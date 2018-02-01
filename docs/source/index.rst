@@ -8,8 +8,6 @@ Welcome to PyELM's documentation!
 
 This starting project is aimed to write an useful machine learning library in Python based on the Extreme Learning Machine algorithms. Extreme Learning Machine is sort of a feedforward neural network where some neurons does not require to be tuned by calculating them. 
 
-Classes (STILL WORKING):
-
 .. toctree::
    :maxdepth: 2
 
