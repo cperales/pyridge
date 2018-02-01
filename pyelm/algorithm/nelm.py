@@ -37,8 +37,9 @@ class NELM(NeuralMethod):
         temp_H = np.dot(self.input_weight, train['data'].transpose()) + bias_matrix  # h x n
         H = self.neuron_fun(temp_H.transpose())  # n x h
 
-        if self.C == 0:  # No regularization
-            self.output_weight = np.linalg.solve(H, train['target'])
+        if self.C == 0:  # Means no regularization
+            H_inv = np.linalg.pinv(H)  # Usually np.linalg.solve gives an error
+            self.output_weight = np.dot(H_inv, train['target'])
         else:
             alpha = np.eye(H.shape[0]) / self.C + np.dot(H, H.transpose())
             self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train['target']))
