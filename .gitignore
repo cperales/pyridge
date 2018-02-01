@@ -39,8 +39,13 @@ docs/.doctrees/
 # Python
 *.pyc
 
+# Coverage
+.coverage
+htmlcov/
+
 # Other data folders
 *.svn/*
+data2/
 data/ERA/
 data/ESL/
 data/LEV/
@@ -60,10 +65,6 @@ data/haberman/
 data/hepatitis/
 data/jain/
 data/lymph/
-data/newthyroid/.svn/
-data/newthyroid/libsvm/
-data/newthyroid/nnep/
-data/newthyroid/weka/
 data/olivas/
 data/pasture/
 data/pathbased/
