@@ -21,10 +21,27 @@ def test_newthyroid():
     with open('config/KELM_newthyroid.json', 'r') as cfg:
         config_options = json.load(cfg)
 
-    # Training data and target
+    logger.info('Running test {}'.format(config_options['Data']['folder']))
+    run_test(config_options)
 
-    training_file_name = os.path.join(config_options['Data']['folder'],
-                                      config_options['Data']['trainingDataset'])
+
+def multi_test():
+    # Reading JSON
+    with open('config/KELM_multiprueba.json', 'r') as cfg:
+        config_options = json.load(cfg)
+
+    # Training data and target
+    if isinstance(config_options, list):
+        for config_option in config_options:
+            logger.info('Running test {}'.format(config_option['Data']['folder']))
+            run_test(config_option)
+    else:
+        run_test(config_options)
+
+
+def run_test(config_test):
+    training_file_name = os.path.join(config_test['Data']['folder'],
+                                      config_test['Data']['dataset'][0][0])
     training_file = pd.read_csv(training_file_name,
                                 sep='\s+',
                                 header=None)
@@ -34,8 +51,8 @@ def test_newthyroid():
     training_data = training_file_matrix_t[:-1].transpose()
 
     # Testing data and target
-    testing_file_name = os.path.join(config_options['Data']['folder'],
-                                     config_options['Data']['testingDataset'])
+    testing_file_name = os.path.join(config_test['Data']['folder'],
+                                     config_test['Data']['dataset'][0][1])
     testing_file = pd.read_csv(testing_file_name,
                                sep='\s+',
                                header=None)
@@ -48,11 +65,11 @@ def test_newthyroid():
     testing_data = preprocessing.scale(testing_data)
 
     # Reading parameters
-    hyperparameters = config_options['Algorithm']['hyperparameters']
+    hyperparameters = config_test['Algorithm']['hyperparameters']
 
     # Instancing classifier
-    # clf = algorithm_dict[config_options['Algorithm']['name']](hyperparameters)
-    clf = algorithm_dict[config_options['Algorithm']['name']]()
+    # clf = algorithm_dict[config_test['Algorithm']['name']](hyperparameters)
+    clf = algorithm_dict[config_test['Algorithm']['name']]()
 
     # cross_validation(clf, hyperparameters)
 
@@ -70,8 +87,7 @@ def test_newthyroid():
     prof.enable()
     time_1 = perf_counter()
 
-
-    n_run = 10
+    n_run = 1
     acc = 0
     for i in range(n_run):
         cross_validation(classifier=clf, train=train_dict)
@@ -81,23 +97,24 @@ def test_newthyroid():
     acc = acc / n_run
 
     # Saving classifier
-    save_classifier(clf, 'ELM_newthyroid.clf')
+    save_classifier(clf, 'KELM_newthyroid.clf')
 
     # Profiling
     time_2 = perf_counter()
     prof.disable()  # don't profile the generation of stats
 
     try:
-        prof.dump_stats('profile/mystats.prof')
+        prof.dump_stats('profile/KELM_newthyroid.prof')
     except FileNotFoundError:  # There is no 'profile' folder
         pass
 
     logger_pyelm.debug('{} seconds elapsed'.format(time_2 - time_1))
 
-    logger_pyelm.info('Average accuracy in {} iterations, algorithm {} and dataset {} is {}'.format(n_run,
-                                                                                              config_options['Algorithm']['name'],
-                                                                                              config_options['Data']['trainingDataset'],
-                                                                                              acc))
+    logger_pyelm.info('Average accuracy in {} iterations, \
+        algorithm {} and dataset {} is {}'.format(n_run,
+                                                  config_test['Algorithm']['name'],
+                                                  config_test['Data']['dataset'][0][0],
+                                                  acc))
 
 
 if __name__ == '__main__':
