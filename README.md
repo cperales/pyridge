@@ -46,11 +46,19 @@ python setup.py install
 
 ## An example
 
-Just run
+For running a set of tests, just run
 
 ```bash
-python entry_point_ELM.py
+python test/
 ```
+
+You can also run a specific test, as
+
+```bash
+python test/test_KELM.py
+```
+
+By default, logging level is set to DEBUG.
 
 ## How to use a classifier manually
 

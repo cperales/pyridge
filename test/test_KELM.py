@@ -16,7 +16,7 @@ logger_pyelm = logging.getLogger('PyELM')
 logger_pyelm.setLevel(logging.DEBUG)
 
 
-def test_KELM_newthyroid():
+def test_newthyroid():
     # Reading JSON
     with open('config/KELM_newthyroid.json', 'r') as cfg:
         config_options = json.load(cfg)
@@ -101,4 +101,4 @@ def test_KELM_newthyroid():
 
 
 if __name__ == '__main__':
-    test_KELM_newthyroid()
+    test_newthyroid()
