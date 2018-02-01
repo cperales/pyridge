@@ -15,8 +15,6 @@ from pyelm.clf_utility.target_encode import j_encode
 logger_pyelm = logging.getLogger('PyELM')
 logger_pyelm.setLevel(logging.DEBUG)
 
-metric_dict = {'accuracy': accuracy}
-
 # Reading JSON
 with open('config/AdaBoostNELM_newthyroid.json', 'r') as cfg:
     config_options = json.load(cfg)
