@@ -43,6 +43,11 @@ or
 python setup.py install
 ```
 
+## Data
+
+Some data can be downloaded [here!](https://drive.google.com/file/d/1O67sgZzRtWtVUHa3qaklTsZnvEWF10Iv/view?usp=sharing).
+In order to run the tests, `data` folder should be in main directory.
+
 
 ## An example
 
