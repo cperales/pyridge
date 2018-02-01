@@ -12,12 +12,12 @@ dist/
 *.prof
 
 # Documentation
-docs/_sources/
-docs/_modules/
+#docs/_sources/
+#docs/_modules/
 docs/.doctrees/
-docs/.buildinfo
-docs/searchindex.js
-docs/objects.inv
+#docs/.buildinfo
+#docs/searchindex.js
+#docs/objects.inv
 
 # Classifier
 *.clf
