@@ -10,6 +10,7 @@
     "name": "NELM",
     "hyperparameters": {
       "C": [
+	0,
         0.01,
         0.1,
         1,
@@ -43,7 +44,7 @@
     }
   },
   "Data": {
-    "folder": "data/newthyroid/gpor",
+    "folder": "data/newthyroid",
     "testingDataset": "test_newthyroid.0",
     "standarized": false,
     "trainingDataset": "train_newthyroid.0"
