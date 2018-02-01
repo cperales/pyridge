@@ -76,9 +76,9 @@ predicted_labels = clf.predict(test_data=testing_data)
 
 Right now, there are the following algorithms programmed:
 
-* Neural Extreme Learning Machine (NELM)
-* AdaBoost Neural Extreme Learning Machine (AdaBoostNELM)
-* Kernel Extreme Learning Machine (KELM)
+* Neural Extreme Learning Machine (NELM) [1]
+* Kernel Extreme Learning Machine (KELM) [1]
+* AdaBoost Neural Extreme Learning Machine (AdaBoostNELM) [2]
 
 ## Code documentation
 
@@ -90,6 +90,11 @@ sphinx-build docs/source docs/
 
 ## Bibliography
 
-G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
+[1]: G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
 for regression and multiclass classification,” IEEE Trans. Syst. man, Cybern.
 Part B, Cybern., vol. 42, no. 2, pp. 513–29, 2012.
+
+[2] A. Riccardi, F. Fernández-Navarro, S. Carloni, F. Fernandez-Navarro,
+and S. Carloni, “Cost-sensitive AdaBoost algorithm for ordinal regression
+based on extreme learning machine,” IEEE Trans. Cybern., vol. 44, no. 10,
+pp. 1898–1909, 2014.
