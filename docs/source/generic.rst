@@ -1,6 +1,8 @@
 Generic classes
 ==================
 
+The different algorithms in this library inherits from these generic classes.
+
 Classifier
 -----------
 .. autoclass:: pyelm.generic.Classifier

@@ -22,9 +22,9 @@ class KELM(KernelMethod):
 
         :type parameters: dict
         :param parameters: dictionary with the parameters needed for training. It must contain:
+
                 - k: length scale of Radial Basis Function kernel
                 - C: regularization.
-        :return:
         """
         self.t = train['target'].shape[1]
         self.C = parameters['C']
@@ -49,8 +49,8 @@ class KELM(KernelMethod):
         Once instanced, classifier can predict test target from test data, using some mathematical
         rules.
 
-        :param test_data:
-        :return:
+        :param numpy.array test_data: matrix of data to predict.
+        :return: matrix of the predicted targets.
         """
         omega_test = self.kernel_fun(X=self.train_data, Y=test_data)
         indicator = np.dot(omega_test.T, self.output_weight)

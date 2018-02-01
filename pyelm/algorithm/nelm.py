@@ -15,15 +15,13 @@ class NELM(NeuralMethod):
         """
         Use some train (data and target) and parameters to fit the classifier and construct the rules.
 
-        :type train: dict
-        :param train: dictionary with two keys: 'data', with the features, and 'target' with an
+        :param dict train: dictionary with two keys: 'data', with the features, and 'target' with an
             array of the labels.
 
-        :type parameters: dict
-        :param parameters: dictionary with the parameters needed for training. It must contain:
+        :param dict parameters: dictionary with the parameters needed for training. It must contain:
+
                 - hidden_neurons: the number of the neurons in the hidden layer.
                 - C: regularization of H matrix.
-        :return:
         """
         self.t = train['target'].shape[1]
         self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] != 0 else self.t

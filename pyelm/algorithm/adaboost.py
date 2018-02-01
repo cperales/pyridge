@@ -21,15 +21,13 @@ class AdaBoostNELM(NELM):
         """
         Use some train (data and target) and parameters to fit the classifier and construct the rules.
 
-        :type train: dict
-        :param train: dictionary with two keys: 'data', with the features, and 'target' with an
+        :param dict train: dictionary with two keys: 'data', with the features, and 'target' with an
             array of the labels.
 
-        :type parameters: dict
-        :param parameters: dictionary with the parameters needed for training. It must contain:
+        :param dict parameters: dictionary with the parameters needed for training. It must contain:
+
                 - hidden_neurons: the number of the neurons in the hidden layer.
                 - C: regularization of H matrix.
-        :return:
         """
         self.t = train['target'].shape[1]
         self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] != 0 else self.t
@@ -53,11 +51,10 @@ class AdaBoostNELM(NELM):
 
     def fit_step(self, H, train_target):
         """
-
-        :param H:
-        :param s:
-        :param train_target:
-        :return:
+        :param numpy.array H: matrix that symbolises connection from input neurons to the ones
+                  from the hidden layer.
+        :param numpy.array train_target: target from the training data.
+        :return: beta matrix for each iteration of the s ensemble.
         """
         weight_matrix = np.diag(self.weight)
         H_reg = np.eye(H.shape[1]) / self.C + np.dot(np.dot(H.transpose(), weight_matrix), H)
@@ -78,8 +75,8 @@ class AdaBoostNELM(NELM):
         Once instanced, classifier can predict test target from test data, using some mathematical
         rules.
 
-        :param test_data:
-        :return:
+        :param numpy.array test_data: matrix of data to predict.
+        :return: matrix of the predicted targets.
         """
         n = test_data.shape[0]  # Number of instances to classify
         # bias_matrix = np.resize(self.bias_vector, (self.hidden_neurons, n)).transpose()  # h x n

@@ -7,9 +7,12 @@ class Classifier(object):
 
     def fit(self, train, parameters):
         """
-        :param train: input data has a dictionary structure, with keys 'data' and 'target'
-        :param parameters: also dictionary structure
-        :return:
+        Use some train (data and target) and parameters to fit the classifier and construct the rules.
+
+        :param dict train: dictionary with two keys: 'data', with the features, and 'target' with an
+            array of the labels.
+
+        :param dict parameters: dictionary with the parameters needed for training.
         """
         pass
 
