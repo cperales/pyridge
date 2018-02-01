@@ -2,7 +2,7 @@ import numpy as np
 
 from pyelm import logger_pyelm
 from .nelm import NELM
-from pyelm.clf_utility.target_encode import *
+from pyelm.utils.target_encode import *
 
 
 class AdaBoostNELM(NELM):

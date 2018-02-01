@@ -1,5 +1,5 @@
 from pyelm import logger_pyelm
-from pyelm.clf_utility.target_encode import *
+from pyelm.utils.target_encode import *
 from pyelm.generic import KernelMethod
 
 

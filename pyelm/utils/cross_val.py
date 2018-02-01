@@ -3,7 +3,7 @@ import itertools
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 import logging
-from pyelm.clf_utility import loss
+from pyelm.utils import loss
 
 logger = logging.getLogger('PyELM')
 

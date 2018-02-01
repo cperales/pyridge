@@ -7,10 +7,10 @@ from sklearn import preprocessing
 import logging
 
 from pyelm.algorithm import *
-from pyelm.clf_utility import save_classifier
-from pyelm.clf_utility.cross_val import *
-from pyelm.clf_utility.metric import accuracy
-from pyelm.clf_utility.target_encode import j_encode
+from pyelm.utils import save_classifier
+from pyelm.utils.cross_val import *
+from pyelm.utils.metric import accuracy
+from pyelm.utils.target_encode import j_encode
 
 logger_pyelm = logging.getLogger('PyELM')
 logger_pyelm.setLevel(logging.DEBUG)

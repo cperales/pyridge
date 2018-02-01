@@ -6,9 +6,11 @@ setup(
     version="0.3",
     author="Carlos Perales",
     author_email="cperales@uloyola.es",
-    packages=[
-        'pyelm',
-        ],
+    packages=['pyelm',
+              'pyelm.algorithm',
+              'pyelm.utils',
+              'pyelm.generic'
+    ],
     zip_safe=False,
     install_requires=[],
     include_package_data=True,
