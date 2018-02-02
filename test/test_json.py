@@ -51,10 +51,10 @@ def run_test(config_test, n_run=10):
 
         acc_fold = 0
         for i in range(n_run):
-            cross_validation(classifier=clf, train_data=train_data, train_target=train_j_target)
-            predicted_labels = clf.predict(test_data=test_data)
-            acc_fold += accuracy(predicted_targets=predicted_labels,
-                                 real_targets=test_j_target)
+            cross_validation(classifier=clf, X=train_data, y=train_j_target)
+            predicted_labels = clf.predict(X=test_data)
+            acc_fold += accuracy(pred_targ=predicted_labels,
+                                 real_targ=test_j_target)
         acc += acc_fold / (n_run * n_folds)
 
         # Saving classifier

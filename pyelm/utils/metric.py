@@ -6,19 +6,21 @@ from pyelm.utils.target_encode import j_decode
 # Metrics once classifier is fit and new data is classified
 
 
-def accuracy(predicted_targets, real_targets):
+def accuracy(pred_targ, real_targ, j_encoded=True):
     """
     Percentage of predicted targets that actually
     coincide with real targets.
 
-    :param predicted_targets: array of the targets according to the classifier.
-    :param real_targets: array of the real targets.
+    :param numpy.array pred_targ: array of the targets according to the classifier.
+    :param numpy.array real_targ: array of the real targets.
+    :param bool real_targ: array of the real targets.
     :return:
     """
-    pred_targ = j_decode(predicted_targets)
-    real_targ = j_decode(real_targets)
-    # comp = (predicted_targets == real_targets).sum(1)
-    # t = real_targets.shape[1]
+    if j_encoded is True:
+        pred_targ = j_decode(pred_targ)
+        real_targ = j_decode(real_targ)
+    # comp = (pred_targ == real_targ).sum(1)
+    # t = real_targ.shape[1]
     # comp[comp[:] != t] = 0
     # comp[comp[:] == t] = 1
     comp = np.array((pred_targ == real_targ), dtype=np.float)
@@ -34,6 +36,6 @@ def loss(predicted_targets, real_targets):
     :param real_targets:
     :return:
     """
-    acc = accuracy(predicted_targets=predicted_targets,
-                   real_targets=real_targets)
+    acc = accuracy(pred_targ=predicted_targets,
+                   real_targ=real_targets)
     return 1 - acc

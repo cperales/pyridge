@@ -38,8 +38,8 @@ def test_newthyroid():
 
     clf = algorithm()
     clf.set_cv_range(hyperparameters)
-    cross_validation(classifier=clf, train_data=train_data, train_target=train_j_target)
-    pred_targ = clf.predict(test_data=test_data)
+    cross_validation(classifier=clf, X=train_data, y=train_j_target)
+    pred_targ = clf.predict(X=test_data)
     acc = metric(predicted_targets=pred_targ,
                  real_targets=test_j_target)
 

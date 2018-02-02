@@ -8,13 +8,13 @@ import logging
 logger = logging.getLogger('PyELM')
 
 
-def cross_validation(classifier, train_data, train_target, n_folds=5):
+def cross_validation(classifier, X, y, n_folds=5):
     """
     Cross validation function.
 
     :param classifier:
-    :param train_data:
-    :param train_target:
+    :param X:
+    :param y:
     :param n_folds:
     :return:
     """
@@ -31,23 +31,23 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
         L = []
         clf_list = []
 
-        for train_index, test_index in kf.split(train_data):
+        for train_index, test_index in kf.split(X):
             param = {cv_param_names[i]: current_comb[i]
                      for i in range(len(cv_param_names))}
 
-            train_data_fold = train_data[train_index]
-            train_target_fold = train_target[train_index]
+            train_data_fold = X[train_index]
+            train_target_fold = y[train_index]
 
             classifier(parameters=param)
-            classifier.fit(train_data=train_data_fold, train_target=train_target_fold)
+            classifier.fit(X=train_data_fold, y=train_target_fold)
 
-            test_fold = train_data[test_index]
-            pred = classifier.predict(test_data=test_fold)
+            test_fold = X[test_index]
+            pred = classifier.predict(X=test_fold)
 
             clf_param = classifier.save_clf_param()
             clf_list.append(clf_param)
 
-            test_fold_target = train_target[test_index]
+            test_fold_target = y[test_index]
             L.append(loss(real_targets=test_fold_target, predicted_targets=pred))
 
         # L = np.array(L, dtype=np.float)
@@ -60,4 +60,4 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
 
     logger.debug('Best parameters for cross validations: %s', best_clf_param)
     classifier(parameters=best_clf_param)
-    classifier.fit(train_data=train_data, train_target=train_target)
+    classifier.fit(X=X, y=y)

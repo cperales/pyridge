@@ -53,7 +53,9 @@ def j_decode(T):
     :param T: matrix of targets.
     :return targets: array of targets.
     """
-    if T.shape[1] == 1:  # Already decoded
+    if len(T.shape) < 2:
+        targets = T
+    elif T.shape[1] == 1:  # Already decoded
         targets = T
     else:
         targets = np.argmax(T, axis=1) + 1

@@ -82,7 +82,7 @@ cross_validation(clf, train_dict)
 Once trained, using the classifier to predict a label for testing data is as easy as:
 
 ```python
-predicted_labels = clf.predict(test_data=testing_data)
+predicted_labels = clf.predict(X=testing_data)
 ```
 
 ## Algorithms
