@@ -6,7 +6,7 @@ from pyelm.generic import KernelMethod
 class KELM(KernelMethod):
     """
     Kernel Extreme Learning Machine. Kernel version of the Extreme Learning Machine,
-    in which a tranformation from input features space into "hidden layer" is made
+    in which a transformation from input features space into "hidden layer" is made
     by a kernel trick.
     """
     def __init__(self, parameters=None):
