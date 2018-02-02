@@ -43,6 +43,23 @@ or
 python setup.py install
 ```
 
+## Algorithms
+
+Right now, there are the following algorithms programmed:
+
+* Neural Extreme Learning Machine (NELM) [1]
+* Kernel Extreme Learning Machine (KELM) [1]
+* AdaBoost Neural Extreme Learning Machine (AdaBoostNELM) [2]
+
+## Code documentation
+
+Documentation is published [online](https://cperales.github.io/PyELM/). It can also be compiled locally, just having
+`sphinx` installed. In the main directory, run the following code:
+
+```bash
+sphinx-build docs/source docs/
+```
+
 ## Data
 
 Some data can be downloaded [here!](https://drive.google.com/file/d/1O67sgZzRtWtVUHa3qaklTsZnvEWF10Iv/view?usp=sharing).
@@ -51,19 +68,19 @@ In order to run the tests, `data` folder should be in main directory.
 
 ## An example
 
-For running a set of tests, just run
+You can run a test for every algorithm, just simply
 
 ```bash
-python test/
+python test/test_json.py
 ```
 
-You can also run a specific test, as
+Also, there a test implementation, which mixes with JSON
 
 ```bash
 python test/test_KELM.py
 ```
 
-By default, logging level is set to DEBUG.
+By default, logging level is set to `DEBUG`.
 
 ## How to use a classifier manually
 
@@ -75,30 +92,13 @@ Training a classifier:
 from algorithm import *
 clf = algorithm_dict[config_options['Algorithm']['name']]()
 clf.set_cv_range(hyperparameters)
-train_dict = {'data': training_data, 'target': training_target}
-cross_validation(clf, train_dict)
+cross_validation(clf, train_data=train_data, train_target=train_target)
 ``` 
 
-Once trained, using the classifier to predict a label for testing data is as easy as:
+Once trained, using the classifier to predict a label for test data is as easy as:
 
 ```python
-predicted_labels = clf.predict(test_data=testing_data)
-```
-
-## Algorithms
-
-Right now, there are the following algorithms programmed:
-
-* Neural Extreme Learning Machine (NELM) [1]
-* Kernel Extreme Learning Machine (KELM) [1]
-* AdaBoost Neural Extreme Learning Machine (AdaBoostNELM) [2]
-
-## Code documentation
-
-Documentation can be compiled locally in linux. In the main directory, run the following code:
-
-```bash
-sphinx-build docs/source docs/
+predicted_labels = clf.predict(test_data=test_data)
 ```
 
 ## Bibliography
