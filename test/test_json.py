@@ -1,7 +1,7 @@
 # Tests
-from test_NELM import test_newthyroid as test_NELM
-from test_KELM import test_newthyroid as test_KELM
-from test_AdaBoostNELM import test_newthyroid as test_AdaBoostNELM
+from test_NELM import test_newthyroid_json as test_NELM
+from test_KELM import test_newthyroid_json as test_KELM
+from test_AdaBoostNELM import test_newthyroid_json as test_AdaBoostNELM
 
 # Other libraries
 import logging

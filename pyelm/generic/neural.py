@@ -33,8 +33,8 @@ class NeuralMethod(Classifier):
         self.grid_param['C'] = np.array(hyperparameters['C']) if 'C' in hyperparameters \
             else np.array([0], dtype=np.float)
         # Ensemble
-        self.ensemble_size = np.array(hyperparameters['ensembleSize']) if 'ensembleSize' in hyperparameters \
-            else np.array([1], dtype=np.float)
+        self.ensemble_size = hyperparameters['ensembleSize'] if 'ensembleSize' \
+            in hyperparameters else 1
         # Negative correlation
         self.grid_param['lambda_nc'] = np.array(hyperparameters['lambda']) if 'lambda' in hyperparameters \
             else np.array([0], dtype=np.float)

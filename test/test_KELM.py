@@ -23,21 +23,10 @@ def test_newthyroid_json():
     run_test(config_options)
 
 
-def multi_test_json():
-    # Reading JSON
-    with open('config/KELM_multiprueba.json', 'r') as cfg:
-        config_options = json.load(cfg)
-
-    # Training data and target
-    if isinstance(config_options, list):
-        for config_option in config_options:
-            logger.info('Running test {}'.format(config_option['Data']['folder']))
-            run_test(config_option)
-    else:
-        run_test(config_options)
-
-
 def test_newthyroid():
+    """
+    Simple test with a UCI database.
+    """
     # Data
     folder = 'data/newthyroid'
     train_dataset = 'train_newthyroid.0'
