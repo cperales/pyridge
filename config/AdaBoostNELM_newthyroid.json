@@ -1,15 +1,67 @@
 {
+    "Data": {
+      "dataset": [
+        [
+          "train_newthyroid.0",
+          "test_newthyroid.0"
+        ],
+        [
+          "train_newthyroid.6",
+          "test_newthyroid.6"
+        ],
+        [
+          "train_newthyroid.7",
+          "test_newthyroid.7"
+        ],
+        [
+          "train_newthyroid.4",
+          "test_newthyroid.4"
+        ],
+        [
+          "train_newthyroid.3",
+          "test_newthyroid.3"
+        ],
+        [
+          "train_newthyroid.2",
+          "test_newthyroid.2"
+        ],
+        [
+          "train_newthyroid.8",
+          "test_newthyroid.8"
+        ],
+        [
+          "train_newthyroid.1",
+          "test_newthyroid.1"
+        ],
+        [
+          "train_newthyroid.9",
+          "test_newthyroid.9"
+        ],
+        [
+          "train_newthyroid.5",
+          "test_newthyroid.5"
+        ]
+      ],
+      "standarized": false,
+      "folder": "data/newthyroid"
+    },
     "Report": {
-      "folder": "experiments/",
-      "report_name": "newthyroid",
       "metrics": [
         "accuracy"
-      ]
+      ],
+      "folder": "experiments/",
+      "report_name": "newthyroid"
     },
     "Algorithm": {
+      "name": "AdaBoostNELM",
       "hyperparameters": {
-        "type": "neuralNetwork",
-        "ensembleSize": 5,
+        "C": [
+          0.01,
+          0.1,
+          1,
+          10,
+          100
+        ],
         "hiddenNeurons": [
           10,
           20,
@@ -32,22 +84,9 @@
           190,
           200
         ],
-        "C": [
-	  0,
-          0.01,
-          0.1,
-          1,
-          10,
-          100
-        ],
+        "ensembleSize": 5,
+        "type": "neuralNetwork",
         "neuronFun": "sigmoid"
-      },
-      "name": "AdaBoostNELM"
-    },
-  "Data": {
-    "folder": "data/newthyroid",
-    "testingDataset": "test_newthyroid.0",
-    "standarized": false,
-    "trainingDataset": "train_newthyroid.0"
+      }
+    }
   }
-}

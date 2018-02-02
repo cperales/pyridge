@@ -2,8 +2,8 @@ import numpy as np
 import itertools
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
-import logging
 from pyelm.utils import loss
+import logging
 
 logger = logging.getLogger('PyELM')
 

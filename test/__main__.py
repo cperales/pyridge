@@ -4,26 +4,16 @@ from test_KELM import test_newthyroid as test_KELM
 from test_AdaBoostNELM import test_newthyroid as test_AdaBoostNELM
 
 # Other libraries
-from multiprocessing import Process
 import logging
 
 logger_pyelm = logging.getLogger('PyELM')
-logger_pyelm.setLevel(logging.INFO)
+logger_pyelm.setLevel(logging.DEBUG)
 
 logging.info('Starting tests...')
 logging.info('Running Kernel Extreme Learning Machine test')
-p_k = Process(target=test_KELM)
-p_k.start()
+test_NELM()
 logging.info('Running Neural Extreme Learning Machine test')
-p_n = Process(target=test_NELM)
-p_n.start()
+test_KELM()
 logging.info('Running AdaBoost Neural Extreme Learning Machine test')
-p_an = Process(target=test_AdaBoostNELM)
-p_an.start()
-
-logging.info('Finishing tests...')
-p_k.join()
-p_n.join()
-p_an.join()
-
+test_AdaBoostNELM()
 logging.info('Tests have finished!')

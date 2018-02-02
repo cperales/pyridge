@@ -1,52 +1,91 @@
 {
-  "Report": {
-    "folder": "experiments/",
-    "report_name": "experiment_newthyroid",
-    "metrics": [
-      "accuracy"
-    ]
-  },
-  "Algorithm": {
-    "name": "NELM",
-    "hyperparameters": {
-      "C": [
-	0,
-        0.01,
-        0.1,
-        1,
-        10,
-        100
+    "Data": {
+      "dataset": [
+        [
+          "train_newthyroid.0",
+          "test_newthyroid.0"
+        ],
+        [
+          "train_newthyroid.6",
+          "test_newthyroid.6"
+        ],
+        [
+          "train_newthyroid.7",
+          "test_newthyroid.7"
+        ],
+        [
+          "train_newthyroid.4",
+          "test_newthyroid.4"
+        ],
+        [
+          "train_newthyroid.3",
+          "test_newthyroid.3"
+        ],
+        [
+          "train_newthyroid.2",
+          "test_newthyroid.2"
+        ],
+        [
+          "train_newthyroid.8",
+          "test_newthyroid.8"
+        ],
+        [
+          "train_newthyroid.1",
+          "test_newthyroid.1"
+        ],
+        [
+          "train_newthyroid.9",
+          "test_newthyroid.9"
+        ],
+        [
+          "train_newthyroid.5",
+          "test_newthyroid.5"
+        ]
       ],
-      "hiddenNeurons": [
-        10,
-        20,
-        30,
-        40,
-        50,
-        60,
-        70,
-        80,
-        90,
-        100,
-        110,
-        120,
-        130,
-        140,
-        150,
-        160,
-        170,
-        180,
-        190,
-        200
+      "standarized": false,
+      "folder": "data/newthyroid"
+    },
+    "Report": {
+      "metrics": [
+        "accuracy"
       ],
-      "neuronFun": "sigmoid",
-      "type": "neuralNetwork"
+      "folder": "experiments/",
+      "report_name": "newthyroid"
+    },
+    "Algorithm": {
+      "name": "NELM",
+      "hyperparameters": {
+        "C": [
+          0.01,
+          0.1,
+          1,
+          10,
+          100
+        ],
+        "neuronFun": "sigmoid",
+        "type": "neuralNetwork",
+        "hiddenNeurons": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60,
+          70,
+          80,
+          90,
+          100,
+          110,
+          120,
+          130,
+          140,
+          150,
+          160,
+          170,
+          180,
+          190,
+          200
+        ]
+      }
     }
-  },
-  "Data": {
-    "folder": "data/newthyroid",
-    "testingDataset": "test_newthyroid.0",
-    "standarized": false,
-    "trainingDataset": "train_newthyroid.0"
   }
-}
