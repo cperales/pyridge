@@ -22,11 +22,11 @@ class KernelMethod(Classifier):
     kernel = None
     kernel_fun = None
 
-    def set_range_param(self, method_conf):
+    def set_range_param(self, hyperparameters):
         # Neuron function
-        self.kernel = kernel_fun_dict[method_conf['kernelFun']]
+        self.kernel = kernel_fun_dict[hyperparameters['kernelFun']]
         # Regularization
-        self.grid_param['C'] = np.array(method_conf['C']) if 'C' in method_conf \
+        self.grid_param['C'] = np.array(hyperparameters['C']) if 'C' in hyperparameters \
             else np.array([0], dtype=np.float)
-        self.grid_param['k'] = np.array(method_conf['k']) if 'k' in method_conf \
+        self.grid_param['k'] = np.array(hyperparameters['k']) if 'k' in hyperparameters \
             else np.array([1], dtype=np.float)
