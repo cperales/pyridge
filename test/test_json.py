@@ -6,8 +6,8 @@ from test_AdaBoostNELM import test_newthyroid_json as test_AdaBoostNELM
 # Other libraries
 import logging
 
-logger_pyelm = logging.getLogger('PyELM')
-logger_pyelm.setLevel(logging.DEBUG)
+logger = logging.getLogger('PyELM')
+logger.setLevel(logging.DEBUG)
 
 logging.info('Starting tests...')
 logging.info('Running Kernel Extreme Learning Machine test')

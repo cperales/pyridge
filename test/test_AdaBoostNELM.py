@@ -19,7 +19,7 @@ def test_newthyroid_json():
     with open('config/AdaBoostNELM_newthyroid.json', 'r') as cfg:
         config_options = json.load(cfg)
 
-    logger_pyelm.info('Running test {}'.format(config_options['Data']['folder']))
+    logger.info('Running test {}'.format(config_options['Data']['folder']))
     run_test(config_options)
 
 
@@ -32,35 +32,33 @@ def test_newthyroid():
     train_dataset = 'train_newthyroid.0'
     test_dataset = 'test_newthyroid.0'
 
-    training_file_name = os.path.join(folder,
+    train_file_name = os.path.join(folder,
                                       train_dataset)
-    training_file = pd.read_csv(training_file_name,
+    train_file = pd.read_csv(train_file_name,
                                 sep='\s+',
                                 header=None)
-    training_file_matrix = training_file.as_matrix()
-    training_file_matrix_t = training_file_matrix.transpose()
-    training_target = training_file_matrix_t[-1].transpose()
-    training_data = training_file_matrix_t[:-1].transpose()
+    train_file_matrix = train_file.as_matrix()
+    train_file_matrix_t = train_file_matrix.transpose()
+    train_target = train_file_matrix_t[-1].transpose()
+    train_data = train_file_matrix_t[:-1].transpose()
 
     # Testing data and target
-    testing_file_name = os.path.join(folder,
+    test_file_name = os.path.join(folder,
                                      test_dataset)
-    testing_file = pd.read_csv(testing_file_name,
-                               sep='\s+',
-                               header=None)
-    testing_file_matrix = testing_file.as_matrix()
-    testing_file_matrix_t = testing_file_matrix.transpose()
-    testing_target = testing_file_matrix_t[-1].transpose()
-    testing_data = testing_file_matrix_t[:-1].transpose()
+    test_file = pd.read_csv(test_file_name,
+                            sep='\s+',
+                            header=None)
+    test_file_matrix = test_file.as_matrix()
+    test_file_matrix_t = test_file_matrix.transpose()
+    test_target = test_file_matrix_t[-1].transpose()
+    test_data = test_file_matrix_t[:-1].transpose()
 
-    training_data = preprocessing.scale(training_data)
-    testing_data = preprocessing.scale(testing_data)
+    train_data = preprocessing.scale(train_data)
+    test_data = preprocessing.scale(test_data)
 
-    training_j_target = j_encode(training_target)
-    n_targ = training_j_target.shape[1]
-    testing_j_target = j_encode(testing_target, n_targ=n_targ)
-
-    train_dict = {'data': training_data, 'target': training_j_target}
+    train_j_target = j_encode(train_target)
+    n_targ = train_j_target.shape[1]
+    test_j_target = j_encode(test_target, n_targ=n_targ)
 
     # Algorithm
     metric = metric_dict['accuracy']
@@ -77,10 +75,10 @@ def test_newthyroid():
 
     clf = algorithm()
     clf.set_cv_range(hyperparameters)
-    cross_validation(classifier=clf, train=train_dict)
-    pred_targ = clf.predict(test_data=testing_data)
+    cross_validation(classifier=clf, train_data=train_data, train_target=train_j_target)
+    pred_targ = clf.predict(test_data=test_data)
     acc = metric(predicted_targets=pred_targ,
-                 real_targets=testing_j_target)
+                 real_targets=test_j_target)
 
     logger.info('Accuracy for algorithm NELM and dataset newthyroid.0,'
                 ' is {}'.format(acc))

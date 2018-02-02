@@ -24,7 +24,7 @@ class NeuralMethod(Classifier):
     output_weight = 0
     t = 2  # At least, 2 labels are classified
 
-    def set_range_param(self, hyperparameters):
+    def set_cv_range(self, hyperparameters):
         # Neuron function
         self.neuron_fun = neuron_fun_dict[hyperparameters['neuronFun']]
         # Number of neurons in the hidden layer

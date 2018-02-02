@@ -22,29 +22,29 @@ def run_test(config_test):
     for fold in range(n_folds):
         dataset_fold = config_test['Data']['dataset'][fold]
         logger.debug('Fold %s', dataset_fold)
-        training_file_name = os.path.join(config_test['Data']['folder'],
+        train_file_name = os.path.join(config_test['Data']['folder'],
                                           dataset_fold[0])
-        training_file = pd.read_csv(training_file_name,
+        train_file = pd.read_csv(train_file_name,
                                     sep='\s+',
                                     header=None)
-        training_file_matrix = training_file.as_matrix()
-        training_file_matrix_t = training_file_matrix.transpose()
-        training_target = training_file_matrix_t[-1].transpose()
-        training_data = training_file_matrix_t[:-1].transpose()
+        train_file_matrix = train_file.as_matrix()
+        train_file_matrix_t = train_file_matrix.transpose()
+        train_target = train_file_matrix_t[-1].transpose()
+        train_data = train_file_matrix_t[:-1].transpose()
 
         # Testing data and target
-        testing_file_name = os.path.join(config_test['Data']['folder'],
+        test_file_name = os.path.join(config_test['Data']['folder'],
                                          dataset_fold[1])
-        testing_file = pd.read_csv(testing_file_name,
+        test_file = pd.read_csv(test_file_name,
                                    sep='\s+',
                                    header=None)
-        testing_file_matrix = testing_file.as_matrix()
-        testing_file_matrix_t = testing_file_matrix.transpose()
-        testing_target = testing_file_matrix_t[-1].transpose()
-        testing_data = testing_file_matrix_t[:-1].transpose()
+        test_file_matrix = test_file.as_matrix()
+        test_file_matrix_t = test_file_matrix.transpose()
+        test_target = test_file_matrix_t[-1].transpose()
+        test_data = test_file_matrix_t[:-1].transpose()
 
-        training_data = preprocessing.scale(training_data)
-        testing_data = preprocessing.scale(testing_data)
+        train_data = preprocessing.scale(train_data)
+        test_data = preprocessing.scale(test_data)
 
         # Reading parameters
         hyperparameters = config_test['Algorithm']['hyperparameters']
@@ -56,11 +56,9 @@ def run_test(config_test):
         # cross_validation(clf, hyperparameters)
 
         clf.set_cv_range(hyperparameters)
-        training_j_target = j_encode(training_target)
-        n_targ = training_j_target.shape[1]
-        testing_j_target = j_encode(testing_target, n_targ=n_targ)
-
-        train_dict = {'data': training_data, 'target': training_j_target}
+        train_j_target = j_encode(train_target)
+        n_targ = train_j_target.shape[1]
+        test_j_target = j_encode(test_target, n_targ=n_targ)
 
         # # Fitting classifier
         # Profiling
@@ -72,10 +70,10 @@ def run_test(config_test):
         n_run = 10
         acc_fold = 0
         for i in range(n_run):
-            cross_validation(classifier=clf, train=train_dict)
-            predicted_labels = clf.predict(test_data=testing_data)
+            cross_validation(classifier=clf, train_data=train_data, train_target=train_j_target)
+            predicted_labels = clf.predict(test_data=test_data)
             acc_fold += accuracy(predicted_targets=predicted_labels,
-                                 real_targets=testing_j_target)
+                                 real_targets=test_j_target)
         acc += acc_fold / (n_run * n_folds)
 
         # Saving classifier
