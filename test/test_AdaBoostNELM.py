@@ -45,7 +45,7 @@ def test_newthyroid():
     acc = metric(predicted_targets=pred_targ,
                  real_targets=test_j_target)
 
-    logger.info('Accuracy for algorithm NELM and dataset newthyroid.0,'
+    logger.info('Accuracy for algorithm AdaBoostNELM and dataset newthyroid.0,'
                 ' is {}'.format(acc))
 
 
