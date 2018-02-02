@@ -22,7 +22,7 @@ class KernelMethod(Classifier):
     kernel = None
     kernel_fun = None
 
-    def set_range_param(self, hyperparameters):
+    def set_cv_range(self, hyperparameters={'C': 0, 'k': 1, 'kernelFun': 'rbf'}):
         # Neuron function
         self.kernel = kernel_fun_dict[hyperparameters['kernelFun']]
         # Regularization

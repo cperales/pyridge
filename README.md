@@ -74,7 +74,7 @@ Training a classifier:
 ```python
 from algorithm import *
 clf = algorithm_dict[config_options['Algorithm']['name']]()
-clf.set_range_param(hyperparameters)
+clf.set_cv_range(hyperparameters)
 train_dict = {'data': training_data, 'target': training_target}
 cross_validation(clf, train_dict)
 ``` 

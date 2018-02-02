@@ -55,7 +55,7 @@ def run_test(config_test):
 
         # cross_validation(clf, hyperparameters)
 
-        clf.set_range_param(hyperparameters)
+        clf.set_cv_range(hyperparameters)
         training_j_target = j_encode(training_target)
         n_targ = training_j_target.shape[1]
         testing_j_target = j_encode(testing_target, n_targ=n_targ)

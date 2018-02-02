@@ -74,7 +74,7 @@ def test_newthyroid():
                        'hiddenNeurons': neuron_range}
 
     clf = algorithm()
-    clf.set_range_param(hyperparameters)
+    clf.set_cv_range(hyperparameters)
     cross_validation(classifier=clf, train=train_dict)
     pred_targ = clf.predict(test_data=testing_data)
     acc = metric(predicted_targets=pred_targ,
