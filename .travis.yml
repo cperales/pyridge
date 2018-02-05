@@ -11,6 +11,6 @@ script:
   - python test/test_AdaBoostNELM.py
 branches:
   only:
-    - master
+    - travis
 notifications:
   email: false
