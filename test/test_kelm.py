@@ -26,15 +26,3 @@ kernel_fun = 'rbf'
 hyperparameters = {'kernelFun': kernel_fun,
                    'C': C_range,
                    'k': k_range}
-
-# Algorithm 2
-clf = algorithm()
-# Algorithm 3
-clf.set_cv_range(hyperparameters)
-# Algorithm 4
-cross_validation(classifier=clf, train_data=train_data, train_target=train_j_target)
-# Algorithm 5
-pred_targ = clf.predict(test_data=test_data)
-# Algorithm 6
-acc = metric(pred_targ=pred_targ,
-             real_targ=test_j_target)
