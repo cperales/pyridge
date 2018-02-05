@@ -1,5 +1,11 @@
 # PyELM
 
+
+*Package is supervised by [Travis CI](https://travis-ci.org/cperales/PyELM)* [![Build Status](https://travis-ci.org/cperales/PyELM.svg?branch=stable)](https://travis-ci.org/cperales/PyELM)
+
+*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)* [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=stable)
+
+
 This repository contains some supervised machine learning algorithms from the family of
 [Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine) learners,
 which are a special type of feedforward neural network.
@@ -115,17 +121,6 @@ test_data, test_target = prepare_data(folder=folder,
                                       n_targ=n_targ)
 predicted_labels = clf.predict(test_data=test_data)
 ```
-
-## Coverage status
-
-Package is supervised by [Travis CI](https://travis-ci.org/cperales/PyELM)
-
-[![Build Status](https://travis-ci.org/cperales/PyELM.svg?branch=master)](https://travis-ci.org/cperales/PyELM)
-
-Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM) 
-
-[![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=travis)](https://coveralls.io/github/cperales/PyELM?branch=travis)
-
 
 
 ## Bibliography
