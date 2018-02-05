@@ -10,7 +10,7 @@ install:
   - pip install coveralls
   - pip install -e .
 script:
-  - coverage run --source=pyelm --omit=env test/test_data.py
+  - coverage run --source=pyelm --omit=env test/test_kelm.py
   - coveralls
 branches:
   only:
