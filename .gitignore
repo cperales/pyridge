@@ -7,6 +7,8 @@ __pycache__/
 # Installation
 *egg-info/
 dist/
+build/
+
 
 # Profile
 *.prof
