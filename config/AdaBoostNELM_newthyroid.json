@@ -56,11 +56,13 @@
       "name": "AdaBoostNELM",
       "hyperparameters": {
         "C": [
+          0.001,
           0.01,
           0.1,
           1,
           10,
-          100
+          100,
+          1000
         ],
         "hiddenNeurons": [
           10,

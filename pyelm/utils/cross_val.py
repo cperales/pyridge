@@ -39,7 +39,7 @@ def cross_validation(classifier, X, y, n_folds=5):
             train_target_fold = y[train_index]
 
             classifier(parameters=param)
-            classifier.fit(X=train_data_fold, y=train_target_fold)
+            classifier.fit(train_data=train_data_fold, train_target=train_target_fold)
 
             test_fold = X[test_index]
             pred = classifier.predict(X=test_fold)
@@ -60,4 +60,4 @@ def cross_validation(classifier, X, y, n_folds=5):
 
     logger.debug('Best parameters for cross validations: %s', best_clf_param)
     classifier(parameters=best_clf_param)
-    classifier.fit(X=X, y=y)
+    classifier.fit(train_data=X, train_target=y)

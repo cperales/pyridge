@@ -12,7 +12,7 @@ import json
 import logging
 
 
-def run_test(config_test, n_run=10):
+def run_test(config_test, n_run=10, j_encoding=True):
     diff_time = 0
     acc = 0
     full_name_report = config_test['Algorithm']['name'] + '_' + config_test['Report']['report_name']
@@ -24,13 +24,19 @@ def run_test(config_test, n_run=10):
         logger.debug('Fold %s', dataset_fold)
         train_dataset = dataset_fold[0]
         train_data, train_j_target = prepare_data(folder=folder,
-                                                  dataset=train_dataset)
-        n_targ = train_j_target.shape[1]
+                                                  dataset=train_dataset,
+                                                  j_encoding=j_encoding)
+        if j_encoding is True:
+            n_targ = train_j_target.shape[1]
+        else:
+            n_targ = None
+
         test_dataset = dataset_fold[1]
 
         test_data, test_j_target = prepare_data(folder=folder,
                                                 dataset=test_dataset,
-                                                n_targ=n_targ)
+                                                n_targ=n_targ,
+                                                j_encoding=j_encoding)
 
         # Reading parameters
         hyperparameters = config_test['Algorithm']['hyperparameters']
