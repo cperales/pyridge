@@ -20,7 +20,7 @@ class KernelMethod(Classifier):
     # Kernel
     train_data = None
     kernel = None
-    kernel_fun = None
+    kernel_fun = RBF(length_scale=k)  # By default
 
     def set_cv_range(self, hyperparameters={'C': 0, 'k': 1, 'kernelFun': 'rbf'}):
         # Neuron function

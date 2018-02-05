@@ -96,7 +96,7 @@ from pyelm.utils.preprocess import prepare_data
 # Data
 folder = 'data/newthyroid'
 train_dataset = 'train_newthyroid.0'
-train_data, train_j_target = prepare_data(folder=folder,
+train_data, train_target = prepare_data(folder=folder,
                                           dataset=train_dataset)
 # Classifier                                        
 clf = KELM()
@@ -108,11 +108,11 @@ Once trained, using the classifier to predict a label for test data is as easy a
 ```python
 test_dataset = 'test_newthyroid.0'
 # In case in test data there are less target labels than in train data 
-n_targ = train_j_target.shape[1]
+n_targ = train_target.shape[1]
 
-tst_data, test_j_target = prepare_data(folder=folder,
-                                       dataset=test_dataset,
-                                       n_targ=n_targ)
+test_data, test_target = prepare_data(folder=folder,
+                                     dataset=test_dataset,
+                                     n_targ=n_targ)
 predicted_labels = clf.predict(test_data=test_data)
 ```
 
