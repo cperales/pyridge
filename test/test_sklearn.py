@@ -32,7 +32,7 @@ class SklearnSVC(SVC):
         super(SklearnSVC, self).fit(X=train_data, y=train_target)
 
     def predict(self, test_data):
-        super(SklearnSVC, self).predict(X=test_data)
+        return super(SklearnSVC, self).predict(X=test_data)
 
     def set_cv_range(self, hyperparameters={'C': 0, 'k': 1, 'kernelFun': 'rbf'}):
         # Regularization
@@ -63,9 +63,9 @@ def sklearn_test_cv():
 
     # SVC sklearn
     clf = SklearnSVC()
-    clf.fit(X=train_data, y=train_target)
-    pred_targ = clf.predict(X=test_data)
-    accuracy(pred_targ=pred_targ, real_targ=test_target, j_encoded=False)  # To test it works
+    clf.fit(train_data=train_data, train_target=train_target)
+    pred_targ = clf.predict(test_data=test_data)
+    acc = accuracy(pred_targ=pred_targ, real_targ=test_target, j_encoded=False)  # To test it works
     clf.grid_param = dict()
     # clf.set_cv_range = KernelMethod.set_cv_range
 
@@ -79,8 +79,8 @@ def sklearn_test_cv():
 
     clf.set_cv_range(hyperparameters)
     cross_validation(classifier=clf, train_data=train_data, train_target=train_target)
-    pred_targ = clf.predict(X=test_data)
-    accuracy(pred_targ=pred_targ, real_targ=test_target, j_encoded=False)  # To test it works
+    pred_targ = clf.predict(test_data=test_data)
+    acc = accuracy(pred_targ=pred_targ, real_targ=test_target, j_encoded=False)  # To test it works
 
 
 def sklearn_comparison():
@@ -99,5 +99,5 @@ def sklearn_comparison():
 
 
 if __name__ == '__main__':
-    sklearn_test_cv()
-    # sklearn_comparison()
+    # sklearn_test_cv()
+    sklearn_comparison()
