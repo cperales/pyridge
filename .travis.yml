@@ -1,13 +1,16 @@
 language: python
 python:
-  - "3.5"
-# command to install dependencies
+  - 3.4
+  - 3.5
+  - 3.6
+git:
+  depth: false
 install:
   - pip install -r requirements.txt
   - pip install coveralls
-  - python setup.py install
+  - pip install -e .
 script:
-  - coverage run test/test_data.py
+  - coverage run --source=pyelm --omit=env test/test_data.py
   - coveralls
 branches:
   only:
@@ -15,4 +18,4 @@ branches:
 notifications:
   email: false
 after_sucess:
-  - echo "Finished"
+  - echo "Travis CI built!"
