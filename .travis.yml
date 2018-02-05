@@ -14,7 +14,7 @@ script:
   - coveralls
 branches:
   only:
-    - travis
+    - master
 notifications:
   email: false
 after_sucess:

@@ -111,10 +111,22 @@ test_dataset = 'test_newthyroid.0'
 n_targ = train_target.shape[1]
 
 test_data, test_target = prepare_data(folder=folder,
-                                     dataset=test_dataset,
-                                     n_targ=n_targ)
+                                      dataset=test_dataset,
+                                      n_targ=n_targ)
 predicted_labels = clf.predict(test_data=test_data)
 ```
+
+## Coverage status
+
+Package is supervised by [Travis CI](https://travis-ci.org/cperales/PyELM)
+
+[![Build Status](https://travis-ci.org/cperales/PyELM.svg?branch=master)](https://travis-ci.org/cperales/PyELM)
+
+Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM) 
+
+[![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=travis)](https://coveralls.io/github/cperales/PyELM?branch=travis)
+
+
 
 ## Bibliography
 
