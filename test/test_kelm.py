@@ -31,3 +31,5 @@ hyperparameters = {'kernelFun': kernel_fun,
 clf = algorithm()
 # Algorithm 3
 clf.set_cv_range(hyperparameters)
+# Algorithm 4
+cross_validation(classifier=clf, train_data=train_data, train_target=train_j_target)
