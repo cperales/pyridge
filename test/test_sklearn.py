@@ -86,16 +86,16 @@ def sklearn_test_cv():
 def sklearn_comparison():
     logger.info('SVC test')
     # SVC
-    with open('config/SVC_newthyroid.json', 'r') as cfg:
-        config_SVC_newthyroid = json.load(cfg)
-    run_test(config_SVC_newthyroid, n_run=10, j_encoding=False)
+    with open('config/SVC_hepatitis.json', 'r') as cfg:
+        config_SVC_hepatitis = json.load(cfg)
+    run_test(config_SVC_hepatitis, n_run=10, j_encoding=False)
 
     logger.info('\n')
     logger.info('KELM test')
     # KELM
-    with open('config/KELM_newthyroid.json', 'r') as cfg:
-        config_KELM_newthyroid = json.load(cfg)
-    run_test(config_KELM_newthyroid, n_run=10)
+    with open('config/KELM_hepatitis.json', 'r') as cfg:
+        config_KELM_hepatitis = json.load(cfg)
+    run_test(config_KELM_hepatitis, n_run=10)
 
 
 if __name__ == '__main__':
