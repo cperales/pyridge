@@ -29,3 +29,5 @@ hyperparameters = {'kernelFun': kernel_fun,
 
 # Algorithm 2
 clf = algorithm()
+# Algorithm 3
+clf.set_cv_range(hyperparameters)
