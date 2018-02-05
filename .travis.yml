@@ -12,3 +12,5 @@ branches:
     - travis
 notifications:
   email: false
+after_sucess:
+  - echo "Finished"
