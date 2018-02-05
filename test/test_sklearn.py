@@ -31,6 +31,9 @@ class SklearnSVC(SVC):
     def fit(self, train_data, train_target):
         super(SklearnSVC, self).fit(X=train_data, y=train_target)
 
+    def predict(self, test_data):
+        super(SklearnSVC, self).predict(X=test_data)
+
     def set_cv_range(self, hyperparameters={'C': 0, 'k': 1, 'kernelFun': 'rbf'}):
         # Regularization
         self.grid_param['C'] = np.array(hyperparameters['C']) if 'C' in hyperparameters \
@@ -75,7 +78,7 @@ def sklearn_test_cv():
                        'k': k_range}
 
     clf.set_cv_range(hyperparameters)
-    cross_validation(classifier=clf, X=train_data, y=train_target)
+    cross_validation(classifier=clf, train_data=train_data, train_target=train_target)
     pred_targ = clf.predict(X=test_data)
     accuracy(pred_targ=pred_targ, real_targ=test_target, j_encoded=False)  # To test it works
 
@@ -96,5 +99,5 @@ def sklearn_comparison():
 
 
 if __name__ == '__main__':
-    # sklearn_test_cv()
-    sklearn_comparison()
+    sklearn_test_cv()
+    # sklearn_comparison()

@@ -39,15 +39,15 @@ class KELM(KernelMethod):
             alpha = omega_train + np.eye(n) / self.C
             self.output_weight = np.linalg.solve(alpha, train_target)
 
-    def predict(self, X):
+    def predict(self, test_data):
         """
         Once instanced, classifier can predict test target from test data, using some mathematical
         rules.
 
-        :param numpy.array X: matrix of data to predict.
+        :param numpy.array test_data: matrix of data to predict.
         :return: matrix of the predicted targets.
         """
-        omega_test = self.kernel_fun(X=self.train_data, Y=X)
+        omega_test = self.kernel_fun(X=self.train_data, Y=test_data)
         indicator = np.dot(omega_test.T, self.output_weight)
         test_target = j_renorm(indicator)
         return test_target

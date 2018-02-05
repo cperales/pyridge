@@ -47,7 +47,7 @@ class AdaBoostNELM(NELM):
         self.beta_ensemble = []
 
         for s in range(self.ensemble_size):
-            beta_s = self.fit_step(H=H, y=train_target)
+            beta_s = self.fit_step(H=H, train_target=train_target)
             self.beta_ensemble.append(beta_s)
 
     def fit_step(self, H, train_target):
