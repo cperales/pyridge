@@ -6,3 +6,5 @@ logger_pyelm.debug('Logger instanced')
 
 import warnings
 warnings.simplefilter('ignore')
+
+from .algorithm import *

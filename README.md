@@ -71,13 +71,14 @@ In order to run the tests, `data` folder should be in main directory.
 You can run a test for every algorithm, just simply
 
 ```bash
-python test/test_json.py
+python test/
 ```
 
-Also, there a test implementation, which mixes with JSON
+Also, there is an individual test for each algorithm,
+and a test with JSON implementation
 
 ```bash
-python test/test_KELM.py
+python test/test_json.py
 ```
 
 By default, logging level is set to `DEBUG`.
@@ -86,18 +87,32 @@ By default, logging level is set to `DEBUG`.
 
 It is also useful to know how to use a classifier. In this framework, a classifier is an object with different methods, that allows you to train from data, predict a label for test data, save the classifier...
 
-Training a classifier:
+Training a classifier, for example, a Kernel Extreme Learning Machine:
 
 ```python
-from algorithm import *
-clf = algorithm_dict[config_options['Algorithm']['name']]()
-clf.set_cv_range(hyperparameters)
-cross_validation(clf, train_data=train_data, train_target=train_target)
+from pyelm.algorithm import KELM
+from pyelm.utils.preprocess import prepare_data
+
+# Data
+folder = 'data/newthyroid'
+train_dataset = 'train_newthyroid.0'
+train_data, train_j_target = prepare_data(folder=folder,
+                                          dataset=train_dataset)
+# Classifier                                        
+clf = KELM()
+clf.fit(train_data=train_data, train_target=train_target)
 ``` 
 
 Once trained, using the classifier to predict a label for test data is as easy as:
 
 ```python
+test_dataset = 'test_newthyroid.0'
+# In case in test data there are less target labels than in train data 
+n_targ = train_j_target.shape[1]
+
+tst_data, test_j_target = prepare_data(folder=folder,
+                                       dataset=test_dataset,
+                                       n_targ=n_targ)
 predicted_labels = clf.predict(test_data=test_data)
 ```
 
