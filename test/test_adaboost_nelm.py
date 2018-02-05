@@ -31,7 +31,7 @@ def test_newthyroid():
     C_range = [10**i for i in range(-2, 3)]
     neuron_range = [10*i for i in range(1, 21)]
     neural_fun = 'sigmoid'
-    ensemble_size = 5
+    ensemble_size = 3
 
     hyperparameters = {'neuronFun': neural_fun,
                        'C': C_range,

@@ -9,8 +9,8 @@ install:
   - pip install -e .
 script:
   - travis_wait 30 coverage run --source=pyelm --omit=env test/test_kelm.py
-  - travis_wait 30 coverage run --source=pyelm --omit=env test/test_nelm.py
-  - travis_wait 60 coverage run --source=pyelm --omit=env test/test_adaboost_nelm.py
+  - travis_wait 45 coverage run --source=pyelm --omit=env test/test_nelm.py
+  - travis_wait 200 coverage run --source=pyelm --omit=env test/test_adaboost_nelm.py
   - coveralls
 branches:
   only:
