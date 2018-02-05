@@ -26,3 +26,6 @@ kernel_fun = 'rbf'
 hyperparameters = {'kernelFun': kernel_fun,
                    'C': C_range,
                    'k': k_range}
+
+# Algorithm 2
+clf = algorithm()
