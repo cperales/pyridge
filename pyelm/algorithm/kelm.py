@@ -11,20 +11,6 @@ class KELM(KernelMethod):
     """
     __name__ = 'Kernel Extreme Learning Machine'
 
-    def __init__(self, parameters=None):
-        """
-        :type parameters: dict
-        :param parameters: dictionary with the parameters needed for training. It must contain:
-
-                - k: length scale of Radial Basis Function kernel
-                - C: regularization.
-
-                If None, parameters should be introduced later.
-        """
-        if parameters is not None:
-            self.__call__(parameters)
-        logger_pyelm.debug('Kernel Extreme Learning Machine instanced')
-
     def fit(self, train_data, train_target):
         self.t = train_target.shape[1]
         n = train_data.shape[0]
