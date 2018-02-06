@@ -98,6 +98,13 @@ def sklearn_comparison():
     run_test(config_KELM_hepatitis, n_run=10)
 
 
+def sklearn_check_estimator():
+    from sklearn.utils.estimator_checks import check_estimator
+    from pyelm import NELM
+    check_estimator(NELM)
+
+
 if __name__ == '__main__':
-    # sklearn_test_cv()
+    sklearn_test_cv()
     sklearn_comparison()
+    # sklearn_check_estimator()

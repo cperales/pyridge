@@ -9,21 +9,25 @@ logger = logging.getLogger('PyELM')
 logger.setLevel(logging.DEBUG)
 
 
-def test_newthyroid():
+def test_newthyroid(train_data=None,
+                    train_j_target=None,
+                    test_data=None,
+                    test_j_target=None):
     """
     Simple test with a UCI database.
     """
     # Data
-    folder = 'data/newthyroid'
-    train_dataset = 'train_newthyroid.0'
-    train_data, train_j_target = prepare_data(folder=folder,
-                                              dataset=train_dataset)
-    test_dataset = 'test_newthyroid.0'
-    n_targ = train_j_target.shape[1]
-
-    test_data, test_j_target = prepare_data(folder=folder,
-                                            dataset=test_dataset,
-                                            n_targ=n_targ)
+    if train_data is None or train_j_target is None:
+        folder = 'data/newthyroid'
+        train_dataset = 'train_newthyroid.0'
+        train_data, train_j_target = prepare_data(folder=folder,
+                                                  dataset=train_dataset)
+    if test_data is None or test_j_target is None:
+        test_dataset = 'test_newthyroid.0'
+        n_targ = train_j_target.shape[1]
+        test_data, test_j_target = prepare_data(folder=folder,
+                                                dataset=test_dataset,
+                                                n_targ=n_targ)
 
     # Algorithm
     metric = metric_dict['accuracy']

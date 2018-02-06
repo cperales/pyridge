@@ -42,6 +42,9 @@ def test_adaboost():
 
 
 if __name__ == '__main__':
-    test_kelm()
+    test_kelm(train_data=train_data,
+              train_j_target=train_j_target,
+              test_data=test_data,
+              test_j_target=test_j_target)
     test_nelm()
     test_adaboost()

@@ -10,6 +10,7 @@ neuron_fun_dict = {'sin': np.sin,
 
 
 class NeuralMethod(Classifier):
+    __name__ = 'Neural network'
     # Cross validated parameters
     neuron_fun = expit
     hidden_neurons = 0

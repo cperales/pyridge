@@ -19,8 +19,7 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
     :return:
     """
     cv_param_names = list(classifier.grid_param.keys())
-    list_comb = [classifier.grid_param[name] for name
-                 in cv_param_names]
+    list_comb = [classifier.grid_param[name] for name in cv_param_names]
 
     # # Cross validation
     # Init the CV criteria
@@ -44,7 +43,7 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
             test_fold = train_data[test_index]
             pred = classifier.predict(test_data=test_fold)
 
-            clf_param = classifier.save_clf_param()
+            clf_param = classifier.get_params()
             clf_list.append(clf_param)
 
             test_fold_target = train_target[test_index]
@@ -58,6 +57,6 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
             best_clf_param = clf_list[position]
             best_cv_criteria = current_cv_criteria
 
-    logger.debug('Best parameters for cross validations: %s', best_clf_param)
+    logger.debug('Loss: %f; Cross validated parameters: %s', best_cv_criteria, best_clf_param)
     classifier(parameters=best_clf_param)
     classifier.fit(train_data=train_data, train_target=train_target)

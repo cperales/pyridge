@@ -8,6 +8,7 @@ kernel_fun_dict = {'rbf': RBF,
 
 
 class KernelMethod(Classifier):
+    __name__ = 'Kernel classifier'
     # Cross validated parameters
     C = 0
     grid_param = {'C': C}

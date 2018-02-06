@@ -1,4 +1,3 @@
-from pyelm import logger_pyelm
 from pyelm.utils.target_encode import *
 from pyelm.generic import NeuralMethod
 
@@ -8,16 +7,7 @@ class NELM(NeuralMethod):
     Neural Extreme Learning Machine. Neural Network's version of the Extreme Learning Machine,
     in which "first layer" neuron's weights are chosen randomly.
     """
-    def __init__(self, parameters=None):
-        """
-        :param dict parameters: dictionary with the parameters needed for training. It must contain:
-
-                - hidden_neurons: the number of the neurons in the hidden layer.
-                - C: regularization of H matrix.
-        """
-        if parameters is not None:
-            self.__call__(parameters)
-        logger_pyelm.debug('Neural Extreme Learning Machine instanced')
+    __name__ = 'Neural Extreme Learning Machine'
 
     def fit(self, train_data, train_target):
         """
@@ -61,9 +51,32 @@ class NELM(NeuralMethod):
         test_target = j_renorm(indicator)
         return test_target
 
-    def save_clf_param(self):
-        return {'C': self.C,
-                'hidden_neurons': self.hidden_neurons}
+    def get_params(self, deep=False):
+        """
+
+        :param bool deep: If just wants the hyperparameters, `deep  = False`.
+            For getting subobjects and methods, `deep = True`.
+        :return: Parameters as a dictionary.
+        """
+        to_return = None
+        to_return = {'C': self.C,
+                     'hidden_neurons': self.hidden_neurons,
+                     'ensemble_size': self.ensemble_size}
+        if deep is True:
+            to_return.update(self.__dict__)
+        return to_return
+
+    def set_params(self, parameters):
+        """
+        :param dict parameters: dictionary with the parameters needed for training. It must contain:
+
+                - hidden_neurons: the number of the neurons in the hidden layer.
+                - C: regularization of H matrix.
+                - ensemble_size: (optional) used for meta algorithms as AdaBoost.
+        """
+        self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] == 0 else self.t
+        self.C = parameters['C']
+        self.ensemble_size = parameters['ensemble_size'] if 'ensemble_size' in parameters else 1
 
     def __call__(self, parameters):
         """
@@ -71,6 +84,6 @@ class NELM(NeuralMethod):
 
                 - hidden_neurons: the number of the neurons in the hidden layer.
                 - C: regularization of H matrix.
+                - ensemble_size: (optional) used for meta algorithms as AdaBoost.
         """
-        self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] != 0 else self.t
-        self.C = parameters['C']
+        self.set_params(parameters)

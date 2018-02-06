@@ -86,7 +86,7 @@ def run_test(config_test, n_run=10, j_encoding=True):
 
 if __name__ == '__main__':
     logger = logging.getLogger('PyELM')
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     # Reading JSONs
     with open('config/KELM_newthyroid.json', 'r') as cfg:

@@ -1,9 +1,9 @@
 # PyELM
 
 
-*Package is supervised by [Travis CI](https://travis-ci.org/cperales/PyELM)* [![Build Status](https://travis-ci.org/cperales/PyELM.svg?branch=stable)](https://travis-ci.org/cperales/PyELM)
+*Package is supervised by [Travis Continuous Implementation](https://travis-ci.org/cperales/PyELM)*  [![Build Status](https://travis-ci.org/cperales/PyELM.svg?branch=stable)](https://travis-ci.org/cperales/PyELM)
 
-*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)* [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=stable)
+*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*  [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=stable)
 
 
 This repository contains some supervised machine learning algorithms from the family of

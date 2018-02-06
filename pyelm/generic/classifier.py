@@ -1,9 +1,18 @@
+import logging
+
+logger = logging.getLogger('PyELM')
+
+
 class Classifier(object):
-    def __init__(self, parameters):
+    __name__ = 'Base classifier'
+
+    def __init__(self, parameters=None):
         """
         :param dict parameters: dictionary with the parameters needed for training.
         """
-        pass
+        if parameters is not None:
+            self.set_params(parameters)
+        logger.debug('{} instanced'.format(self.__name__))
 
     def fit(self, train_data, train_target):
         """
@@ -18,5 +27,12 @@ class Classifier(object):
         """
         :param numpy.array test_data: array like.
         :return: predicted labels.
+        """
+        pass
+
+    def set_params(self, parameters):
+        """
+        
+        :param dict parameters: parameters in a dict. 
         """
         pass

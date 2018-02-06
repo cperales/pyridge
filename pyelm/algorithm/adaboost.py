@@ -1,7 +1,4 @@
-import numpy as np
-
-from pyelm import logger_pyelm
-from .nelm import NELM
+from pyelm.algorithm.nelm import NELM
 from pyelm.utils.target_encode import *
 
 
@@ -10,20 +7,11 @@ class AdaBoostNELM(NELM):
     AdaBoost meta-algorithm applied to Neural Extreme Learning
     Machine.
     """
+    __name__ = 'AdaBoost neural network'
+
     weight = None
     alpha = None
     beta_ensemble = None
-
-    def __init__(self, parameters=None):
-        """
-        :param dict parameters: dictionary with the parameters needed for training. It must contain:
-
-                - hidden_neurons: the number of the neurons in the hidden layer.
-                - C: regularization of H matrix.
-        """
-        if parameters is not None:
-            self.__call__(parameters)
-        logger_pyelm.debug('AdaBoost Neural Extreme Learning Machine instanced')
 
     def fit(self, train_data, train_target):
         """
@@ -94,14 +82,3 @@ class AdaBoostNELM(NELM):
 
         test_target = j_renorm(test_target)
         return test_target
-
-    def __call__(self, parameters):
-        """
-        :param dict parameters: dictionary with the parameters needed for training. It must contain:
-
-                - hidden_neurons: the number of the neurons in the hidden layer.
-                - C: regularization of H matrix.
-        """
-        self.C = parameters['C']
-        self.hidden_neurons = parameters['hidden_neurons'] if parameters['hidden_neurons'] != 0 else self.t
-        self.ensemble_size = parameters['ensemble_size'] if 'ensemble_size' in parameters else self.ensemble_size

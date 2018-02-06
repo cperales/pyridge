@@ -42,11 +42,8 @@
           <div class="body" role="main">
             
   <h1>Source code for pyelm.algorithm.adaboost</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">pyelm</span> <span class="k">import</span> <span class="n">logger_pyelm</span>
-<span class="kn">from</span> <span class="nn">.nelm</span> <span class="k">import</span> <span class="n">NELM</span>
-<span class="kn">from</span> <span class="nn">pyelm.clf_utility.target_encode</span> <span class="k">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">pyelm.algorithm.nelm</span> <span class="k">import</span> <span class="n">NELM</span>
+<span class="kn">from</span> <span class="nn">pyelm.utils.target_encode</span> <span class="k">import</span> <span class="o">*</span>
 
 
 <div class="viewcode-block" id="AdaBoostNELM"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.AdaBoostNELM">[docs]</a><span class="k">class</span> <span class="nc">AdaBoostNELM</span><span class="p">(</span><span class="n">NELM</span><span class="p">):</span>
@@ -54,43 +51,35 @@
 <span class="sd">    AdaBoost meta-algorithm applied to Neural Extreme Learning</span>
 <span class="sd">    Machine.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;AdaBoost neural network&#39;</span>
+
     <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">beta_ensemble</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">logger_pyelm</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;AdaBoost Neural Extreme Learning Machine instanced&#39;</span><span class="p">)</span>
-
-<div class="viewcode-block" id="AdaBoostNELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.AdaBoostNELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="AdaBoostNELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.AdaBoostNELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use some train (data and target) and parameters to fit the classifier and construct the rules.</span>
 
-<span class="sd">        :param dict train: dictionary with two keys: &#39;data&#39;, with the features, and &#39;target&#39; with an</span>
-<span class="sd">            array of the labels.</span>
-
-<span class="sd">        :param dict parameters: dictionary with the parameters needed for training. It must contain:</span>
-
-<span class="sd">                - hidden_neurons: the number of the neurons in the hidden layer.</span>
-<span class="sd">                - C: regularization of H matrix.</span>
+<span class="sd">        :param numpy.array train_data: data with features.</span>
+<span class="sd">        :param numpy.array train_target: targets in j codification.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;hidden_neurons&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;hidden_neurons&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">train_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-        <span class="n">n</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>  <span class="c1"># h x m</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bias_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># h x 1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
         <span class="n">bias_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_vector</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-        <span class="n">temp_H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span> <span class="o">+</span> <span class="n">bias_matrix</span>  <span class="c1"># h x n</span>
+        <span class="n">temp_H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span><span class="p">,</span> <span class="n">train_data</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span> <span class="o">+</span> <span class="n">bias_matrix</span>  <span class="c1"># h x n</span>
         <span class="n">H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neuron_fun</span><span class="p">(</span><span class="n">temp_H</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>  <span class="c1"># n x h</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta_ensemble</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ensemble_size</span><span class="p">):</span>
-            <span class="n">beta_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_step</span><span class="p">(</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">train_target</span><span class="o">=</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">])</span>
+            <span class="n">beta_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_step</span><span class="p">(</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">beta_ensemble</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">beta_s</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AdaBoostNELM.fit_step"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.AdaBoostNELM.fit_step">[docs]</a>    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>

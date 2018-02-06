@@ -9,6 +9,8 @@ class KELM(KernelMethod):
     in which a transformation from input features space into "hidden layer" is made
     by a kernel trick.
     """
+    __name__ = 'Kernel Extreme Learning Machine'
+
     def __init__(self, parameters=None):
         """
         :type parameters: dict
@@ -52,10 +54,26 @@ class KELM(KernelMethod):
         test_target = j_renorm(indicator)
         return test_target
 
-    def save_clf_param(self):
-        return {'C': self.C,
-                'k': self.k,
-                'kernel_fun': self.kernel_fun}
+    def get_params(self, deep=False):
+        to_return = None
+        to_return = {'C': self.C,
+                     'k': self.k,
+                     'kernel_fun': self.kernel_fun}
+        if deep is True:
+            to_return.update(self.__dict__)
+        return to_return
+
+    def set_params(self, parameters):
+        """
+        :type parameters: dict
+        :param parameters: dictionary with the parameters needed for training. It must contain:
+
+                - k: length scale of Radial Basis Function kernel
+                - C: regularization.
+        """
+        self.C = parameters['C']
+        self.k = parameters['k']
+        self.kernel_fun = self.kernel(length_scale=self.k)
 
     def __call__(self, parameters):
         """
@@ -65,6 +83,4 @@ class KELM(KernelMethod):
                 - k: length scale of Radial Basis Function kernel
                 - C: regularization.
         """
-        self.C = parameters['C']
-        self.k = parameters['k']  # TODO: it should be more generalized
-        self.kernel_fun = self.kernel(length_scale=self.k)
+        self.set_params(parameters)

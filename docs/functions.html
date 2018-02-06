@@ -49,8 +49,8 @@
 <div class="section" id="cross-validation">
 <h2>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyelm.clf_utility.cross_validation">
-<code class="descclassname">pyelm.clf_utility.</code><code class="descname">cross_validation</code><span class="sig-paren">(</span><em>classifier</em>, <em>train</em>, <em>n_folds=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/clf_utility/cross_val.html#cross_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.clf_utility.cross_validation" title="Permalink to this definition">¶</a></dt>
+<dt id="pyelm.utils.cross_validation">
+<code class="descclassname">pyelm.utils.</code><code class="descname">cross_validation</code><span class="sig-paren">(</span><em>classifier</em>, <em>train_data</em>, <em>train_target</em>, <em>n_folds=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/utils/cross_val.html#cross_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.utils.cross_validation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cross validation function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -58,7 +58,8 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>classifier</strong> – </li>
-<li><strong>train</strong> – </li>
+<li><strong>train_data</strong> – </li>
+<li><strong>train_target</strong> – </li>
 <li><strong>n_folds</strong> – </li>
 </ul>
 </td>
@@ -74,8 +75,8 @@
 <div class="section" id="metrics">
 <h2>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyelm.clf_utility.accuracy">
-<code class="descclassname">pyelm.clf_utility.</code><code class="descname">accuracy</code><span class="sig-paren">(</span><em>predicted_targets</em>, <em>real_targets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/clf_utility/metric.html#accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.clf_utility.accuracy" title="Permalink to this definition">¶</a></dt>
+<dt id="pyelm.utils.accuracy">
+<code class="descclassname">pyelm.utils.</code><code class="descname">accuracy</code><span class="sig-paren">(</span><em>pred_targ</em>, <em>real_targ</em>, <em>j_encoded=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/utils/metric.html#accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.utils.accuracy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Percentage of predicted targets that actually
 coincide with real targets.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -83,8 +84,9 @@ coincide with real targets.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>predicted_targets</strong> – array of the targets according to the classifier.</li>
-<li><strong>real_targets</strong> – array of the real targets.</li>
+<li><strong>pred_targ</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – array of the targets according to the classifier.</li>
+<li><strong>real_targ</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – array of the real targets.</li>
+<li><strong>real_targ</strong> – array of the real targets.</li>
 </ul>
 </td>
 </tr>
@@ -96,8 +98,8 @@ coincide with real targets.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyelm.clf_utility.loss">
-<code class="descclassname">pyelm.clf_utility.</code><code class="descname">loss</code><span class="sig-paren">(</span><em>predicted_targets</em>, <em>real_targets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/clf_utility/metric.html#loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.clf_utility.loss" title="Permalink to this definition">¶</a></dt>
+<dt id="pyelm.utils.loss">
+<code class="descclassname">pyelm.utils.</code><code class="descname">loss</code><span class="sig-paren">(</span><em>predicted_targets</em>, <em>real_targets</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/utils/metric.html#loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.utils.loss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse of the accuracy. It is used for cross validation.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -120,8 +122,8 @@ coincide with real targets.</p>
 <div class="section" id="j-codification-for-targets">
 <h2>J codification for targets<a class="headerlink" href="#j-codification-for-targets" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="pyelm.clf_utility.j_encode">
-<code class="descclassname">pyelm.clf_utility.</code><code class="descname">j_encode</code><span class="sig-paren">(</span><em>targets</em>, <em>n_targ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/clf_utility/target_encode.html#j_encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.clf_utility.j_encode" title="Permalink to this definition">¶</a></dt>
+<dt id="pyelm.utils.j_encode">
+<code class="descclassname">pyelm.utils.</code><code class="descname">j_encode</code><span class="sig-paren">(</span><em>targets</em>, <em>n_targ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/utils/target_encode.html#j_encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.utils.j_encode" title="Permalink to this definition">¶</a></dt>
 <dd><p>ELM classifier needs the targets are vectors: as many components
 as possible targets. The position of the vector which coincide with
 the number of the target is filled with 1, and the rest of the components
@@ -147,8 +149,8 @@ It reduce the number of operations.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyelm.clf_utility.j_renorm">
-<code class="descclassname">pyelm.clf_utility.</code><code class="descname">j_renorm</code><span class="sig-paren">(</span><em>T</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/clf_utility/target_encode.html#j_renorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.clf_utility.j_renorm" title="Permalink to this definition">¶</a></dt>
+<dt id="pyelm.utils.j_renorm">
+<code class="descclassname">pyelm.utils.</code><code class="descname">j_renorm</code><span class="sig-paren">(</span><em>T</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/utils/target_encode.html#j_renorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.utils.j_renorm" title="Permalink to this definition">¶</a></dt>
 <dd><p>The maximum component of each row is filled with 1
 and the rest with 0.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -164,8 +166,8 @@ and the rest with 0.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyelm.clf_utility.j_decode">
-<code class="descclassname">pyelm.clf_utility.</code><code class="descname">j_decode</code><span class="sig-paren">(</span><em>T</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/clf_utility/target_encode.html#j_decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.clf_utility.j_decode" title="Permalink to this definition">¶</a></dt>
+<dt id="pyelm.utils.j_decode">
+<code class="descclassname">pyelm.utils.</code><code class="descname">j_decode</code><span class="sig-paren">(</span><em>T</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/utils/target_encode.html#j_decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.utils.j_decode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform from a matrix to an array of targets
 with normal encoding.</p>
 <table class="docutils field-list" frame="void" rules="none">
