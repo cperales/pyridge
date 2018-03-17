@@ -8,6 +8,7 @@ coveralls==1.2.0
 cvxopt==1.1.9
 cycler==0.10.0
 decorator==4.1.2
+docopt==0.6.2
 docutils==0.14
 entrypoints==0.2.3
 html5lib==1.0b10
@@ -29,6 +30,7 @@ matplotlib==2.1.0
 mistune==0.7.4
 nbconvert==5.3.1
 nbformat==4.4.0
+nose==1.3.7
 notebook==5.2.0
 numpy==1.13.3
 pandas==0.20.3
@@ -42,6 +44,7 @@ Pygments==2.2.0
 pyparsing==2.2.0
 python-dateutil==2.6.1
 pytz==2017.2
+PyYAML==3.12
 pyzmq==16.0.2
 qtconsole==4.3.1
 requests==2.18.4
