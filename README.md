@@ -3,8 +3,9 @@
 
 *Package is supervised by Travis Continuous Implementation*  [![Build Status](https://travis-ci.com/cperales/PyELM.svg?token=1ZnAk4mSgkxzHQ8LGm2Q&branch=master)](https://travis-ci.org/cperales/PyELM)
 
-*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*  [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=stable)
-
+<!---
+*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*  [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=master)
+-->
 
 This repository contains some supervised machine learning algorithms from the family of
 [Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine) learners,
