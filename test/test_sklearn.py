@@ -9,14 +9,14 @@ from sklearn.svm import SVC
 import numpy as np
 import logging
 
-logger = logging.getLogger('PyELM')
+logger = logging.getLogger('PyRidge')
 logger.setLevel(logging.DEBUG)
 
 
 class SklearnSVC(SVC):
     """
     (LAYER CLASS) The object sklearn.svm.SVC with an structure that allows to use
-    cross validation from PyELM library, in order to test against PyELM algorithms.
+    cross validation from PyRidge library, in order to test against PyRidge algorithms.
 
     :param SVC:
     :return:
@@ -91,17 +91,17 @@ def sklearn_comparison():
     run_test(config_SVC_hepatitis, n_run=10, j_encoding=False)
 
     logger.info('\n')
-    logger.info('KELM test')
-    # KELM
-    with open('config/KELM_hepatitis.json', 'r') as cfg:
-        config_KELM_hepatitis = json.load(cfg)
-    run_test(config_KELM_hepatitis, n_run=10)
+    logger.info('KRidge test')
+    # KRidge
+    with open('config/KRidge_hepatitis.json', 'r') as cfg:
+        config_KRidge_hepatitis = json.load(cfg)
+    run_test(config_KRidge_hepatitis, n_run=10)
 
 
 def sklearn_check_estimator():
     from sklearn.utils.estimator_checks import check_estimator
-    from pyelm import NELM
-    check_estimator(NELM)
+    from pyelm import NRidge
+    check_estimator(NRidge)
 
 
 if __name__ == '__main__':

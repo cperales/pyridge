@@ -3,7 +3,7 @@ from pyelm.utils.target_encode import j_renorm
 from pyelm.generic import KernelMethod
 
 
-class KELM(KernelMethod):
+class KRidge(KernelMethod):
     """
     Kernel Extreme Learning Machine. Kernel version
     of the Extreme Learning Machine, in which a

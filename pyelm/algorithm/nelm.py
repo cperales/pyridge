@@ -3,7 +3,7 @@ from pyelm.utils.target_encode import j_renorm
 from pyelm.generic import NeuralMethod
 
 
-class NELM(NeuralMethod):
+class NRidge(NeuralMethod):
     """
     Neural Extreme Learning Machine. Neural Network's version
     of the Extreme Learning Machine, in which "first layer"

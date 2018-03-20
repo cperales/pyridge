@@ -85,25 +85,25 @@ def run_test(config_test, n_run=10, j_encoding=True):
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger('PyELM')
+    logger = logging.getLogger('PyRidge')
     logger.setLevel(logging.DEBUG)
 
     # Reading JSONs
-    with open('config/KELM_newthyroid.json', 'r') as cfg:
-        config_KELM_newthyroid = json.load(cfg)
+    with open('config/KRidge_newthyroid.json', 'r') as cfg:
+        config_KRidge_newthyroid = json.load(cfg)
 
-    with open('config/NELM_newthyroid.json', 'r') as cfg:
-        config_NELM_newthyroid = json.load(cfg)
+    with open('config/NRidge_newthyroid.json', 'r') as cfg:
+        config_NRidge_newthyroid = json.load(cfg)
 
-    with open('config/AdaBoostNELM_newthyroid.json', 'r') as cfg:
-        config_AdaBoostNELM_newthyroid = json.load(cfg)
+    with open('config/AdaBoostNRidge_newthyroid.json', 'r') as cfg:
+        config_AdaBoostNRidge_newthyroid = json.load(cfg)
 
     # Run tests
     logging.info('Starting tests...')
     logging.info('Running Kernel Extreme Learning Machine test')
-    run_test(config_KELM_newthyroid)
+    run_test(config_KRidge_newthyroid)
     logging.info('Running Neural Extreme Learning Machine test')
-    run_test(config_NELM_newthyroid)
+    run_test(config_NRidge_newthyroid)
     logging.info('Running AdaBoost Neural Extreme Learning Machine test')
-    run_test(config_AdaBoostNELM_newthyroid)
+    run_test(config_AdaBoostNRidge_newthyroid)
     logging.info('Tests have finished!')

@@ -5,7 +5,7 @@ from sklearn.model_selection import KFold
 from pyelm.utils import loss
 import logging
 
-logger = logging.getLogger('PyELM')
+logger = logging.getLogger('PyRidge')
 
 
 def cross_validation(classifier, train_data, train_target, n_folds=5):

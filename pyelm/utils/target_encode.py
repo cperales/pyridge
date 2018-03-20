@@ -17,7 +17,7 @@ def j_renorm(T):
 
 def j_encode(targets, n_targ=None):
     """
-    ELM classifier needs the targets are vectors: as many components
+    Ridge classifier needs the targets are vectors: as many components
     as possible targets. The position of the vector which coincide with
     the number of the target is filled with 1, and the rest of the components
     is 0.

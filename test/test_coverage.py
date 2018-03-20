@@ -5,7 +5,7 @@ from test_kelm import test_newthyroid as test_kelm
 
 import logging
 
-logger = logging.getLogger('PyELM')
+logger = logging.getLogger('PyRidge')
 logger.setLevel(logging.DEBUG)
 
 # Data
@@ -24,7 +24,7 @@ def test_nelm():
     """
     Simple test with a UCI database.
     """
-    algorithm = algorithm_dict['NELM']
+    algorithm = algorithm_dict['NRidge']
     clf = algorithm()
     clf.fit(train_data=train_data, train_target=train_j_target)
     pred_targ = clf.predict(test_data=test_data)
@@ -34,7 +34,7 @@ def test_adaboost():
     """
     Simple test with a UCI database.
     """
-    algorithm = algorithm_dict['AdaBoostNELM']
+    algorithm = algorithm_dict['AdaBoostNRidge']
     clf = algorithm()
     clf.ensemble_size = 3
     clf.fit(train_data=train_data, train_target=train_j_target)

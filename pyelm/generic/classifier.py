@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger('PyELM')
+logger = logging.getLogger('PyRidge')
 
 
 class Classifier(object):

@@ -5,7 +5,7 @@ from pyelm.utils.preprocess import prepare_data
 
 import logging
 
-logger = logging.getLogger('PyELM')
+logger = logging.getLogger('PyRidge')
 logger.setLevel(logging.DEBUG)
 
 
@@ -31,7 +31,7 @@ def test_newthyroid(train_data=None,
 
     # Algorithm
     metric = metric_dict['accuracy']
-    algorithm = algorithm_dict['KELM']
+    algorithm = algorithm_dict['KRidge']
     C_range = [10**i for i in range(-2, 3)]
     k_range = [10**i for i in range(-2, 3)]
     kernel_fun = 'rbf'
@@ -47,7 +47,7 @@ def test_newthyroid(train_data=None,
     acc = metric(pred_targ=pred_targ,
                  real_targ=test_j_target)
 
-    logger.info('Accuracy for algorithm KELM and dataset newthyroid.0,'
+    logger.info('Accuracy for algorithm KRidge and dataset newthyroid.0,'
                 ' is {}'.format(acc))
 
 

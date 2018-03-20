@@ -1,7 +1,7 @@
-from .nelm import NELM
-from .adaboost import AdaBoostNELM
-from .kelm import KELM
+from .nelm import NRidge
+from .adaboost import AdaBoostNRidge
+from .kelm import KRidge
 
-algorithm_dict = {'NELM': NELM,
-                  'AdaBoostNELM': AdaBoostNELM,
-                  'KELM': KELM}
+algorithm_dict = {'NRidge': NRidge,
+                  'AdaBoostNRidge': AdaBoostNRidge,
+                  'KRidge': KRidge}
