@@ -1,4 +1,4 @@
-from numpy import np
+import numpy as np
 from pyelm.utils.target_encode import j_renorm
 from pyelm.generic import NeuralMethod
 

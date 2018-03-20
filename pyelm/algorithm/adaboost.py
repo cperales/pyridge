@@ -1,4 +1,4 @@
-import nump as np
+import numpy as np
 from pyelm.algorithm.nelm import NELM
 from pyelm.utils.target_encode import j_renorm
 
