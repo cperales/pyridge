@@ -29,16 +29,20 @@ class NeuralMethod(Classifier):
         # Neuron function
         self.neuron_fun = neuron_fun_dict[hyperparameters['neuronFun']]
         # Number of neurons in the hidden layer
-        self.grid_param['hidden_neurons'] = np.array(hyperparameters['hiddenNeurons'])
+        self.grid_param['hidden_neurons'] = \
+            np.array(hyperparameters['hiddenNeurons'])
         # Regularization
-        self.grid_param['C'] = np.array(hyperparameters['C']) if 'C' in hyperparameters \
+        self.grid_param['C'] = np.array(hyperparameters['C']) if \
+            'C' in hyperparameters \
             else np.array([0], dtype=np.float)
         # Ensemble
-        self.ensemble_size = hyperparameters['ensembleSize'] if 'ensembleSize' \
+        self.ensemble_size = hyperparameters['ensembleSize'] if \
+            'ensembleSize' \
             in hyperparameters else 1
         # Negative correlation
-        self.grid_param['lambda_nc'] = np.array(hyperparameters['lambda']) if 'lambda' in hyperparameters \
+        self.grid_param['lambda_nc'] = np.array(hyperparameters['lambda']) \
+            if 'lambda' in hyperparameters \
             else np.array([0], dtype=np.float)
         # Diversity
-        self.grid_param['D'] = np.array(hyperparameters['D']) if 'D' in hyperparameters \
-            else np.array([0], dtype=np.float)
+        self.grid_param['D'] = np.array(hyperparameters['D']) if \
+            'D' in hyperparameters else np.array([0], dtype=np.float)

@@ -1,20 +1,21 @@
-from pyelm import logger_pyelm
-from pyelm.utils.target_encode import *
+import numpy as np
+from pyelm.utils.target_encode import j_renorm
 from pyelm.generic import KernelMethod
 
 
 class KELM(KernelMethod):
     """
-    Kernel Extreme Learning Machine. Kernel version of the Extreme Learning Machine,
-    in which a transformation from input features space into "hidden layer" is made
-    by a kernel trick.
+    Kernel Extreme Learning Machine. Kernel version
+    of the Extreme Learning Machine, in which a
+    transformation from input features space into
+    "hidden layer" is made by a kernel trick.
     """
     __name__ = 'Kernel Extreme Learning Machine'
 
     def fit(self, train_data, train_target):
         self.t = train_target.shape[1]
         n = train_data.shape[0]
-        m = train_data.shape[1]
+        # m = train_data.shape[1]
         self.train_data = train_data
 
         omega_train = self.kernel_fun(X=self.train_data)
@@ -22,14 +23,17 @@ class KELM(KernelMethod):
         if self.C == 0:  # No regularization
             self.output_weight = np.linalg.solve(omega_train, train_target)
         else:
-            # alpha = np.eye(H.shape[0]) / self.C + np.dot(H, H.transpose())
-            # self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train_target))
+            # alpha = np.eye(H.shape[0]) / self.C + \
+            #         np.dot(H, H.transpose())
+            # self.output_weight = np.dot(H.transpose(),
+            #                             np.linalg.solve(alpha, train_target))
             alpha = omega_train + np.eye(n) / self.C
             self.output_weight = np.linalg.solve(alpha, train_target)
 
     def predict(self, test_data):
         """
-        Once instanced, classifier can predict test target from test data, using some mathematical
+        Once instanced, classifier can predict test target
+        from test data, using some mathematical
         rules.
 
         :param numpy.array test_data: matrix of data to predict.
@@ -52,7 +56,8 @@ class KELM(KernelMethod):
     def set_params(self, parameters):
         """
         :type parameters: dict
-        :param parameters: dictionary with the parameters needed for training. It must contain:
+        :param parameters: dictionary with the parameters needed
+            for training. It must contain:
 
                 - k: length scale of Radial Basis Function kernel
                 - C: regularization.
@@ -64,7 +69,8 @@ class KELM(KernelMethod):
     def __call__(self, parameters):
         """
         :type parameters: dict
-        :param parameters: dictionary with the parameters needed for training. It must contain:
+        :param parameters: dictionary with the parameters needed
+            for training. It must contain:
 
                 - k: length scale of Radial Basis Function kernel
                 - C: regularization.

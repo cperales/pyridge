@@ -5,11 +5,11 @@ from .cross_val import cross_validation
 
 metric_dict = {'accuracy': accuracy}
 
-__all__ = [save_classifier,
-           load_classifier,
-           accuracy,
-           loss,
-           j_decode,
-           j_encode,
-           j_renorm,
-           cross_validation]
+__all__ = ['save_classifier',
+           'load_classifier',
+           'accuracy',
+           'loss',
+           'j_decode',
+           'j_encode',
+           'j_renorm',
+           'cross_validation']

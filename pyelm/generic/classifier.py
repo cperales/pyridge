@@ -8,7 +8,8 @@ class Classifier(object):
 
     def __init__(self, parameters=None):
         """
-        :param dict parameters: dictionary with the parameters needed for training.
+        :param dict parameters: dictionary with the parameters
+            needed for training.
         """
         if parameters is not None:
             self.set_params(parameters)
@@ -16,7 +17,8 @@ class Classifier(object):
 
     def fit(self, train_data, train_target):
         """
-        Use some train (data and target) and parameters to fit the classifier and construct the rules.
+        Use some train (data and target) and parameters to fit
+        the classifier and construct the rules.
 
         :param numpy.array train_data: data with features.
         :param numpy.array train_target: targets in j codification.
@@ -32,7 +34,6 @@ class Classifier(object):
 
     def set_params(self, parameters):
         """
-        
-        :param dict parameters: parameters in a dict. 
+        :param dict parameters: parameters in a dict.
         """
         pass
