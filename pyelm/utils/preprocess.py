@@ -16,22 +16,22 @@ def prepare_data(folder,
         the dataset is.
     :param str dataset: name of the dataset to load.
     :param int n_targ: number of labels to classify.
-    :param header:
-    :param sep:
-    :param bool j_encoding:
+    :param list header: header list.
+    :param str sep: separator in string form. Default is spaces.
+    :param bool j_encoding: target needs to be encoded or not.
     :return:
     """
-    train_file_name = os.path.join(folder, dataset)
-    train_file = pd.read_csv(train_file_name,
-                             sep=sep,
-                             header=header)
-    train_file_matrix = train_file.as_matrix()
-    train_file_matrix_t = train_file_matrix.transpose()
-    train_target = train_file_matrix_t[-1].transpose()
-    train_data = train_file_matrix_t[:-1].transpose()
-    train_data = preprocessing.scale(train_data)
+    file_name = os.path.join(folder, dataset)
+    file = pd.read_csv(file_name,
+                       sep=sep,
+                       header=header)
+    file_matrix = file.as_matrix()
+    file_matrix_t = file_matrix.transpose()
+    target = file_matrix_t[-1].transpose()
+    data = file_matrix_t[:-1].transpose()
+    data = preprocessing.scale(data)
 
     if j_encoding is True:
-        train_target = j_encode(train_target, n_targ=n_targ)
+        target = j_encode(target, n_targ=n_targ)
 
-    return train_data, train_target
+    return data, target
