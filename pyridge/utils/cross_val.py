@@ -2,7 +2,7 @@ import numpy as np
 import itertools
 # from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
-from pyelm.utils import loss
+from pyridge.utils import loss
 import logging
 
 logger = logging.getLogger('PyRidge')

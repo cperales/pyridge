@@ -1,7 +1,7 @@
-from pyelm.utils.preprocess import prepare_data
-from pyelm.utils import accuracy
-from pyelm.utils import cross_validation
-from pyelm.algorithm import algorithm_dict
+from pyridge.utils.preprocess import prepare_data
+from pyridge.utils import accuracy
+from pyridge.utils import cross_validation
+from pyridge.algorithm import algorithm_dict
 from test_json import run_test
 
 import json
@@ -100,7 +100,7 @@ def sklearn_comparison():
 
 def sklearn_check_estimator():
     from sklearn.utils.estimator_checks import check_estimator
-    from pyelm import NRidge
+    from pyridge import NRidge
     check_estimator(NRidge)
 
 

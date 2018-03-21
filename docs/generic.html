@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Generic classes &#8212; PyELM  documentation</title>
+    <title>Generic classes &#8212; PyRidge  documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,7 +24,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Algorithms" href="algorithms.html" />
-    <link rel="prev" title="Welcome to PyELM’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to PyRidge’s documentation!" href="index.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -37,9 +37,9 @@
           <a href="algorithms.html" title="Algorithms"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to PyELM’s documentation!"
+          <a href="index.html" title="Welcome to PyRidge’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyELM  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyRidge  documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -54,24 +54,76 @@
 <div class="section" id="classifier">
 <h2>Classifier<a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyelm.generic.Classifier">
-<em class="property">class </em><code class="descclassname">pyelm.generic.</code><code class="descname">Classifier</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/generic/classifier.html#Classifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.generic.Classifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pyridge.generic.Classifier">
+<em class="property">class </em><code class="descclassname">pyridge.generic.</code><code class="descname">Classifier</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pyridge.generic.Classifier.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some train (data and target) and parameters to fit
+the classifier and construct the rules.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>train_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – data with features.</li>
+<li><strong>train_target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – targets in j codification.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.generic.Classifier.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier.predict" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – array like.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.generic.Classifier.set_params">
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – parameters in a dict.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="neural-method">
 <h2>Neural Method<a class="headerlink" href="#neural-method" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyelm.generic.NeuralMethod">
-<em class="property">class </em><code class="descclassname">pyelm.generic.</code><code class="descname">NeuralMethod</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/generic/neural.html#NeuralMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.generic.NeuralMethod" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.generic.NeuralMethod">
+<em class="property">class </em><code class="descclassname">pyridge.generic.</code><code class="descname">NeuralMethod</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/neural.html#NeuralMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.NeuralMethod" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="pyridge.generic.NeuralMethod.neuron_fun">
+<code class="descname">neuron_fun</code><em class="property"> = &lt;ufunc 'expit'&gt;</em><a class="headerlink" href="#pyridge.generic.NeuralMethod.neuron_fun" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="kernel-method">
 <h2>Kernel Method<a class="headerlink" href="#kernel-method" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">pyelm.generic.</code><code class="descname">NeuralMethod</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/generic/neural.html#NeuralMethod"><span class="viewcode-link">[source]</span></a></dt>
+<dt id="pyridge.generic.KernelMethod">
+<em class="property">class </em><code class="descclassname">pyridge.generic.</code><code class="descname">KernelMethod</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/kernel.html#KernelMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.KernelMethod" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -85,7 +137,7 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to PyELM’s documentation!</a></p>
+                        title="previous chapter">Welcome to PyRidge’s documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="algorithms.html"
                         title="next chapter">Algorithms</a></p>
@@ -113,9 +165,9 @@
           <a href="algorithms.html" title="Algorithms"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Welcome to PyELM’s documentation!"
+          <a href="index.html" title="Welcome to PyRidge’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyELM  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyRidge  documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

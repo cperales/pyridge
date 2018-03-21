@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pyelm.generic.neural &#8212; PyELM  documentation</title>
+    <title>pyelm.generic.neural &#8212; PyRidge  documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -31,7 +31,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyELM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyRidge  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -54,9 +54,8 @@
 
 
 <div class="viewcode-block" id="NeuralMethod"><a class="viewcode-back" href="../../../generic.html#pyelm.generic.NeuralMethod">[docs]</a><span class="k">class</span> <span class="nc">NeuralMethod</span><span class="p">(</span><span class="n">Classifier</span><span class="p">):</span>
-    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Neural network&#39;</span>
     <span class="c1"># Cross validated parameters</span>
-    <span class="n">neuron_fun</span> <span class="o">=</span> <span class="n">expit</span>
+    <span class="n">neuron_fun</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">hidden_neurons</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">lambda_nc</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">C</span> <span class="o">=</span> <span class="mi">0</span>
@@ -69,22 +68,22 @@
     <span class="n">output_weight</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">t</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># At least, 2 labels are classified</span>
 
-    <span class="k">def</span> <span class="nf">set_cv_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hyperparameters</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_range_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_conf</span><span class="p">):</span>
         <span class="c1"># Neuron function</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">neuron_fun</span> <span class="o">=</span> <span class="n">neuron_fun_dict</span><span class="p">[</span><span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;neuronFun&#39;</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">neuron_fun</span> <span class="o">=</span> <span class="n">neuron_fun_dict</span><span class="p">[</span><span class="n">method_conf</span><span class="p">[</span><span class="s1">&#39;neuronFun&#39;</span><span class="p">]]</span>
         <span class="c1"># Number of neurons in the hidden layer</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;hidden_neurons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;hiddenNeurons&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;hidden_neurons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">method_conf</span><span class="p">[</span><span class="s1">&#39;hiddenNeurons&#39;</span><span class="p">])</span>
         <span class="c1"># Regularization</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;C&#39;</span> <span class="ow">in</span> <span class="n">hyperparameters</span> \
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">method_conf</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;C&#39;</span> <span class="ow">in</span> <span class="n">method_conf</span> \
             <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
         <span class="c1"># Ensemble</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ensemble_size</span> <span class="o">=</span> <span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;ensembleSize&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;ensembleSize&#39;</span> \
-            <span class="ow">in</span> <span class="n">hyperparameters</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ensemble_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">method_conf</span><span class="p">[</span><span class="s1">&#39;ensembleSize&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;ensembleSize&#39;</span> <span class="ow">in</span> <span class="n">method_conf</span> \
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
         <span class="c1"># Negative correlation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;lambda_nc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;lambda&#39;</span> <span class="ow">in</span> <span class="n">hyperparameters</span> \
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;lambda_nc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">method_conf</span><span class="p">[</span><span class="s1">&#39;lambda&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;lambda&#39;</span> <span class="ow">in</span> <span class="n">method_conf</span> \
             <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
         <span class="c1"># Diversity</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hyperparameters</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;D&#39;</span> <span class="ow">in</span> <span class="n">hyperparameters</span> \
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_param</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">method_conf</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span> <span class="k">if</span> <span class="s1">&#39;D&#39;</span> <span class="ow">in</span> <span class="n">method_conf</span> \
             <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span></div>
 </pre></div>
 
@@ -113,7 +112,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyELM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyRidge  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

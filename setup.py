@@ -1,15 +1,15 @@
 from setuptools import setup
 
 setup(
-    name="pyelm",
-    description="Extreme Learning Machine in Python",
-    version="0.6",
+    name="pyridge",
+    description="Ridge Classification in Python",
+    version="1.0",
     author="Carlos Perales",
     author_email="cperales@uloyola.es",
-    packages=['pyelm',
-              'pyelm.algorithm',
-              'pyelm.utils',
-              'pyelm.generic'
+    packages=['pyridge',
+              'pyridge.algorithm',
+              'pyridge.utils',
+              'pyridge.generic'
     ],
     zip_safe=False,
     install_requires=[],

@@ -1,21 +1,24 @@
-# PyELM
-
-
-*Package is supervised by Travis Continuous Implementation*  [![Build Status](https://travis-ci.com/cperales/PyELM.svg?token=1ZnAk4mSgkxzHQ8LGm2Q&branch=master)](https://travis-ci.com/cperales/PyELM)
+# PyRidge
 
 <!---
+*Package is supervised by Travis Continuous Implementation*  [![Build Status](https://travis-ci.com/cperales/PyELM.svg?token=1ZnAk4mSgkxzHQ8LGm2Q&branch=master)](https://travis-ci.com/cperales/PyELM)
 *Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*  [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=master)
 -->
 
 This repository contains some supervised machine learning algorithms from the family of
-[Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine) learners,
-which are a special type of feedforward neural network.
+[Ridge Classification](https://en.wikipedia.org/wiki/Extreme_learning_machine), also known as
+[Tikhonov regularization](https://en.wikipedia.org/wiki/Tikhonov_regularization) or 
+[Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine). Although ELM is a polemic topic,
+due to the accusations of plagiarism (see more [here](https://github.com/scikit-learn/scikit-learn/pull/10602) and
+[here](https://www.reddit.com/r/MachineLearning/comments/34y2nk/the_elm_scandal_a_formal_complaint_launched/)),
+some actual research is done by applying ensemble techniques to Ridge Classification ([3, 4]), some some papers
+are used for implementing algorithms.
 
 Main motivation of this repository is translating from MATLAB to Python 3 what
 [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science
-in [Universidad Loyola Andalucía](https://www.uloyola.es/investigacion/departamentos/metodos-cuantitativos).
+in [Universidad Loyola Andalucía](https://www.uloyola.es/en/research/departments/quantitative-methods-department).
 
-Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/PyELM/).
+Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/PyRidge/).
 
 ## How to install it within a virtual environment
 
@@ -54,13 +57,13 @@ python setup.py install
 
 Right now, there are the following algorithms programmed:
 
-* Neural Extreme Learning Machine (NELM) [1]
-* Kernel Extreme Learning Machine (KELM) [1]
-* AdaBoost Neural Extreme Learning Machine (AdaBoostNELM) [2]
+* Kernel Ridge (KRidge) [1]
+* Neural Ridge (NRidge) [2]
+* AdaBoost Neural Ridge (AdaBoostNRidge) [2]
 
 ## Code documentation
 
-Documentation is published [online](https://cperales.github.io/PyELM/). It can also be compiled locally, just having
+Documentation is published [online](https://cperales.github.io/PyRidge/). It can also be compiled locally, just having
 `sphinx` installed. In the main directory, run the following code:
 
 ```bash
@@ -92,13 +95,14 @@ By default, logging level is set to `DEBUG`.
 
 ## How to use a classifier manually
 
-It is also useful to know how to use a classifier. In this framework, a classifier is an object with different methods, that allows you to train from data, predict a label for test data, save the classifier...
+It is also useful to know how to use a classifier. In this framework, a classifier is an object with different methods,
+that allows you to train from data, predict a label for test data, save the classifier...
 
-Training a classifier, for example, a Kernel Extreme Learning Machine:
+Training a classifier, for example, a Kernel Ridge classifier:
 
 ```python
-from pyelm.algorithm import KELM
-from pyelm.utils.preprocess import prepare_data
+from pyridge.algorithm import KRidge
+from pyridge.utils.preprocess import prepare_data
 
 # Data
 folder = 'data/newthyroid'
@@ -106,7 +110,7 @@ train_dataset = 'train_newthyroid.0'
 train_data, train_target = prepare_data(folder=folder,
                                           dataset=train_dataset)
 # Classifier                                        
-clf = KELM()
+clf = KRidge()
 clf.fit(train_data=train_data, train_target=train_target)
 ``` 
 
@@ -126,11 +130,19 @@ predicted_labels = clf.predict(test_data=test_data)
 
 ## Bibliography
 
-[1]: G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
+[1]: S. An, W. Liu and S. Venkatesh, "Face Recognition Using Kernel Ridge
+Regression," 2007 IEEE Conference on Computer Vision and Pattern Recognition,
+Minneapolis, MN, 2007, pp. 1-7.
+
+[2]: G.-B. Huang, H. Zhou, X. Ding, and R. Zhang, “Extreme learning machine
 for regression and multiclass classification,” IEEE Trans. Syst. man, Cybern.
 Part B, Cybern., vol. 42, no. 2, pp. 513–29, 2012.
 
-[2] A. Riccardi, F. Fernández-Navarro, S. Carloni, F. Fernandez-Navarro,
+[3]: A. Riccardi, F. Fernández-Navarro, S. Carloni, F. Fernandez-Navarro,
 and S. Carloni, “Cost-sensitive AdaBoost algorithm for ordinal regression
 based on extreme learning machine,” IEEE Trans. Cybern., vol. 44, no. 10,
 pp. 1898–1909, 2014.
+
+[4]: Wang, S., Chen, H., & Yao, X. (2010, July). Negative correlation
+learning for classification ensembles. In Neural Networks (IJCNN),
+The 2010 International Joint Conference on (pp. 1-8). IEEE.

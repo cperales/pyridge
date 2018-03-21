@@ -1,6 +1,6 @@
 import numpy as np
 
-from pyelm.utils.target_encode import j_decode
+from pyridge.utils.target_encode import j_decode
 
 
 # Metrics once classifier is fit and new data is classified

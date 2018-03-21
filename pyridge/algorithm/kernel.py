@@ -1,16 +1,13 @@
 import numpy as np
-from pyelm.utils.target_encode import j_renorm
-from pyelm.generic import KernelMethod
+from pyridge.utils.target_encode import j_renorm
+from pyridge.generic import KernelMethod
 
 
 class KRidge(KernelMethod):
     """
-    Kernel Extreme Learning Machine. Kernel version
-    of the Extreme Learning Machine, in which a
-    transformation from input features space into
-    "hidden layer" is made by a kernel trick.
+    Kernel Ridge classifier.
     """
-    __name__ = 'Kernel Extreme Learning Machine'
+    __name__ = 'Kernel Ridge classifier'
 
     def fit(self, train_data, train_target):
         self.t = train_target.shape[1]
@@ -23,11 +20,7 @@ class KRidge(KernelMethod):
         if self.C == 0:  # No regularization
             self.output_weight = np.linalg.solve(omega_train, train_target)
         else:
-            # alpha = np.eye(H.shape[0]) / self.C + \
-            #         np.dot(H, H.transpose())
-            # self.output_weight = np.dot(H.transpose(),
-            #                             np.linalg.solve(alpha, train_target))
-            alpha = omega_train + np.eye(n) / self.C
+            alpha = omega_train * self.C + np.eye(n)
             self.output_weight = np.linalg.solve(alpha, train_target)
 
     def predict(self, test_data):

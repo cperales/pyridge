@@ -1,7 +1,7 @@
-from pyelm.utils import metric_dict
-from pyelm.algorithm import algorithm_dict
-from pyelm.utils import cross_validation
-from pyelm.utils.preprocess import prepare_data
+from pyridge.utils import metric_dict
+from pyridge.algorithm import algorithm_dict
+from pyridge.utils import cross_validation
+from pyridge.utils.preprocess import prepare_data
 
 import logging
 

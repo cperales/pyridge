@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.special import expit
 
-from pyelm.generic.classifier import Classifier
+from pyridge.generic.classifier import Classifier
 
 neuron_fun_dict = {'sin': np.sin,
                    'hard': lambda x: np.array(x > 0.0, dtype=float),

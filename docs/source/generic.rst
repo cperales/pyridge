@@ -5,12 +5,16 @@ The different algorithms in this library inherits from these generic classes.
 
 Classifier
 -----------
-.. autoclass:: pyelm.generic.Classifier
+.. autoclass:: pyridge.generic.Classifier
+    :members:
 
 Neural Method
 --------------
-.. autoclass:: pyelm.generic.NeuralMethod
+.. autoclass:: pyridge.generic.NeuralMethod
+    :members:
+
 
 Kernel Method
 --------------
-.. autoclass:: pyelm.generic.NeuralMethod
+.. autoclass:: pyridge.generic.KernelMethod
+    :members:

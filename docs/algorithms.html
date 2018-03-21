@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Algorithms &#8212; PyELM  documentation</title>
+    <title>Algorithms &#8212; PyRidge  documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="generic.html" title="Generic classes"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyELM  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyRidge  documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -50,18 +50,20 @@
             
   <div class="section" id="algorithms">
 <h1>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="neural-extreme-learning-machine">
-<h2>Neural Extreme Learning Machine<a class="headerlink" href="#neural-extreme-learning-machine" title="Permalink to this headline">¶</a></h2>
-<p>Simplest ELM possible! The interactions with hidden nodes are chosen randomly.</p>
+<div class="section" id="neural-ridge-classifier">
+<h2>Neural Ridge Classifier<a class="headerlink" href="#neural-ridge-classifier" title="Permalink to this headline">¶</a></h2>
+<p>Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.</p>
 <dl class="class">
-<dt id="pyelm.algorithm.NELM">
-<em class="property">class </em><code class="descclassname">pyelm.algorithm.</code><code class="descname">NELM</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/nelm.html#NELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.NELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Neural Extreme Learning Machine. Neural Network’s version of the Extreme Learning Machine,
-in which “first layer” neuron’s weights are chosen randomly.</p>
+<dt id="pyridge.algorithm.NRidge">
+<em class="property">class </em><code class="descclassname">pyridge.algorithm.</code><code class="descname">NRidge</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural Ridge classifier, also known as Extreme Learning Machine.
+It works as a single hidden layer neural network where
+neuron’s weights are chosen randomly.</p>
 <dl class="method">
-<dt id="pyelm.algorithm.NELM.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/nelm.html#NELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.NELM.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use some train (data and target) and parameters to fit the classifier and construct the rules.</p>
+<dt id="pyridge.algorithm.NRidge.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some train (data and target) and parameters to
+fit the classifier and construct the rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -77,13 +79,13 @@ in which “first layer” neuron’s weights are chosen randomly.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyelm.algorithm.NELM.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/nelm.html#NELM.get_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.NELM.get_params" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.algorithm.NRidge.get_params">
+<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.get_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.get_params" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If just wants the hyperparameters, <cite>deep  = False</cite>.
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – If just wants the hyperparameters, <cite>deep  = False</cite>.
 For getting subobjects and methods, <cite>deep = True</cite>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Parameters as a dictionary.</td>
@@ -93,10 +95,10 @@ For getting subobjects and methods, <cite>deep = True</cite>.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyelm.algorithm.NELM.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/nelm.html#NELM.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.NELM.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once instanced, classifier can predict test target from test data, using some mathematical
-rules.</p>
+<dt id="pyridge.algorithm.NRidge.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once instanced, classifier can predict test target
+from test data, using some mathematical rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -110,18 +112,29 @@ rules.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyelm.algorithm.NELM.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/nelm.html#NELM.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.NELM.set_params" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.algorithm.NRidge.set_params">
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – <p>dictionary with the parameters needed for training. It must contain:</p>
-<ul class="simple">
-<li>hidden_neurons: the number of the neurons in the hidden layer.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – <p>dictionary with the parameters
+needed for training. It must contain:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>hidden_neurons: the number of the</dt>
+<dd>neurons in the hidden layer.</dd>
+</dl>
+</li>
 <li>C: regularization of H matrix.</li>
-<li>ensemble_size: (optional) used for meta algorithms as AdaBoost.</li>
+<li><dl class="first docutils">
+<dt>ensemble_size: (optional) used for</dt>
+<dd>meta algorithms as AdaBoost.</dd>
+</dl>
+</li>
 </ul>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -131,86 +144,28 @@ rules.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="adaboost-neural-extreme-learning-machine">
-<h2>AdaBoost Neural Extreme Learning Machine<a class="headerlink" href="#adaboost-neural-extreme-learning-machine" title="Permalink to this headline">¶</a></h2>
-<p>AdaBoost meta-algorithm with Neural ELM as learner base.</p>
+<div class="section" id="adaboost-neural-ridge-classifier">
+<h2>AdaBoost Neural Ridge Classifier<a class="headerlink" href="#adaboost-neural-ridge-classifier" title="Permalink to this headline">¶</a></h2>
+<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
 <dl class="class">
-<dt id="pyelm.algorithm.AdaBoostNELM">
-<em class="property">class </em><code class="descclassname">pyelm.algorithm.</code><code class="descname">AdaBoostNELM</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/adaboost.html#AdaBoostNELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.AdaBoostNELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>AdaBoost meta-algorithm applied to Neural Extreme Learning
-Machine.</p>
-<dl class="method">
-<dt id="pyelm.algorithm.AdaBoostNELM.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/adaboost.html#AdaBoostNELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.AdaBoostNELM.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use some train (data and target) and parameters to fit the classifier and construct the rules.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>train_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – data with features.</li>
-<li><strong>train_target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – targets in j codification.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyelm.algorithm.AdaBoostNELM.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>H</em>, <em>train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/adaboost.html#AdaBoostNELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.AdaBoostNELM.fit_step" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>H</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – matrix that symbolises connection from input neurons to the ones
-from the hidden layer.</li>
-<li><strong>train_target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – target from the training data.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">beta matrix for each iteration of the s ensemble.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyelm.algorithm.AdaBoostNELM.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/adaboost.html#AdaBoostNELM.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.AdaBoostNELM.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once instanced, classifier can predict test target from test data, using some mathematical
-rules.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – matrix of data to predict.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">matrix of the predicted targets.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<dt id="pyridge.algorithm.AdaBoostNRidge">
+<em class="property">class </em><code class="descclassname">pyridge.algorithm.</code><code class="descname">AdaBoostNRidge</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/adaboost.html#AdaBoostNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.AdaBoostNRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBoost meta-algorithm applied to Neural Ridge.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="kernel-extreme-learning-machine">
-<h2>Kernel Extreme Learning Machine<a class="headerlink" href="#kernel-extreme-learning-machine" title="Permalink to this headline">¶</a></h2>
-<p>Extreme Learning Machine with a kernel function as “hidden layer”.</p>
+<div class="section" id="kernel-ridge-classifier">
+<h2>Kernel Ridge Classifier<a class="headerlink" href="#kernel-ridge-classifier" title="Permalink to this headline">¶</a></h2>
+<p>Kernel ridge classifier.</p>
 <dl class="class">
-<dt id="pyelm.algorithm.KELM">
-<em class="property">class </em><code class="descclassname">pyelm.algorithm.</code><code class="descname">KELM</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/kelm.html#KELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.KELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel Extreme Learning Machine. Kernel version of the Extreme Learning Machine,
-in which a transformation from input features space into “hidden layer” is made
-by a kernel trick.</p>
+<dt id="pyridge.algorithm.KRidge">
+<em class="property">class </em><code class="descclassname">pyridge.algorithm.</code><code class="descname">KRidge</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/kernel.html#KRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.KRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel Ridge classifier.</p>
 <dl class="method">
-<dt id="pyelm.algorithm.KELM.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/kelm.html#KELM.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.KELM.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once instanced, classifier can predict test target from test data, using some mathematical
+<dt id="pyridge.algorithm.KRidge.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/kernel.html#KRidge.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.KRidge.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once instanced, classifier can predict test target
+from test data, using some mathematical
 rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -225,17 +180,20 @@ rules.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyelm.algorithm.KELM.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyelm/algorithm/kelm.html#KELM.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyelm.algorithm.KELM.set_params" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.algorithm.KRidge.set_params">
+<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/kernel.html#KRidge.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.KRidge.set_params" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – <p>dictionary with the parameters needed for training. It must contain:</p>
-<ul class="simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – <p>dictionary with the parameters needed
+for training. It must contain:</p>
+<blockquote>
+<div><ul class="simple">
 <li>k: length scale of Radial Basis Function kernel</li>
 <li>C: regularization.</li>
 </ul>
+</div></blockquote>
 </td>
 </tr>
 </tbody>
@@ -285,7 +243,7 @@ rules.</p>
         <li class="right" >
           <a href="generic.html" title="Generic classes"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">PyELM  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">PyRidge  documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

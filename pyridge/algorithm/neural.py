@@ -1,15 +1,15 @@
 import numpy as np
-from pyelm.utils.target_encode import j_renorm
-from pyelm.generic import NeuralMethod
+from pyridge.utils.target_encode import j_renorm
+from pyridge.generic import NeuralMethod
 
 
 class NRidge(NeuralMethod):
     """
-    Neural Extreme Learning Machine. Neural Network's version
-    of the Extreme Learning Machine, in which "first layer"
+    Neural Ridge classifier, also known as Extreme Learning Machine.
+    It works as a single hidden layer neural network where
     neuron's weights are chosen randomly.
     """
-    __name__ = 'Neural Extreme Learning Machine'
+    __name__ = 'Neural Ridge classifier'
 
     def fit(self, train_data, train_target):
         """
@@ -42,8 +42,8 @@ class NRidge(NeuralMethod):
             H_inv = np.linalg.pinv(H)
             self.output_weight = np.dot(H_inv, train_target)
         else:
-            alpha = np.eye(H.shape[0]) / self.C + np.dot(H,
-                                                         H.transpose())
+            alpha = np.eye(H.shape[0]) + \
+                    self.C * np.dot(H, H.transpose())
             self.output_weight = np.dot(H.transpose(),
                                         np.linalg.solve(alpha,
                                                         train_target))

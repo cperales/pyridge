@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pyelm.algorithm.kelm &#8212; PyELM  documentation</title>
+    <title>pyelm.algorithm.kelm &#8212; PyRidge  documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -31,7 +31,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyELM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyRidge  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -43,33 +43,50 @@
             
   <h1>Source code for pyelm.algorithm.kelm</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">pyelm</span> <span class="k">import</span> <span class="n">logger_pyelm</span>
-<span class="kn">from</span> <span class="nn">pyelm.utils.target_encode</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">pyelm.clf_utility.target_encode</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">pyelm.generic</span> <span class="k">import</span> <span class="n">KernelMethod</span>
 
 
 <div class="viewcode-block" id="KELM"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.KELM">[docs]</a><span class="k">class</span> <span class="nc">KELM</span><span class="p">(</span><span class="n">KernelMethod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kernel Extreme Learning Machine. Kernel version of the Extreme Learning Machine,</span>
-<span class="sd">    in which a transformation from input features space into &quot;hidden layer&quot; is made</span>
+<span class="sd">    in which a tranformation from input features space into &quot;hidden layer&quot; is made</span>
 <span class="sd">    by a kernel trick.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Kernel Extreme Learning Machine&#39;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logger_pyelm</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Kernel Extreme Learning Machine instanced&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">train_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span>
+<div class="viewcode-block" id="KELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.KELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use some train (data and target) and parameters to fit the classifier and construct the rules.</span>
 
+<span class="sd">        :type train: dict</span>
+<span class="sd">        :param train: dictionary with two keys: &#39;data&#39;, with the features, and &#39;target&#39; with an</span>
+<span class="sd">            array of the labels.</span>
+
+<span class="sd">        :type parameters: dict</span>
+<span class="sd">        :param parameters: dictionary with the parameters needed for training. It must contain:</span>
+
+<span class="sd">                - k: length scale of Radial Basis Function kernel</span>
+<span class="sd">                - C: regularization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>  <span class="c1"># TODO: it should be more generalized</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span>
         <span class="n">omega_train</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fun</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># No regularization</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">omega_train</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">omega_train</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># alpha = np.eye(H.shape[0]) / self.C + np.dot(H, H.transpose())</span>
-            <span class="c1"># self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train_target))</span>
+            <span class="c1"># self.output_weight = np.dot(H.transpose(), np.linalg.solve(alpha, train[&#39;target&#39;]))</span>
             <span class="n">alpha</span> <span class="o">=</span> <span class="n">omega_train</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="KELM.predict"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.KELM.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -84,36 +101,10 @@
         <span class="n">test_target</span> <span class="o">=</span> <span class="n">j_renorm</span><span class="p">(</span><span class="n">indicator</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">test_target</span></div>
 
-    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="n">to_return</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">to_return</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">,</span>
-                     <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
-                     <span class="s1">&#39;kernel_fun&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fun</span><span class="p">}</span>
-        <span class="k">if</span> <span class="n">deep</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">to_return</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">to_return</span>
-
-<div class="viewcode-block" id="KELM.set_params"><a class="viewcode-back" href="../../../algorithms.html#pyelm.algorithm.KELM.set_params">[docs]</a>    <span class="k">def</span> <span class="nf">set_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type parameters: dict</span>
-<span class="sd">        :param parameters: dictionary with the parameters needed for training. It must contain:</span>
-
-<span class="sd">                - k: length scale of Radial Basis Function kernel</span>
-<span class="sd">                - C: regularization.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fun</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">length_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type parameters: dict</span>
-<span class="sd">        :param parameters: dictionary with the parameters needed for training. It must contain:</span>
-
-<span class="sd">                - k: length scale of Radial Basis Function kernel</span>
-<span class="sd">                - C: regularization.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">save_clf_param</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">,</span>
+                <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">,</span>
+                <span class="s1">&#39;kernel_fun&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fun</span><span class="p">}</span></div>
 </pre></div>
 
           </div>
@@ -141,7 +132,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyELM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyRidge  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

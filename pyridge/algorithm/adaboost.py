@@ -1,14 +1,13 @@
 import numpy as np
-from pyelm.algorithm.nelm import NRidge
-from pyelm.utils.target_encode import j_renorm
+from pyridge.algorithm.neural import NRidge
+from pyridge.utils.target_encode import j_renorm
 
 
 class AdaBoostNRidge(NRidge):
     """
-    AdaBoost meta-algorithm applied to Neural Extreme Learning
-    Machine.
+    AdaBoost meta-algorithm applied to Neural Ridge.
     """
-    __name__ = 'AdaBoost neural network'
+    __name__ = 'AdaBoost Ridge classifier'
 
     weight = None
     alpha = None
@@ -54,7 +53,7 @@ class AdaBoostNRidge(NRidge):
         :return: beta matrix for each iteration of the s ensemble.
         """
         weight_matrix = np.diag(self.weight)
-        H_reg = np.eye(H.shape[1]) / self.C + np.dot(np.dot(H.transpose(),
+        H_reg = np.eye(H.shape[1]) + self.C * np.dot(np.dot(H.transpose(),
                                                             weight_matrix), H)
         beta_s = np.linalg.solve(H_reg,
                                  np.dot(np.dot(H.transpose(), weight_matrix),

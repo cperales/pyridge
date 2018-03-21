@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.gaussian_process.kernels import RBF, DotProduct
 
-from pyelm.generic.classifier import Classifier
+from pyridge.generic.classifier import Classifier
 
 kernel_fun_dict = {'rbf': RBF,
                    'linear': DotProduct}

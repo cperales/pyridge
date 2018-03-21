@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pyelm.utils.metric &#8212; PyELM  documentation</title>
+    <title>pyridge.utils.metric &#8212; PyRidge  documentation</title>
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -31,7 +31,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyELM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyRidge  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -41,16 +41,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>Source code for pyelm.utils.metric</h1><div class="highlight"><pre>
+  <h1>Source code for pyridge.utils.metric</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">pyelm.utils.target_encode</span> <span class="k">import</span> <span class="n">j_decode</span>
+<span class="kn">from</span> <span class="nn">pyridge.utils.target_encode</span> <span class="k">import</span> <span class="n">j_decode</span>
 
 
 <span class="c1"># Metrics once classifier is fit and new data is classified</span>
 
 
-<div class="viewcode-block" id="accuracy"><a class="viewcode-back" href="../../../functions.html#pyelm.utils.accuracy">[docs]</a><span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span><span class="n">pred_targ</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">,</span> <span class="n">j_encoded</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="accuracy"><a class="viewcode-back" href="../../../functions.html#pyridge.utils.accuracy">[docs]</a><span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span><span class="n">pred_targ</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">,</span> <span class="n">j_encoded</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Percentage of predicted targets that actually</span>
 <span class="sd">    coincide with real targets.</span>
@@ -72,7 +72,7 @@
     <span class="k">return</span> <span class="n">acc</span></div>
 
 
-<div class="viewcode-block" id="loss"><a class="viewcode-back" href="../../../functions.html#pyelm.utils.loss">[docs]</a><span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">predicted_targets</span><span class="p">,</span> <span class="n">real_targets</span><span class="p">):</span>
+<div class="viewcode-block" id="loss"><a class="viewcode-back" href="../../../functions.html#pyridge.utils.loss">[docs]</a><span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">predicted_targets</span><span class="p">,</span> <span class="n">real_targets</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inverse of the accuracy. It is used for cross validation.</span>
 
@@ -110,7 +110,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">PyELM  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">PyRidge  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

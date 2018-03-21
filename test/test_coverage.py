@@ -1,5 +1,5 @@
-from pyelm.algorithm import algorithm_dict
-from pyelm.utils.preprocess import prepare_data
+from pyridge.algorithm import algorithm_dict
+from pyridge.utils.preprocess import prepare_data
 
 from test_kelm import test_newthyroid as test_kelm
 

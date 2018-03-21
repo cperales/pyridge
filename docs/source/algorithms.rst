@@ -2,28 +2,28 @@ Algorithms
 ===========
 
 
-Neural Extreme Learning Machine
+Neural Ridge Classifier
 --------------------------------
 
-Simplest ELM possible! The interactions with hidden nodes are chosen randomly.
+Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.
 
-.. autoclass:: pyelm.algorithm.NELM
+.. autoclass:: pyridge.algorithm.NRidge
 	:members:
 
 
-AdaBoost Neural Extreme Learning Machine
+AdaBoost Neural Ridge Classifier
 ------------------------------------------
 
-AdaBoost meta-algorithm with Neural ELM as learner base.
+AdaBoost meta-algorithm with Neural Ridge as learner base.
 
-.. autoclass:: pyelm.algorithm.AdaBoostNELM
-	:members:
+.. autoclass:: pyridge.algorithm.AdaBoostNRidge
+	:members: set_cv_range
 
 
-Kernel Extreme Learning Machine
+Kernel Ridge Classifier
 --------------------------------
 
-Extreme Learning Machine with a kernel function as "hidden layer".
+Kernel ridge classifier.
 
-.. autoclass:: pyelm.algorithm.KELM
+.. autoclass:: pyridge.algorithm.KRidge
 	:members:

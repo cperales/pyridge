@@ -1,8 +1,8 @@
-from pyelm.algorithm import *
-from pyelm.utils import save_classifier
-from pyelm.utils.cross_val import *
-from pyelm.utils.metric import accuracy
-from pyelm.utils.preprocess import prepare_data
+from pyridge.algorithm import *
+from pyridge.utils import save_classifier
+from pyridge.utils.cross_val import *
+from pyridge.utils.metric import accuracy
+from pyridge.utils.preprocess import prepare_data
 
 import os
 from time import perf_counter

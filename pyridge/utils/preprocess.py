@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from pyelm.utils.target_encode import j_encode
+from pyridge.utils.target_encode import j_encode
 from sklearn import preprocessing
 
 
