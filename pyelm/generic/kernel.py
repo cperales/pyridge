@@ -23,11 +23,14 @@ class KernelMethod(Classifier):
     kernel = None
     kernel_fun = RBF(length_scale=k)  # By default
 
-    def set_cv_range(self, hyperparameters={'C': 0, 'k': 1, 'kernelFun': 'rbf'}):
+    def set_cv_range(self,
+                     hyperparameters={'C': 0, 'k': 1, 'kernelFun': 'rbf'}):
         # Neuron function
         self.kernel = kernel_fun_dict[hyperparameters['kernelFun']]
         # Regularization
-        self.grid_param['C'] = np.array(hyperparameters['C']) if 'C' in hyperparameters \
+        self.grid_param['C'] = np.array(hyperparameters['C']) if \
+            'C' in hyperparameters \
             else np.array([0], dtype=np.float)
-        self.grid_param['k'] = np.array(hyperparameters['k']) if 'k' in hyperparameters \
+        self.grid_param['k'] = np.array(hyperparameters['k']) if \
+            'k' in hyperparameters \
             else np.array([1], dtype=np.float)

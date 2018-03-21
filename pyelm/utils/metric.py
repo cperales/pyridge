@@ -11,7 +11,8 @@ def accuracy(pred_targ, real_targ, j_encoded=True):
     Percentage of predicted targets that actually
     coincide with real targets.
 
-    :param numpy.array pred_targ: array of the targets according to the classifier.
+    :param numpy.array pred_targ: array of the targets
+        according to the classifier.
     :param numpy.array real_targ: array of the real targets.
     :param bool real_targ: array of the real targets.
     :return:
