@@ -1,7 +1,0 @@
-Neural Extreme Learning Machine
-================================
-
-Simplest Ridge possible! The interactions with hidden nodes are chosen randomly.
-
-.. autoclass:: pyridge.algorithm.NRidge
-	:members: 

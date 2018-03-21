@@ -64,11 +64,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># No regularization</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">omega_train</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># alpha = np.eye(H.shape[0]) / self.C + \</span>
-            <span class="c1">#         np.dot(H, H.transpose())</span>
-            <span class="c1"># self.output_weight = np.dot(H.transpose(),</span>
-            <span class="c1">#                             np.linalg.solve(alpha, train_target))</span>
-            <span class="n">alpha</span> <span class="o">=</span> <span class="n">omega_train</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">omega_train</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">train_target</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KRidge.predict"><a class="viewcode-back" href="../../../algorithms.html#pyridge.algorithm.KRidge.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>

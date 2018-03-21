@@ -6,7 +6,7 @@ from template import json_templates
 # # Folder to search the data
 data_folder = 'data'  # Try/except something like "is folder"
 config_folder = 'config'  # Try/except something like "is folder"
-pyelm_tests = ['hepatitis', 'newthyroid']
+pyridge_tests = ['hepatitis', 'newthyroid']
 
 # List of the pair directory / data
 pair_dir_files = []
@@ -58,7 +58,7 @@ for algorithm in algorithms:
 
             dataset.append([train_file, test_file])
 
-        # if dataset in pyelm_tests:
+        # if dataset in pyridge_tests:
         each_dict["Data"]["dataset"] = dataset
         each_dict["Data"]["folder"] = dirname
         each_dict["Report"]["report_name"] = name_dataset
@@ -80,7 +80,7 @@ for algorithm in algorithms:
 #     dataset = trainingDataset.replace('train', '')
 #     dataset = dataset.replace('_', '')
 #     dataset = dataset.replace('.1', '')
-#     if dataset in pyelm_tests:
+#     if dataset in pyridge_tests:
 #         each_dict["Data"]["trainingDataset"] = trainingDataset
 #         each_dict["Data"]["testingDataset"] = testingDataset
 #         each_dict["Data"]["folder"] = dirname

@@ -1,7 +1,7 @@
 from pyridge.algorithm import algorithm_dict
 from pyridge.utils.preprocess import prepare_data
 
-from test_kelm import test_newthyroid as test_kelm
+from test_kridge import test_newthyroid as test_kridge
 
 import logging
 
@@ -20,7 +20,7 @@ test_data, test_j_target = prepare_data(folder=folder,
                                         n_targ=n_targ)
 
 
-def test_nelm():
+def test_nridge():
     """
     Simple test with a UCI database.
     """
@@ -42,9 +42,9 @@ def test_adaboost():
 
 
 if __name__ == '__main__':
-    test_kelm(train_data=train_data,
+    test_kridge(train_data=train_data,
               train_j_target=train_j_target,
               test_data=test_data,
               test_j_target=test_j_target)
-    test_nelm()
+    test_nridge()
     test_adaboost()

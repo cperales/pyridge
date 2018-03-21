@@ -57,7 +57,7 @@
     <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">beta_ensemble</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="AdaBoostNRidge.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.algorithm.AdaBoostNRidge.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use some train (data and target) and parameters to</span>
 <span class="sd">        fit the classifier and construct the rules.</span>
@@ -87,9 +87,9 @@
 
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ensemble_size</span><span class="p">):</span>
             <span class="n">beta_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_step</span><span class="p">(</span><span class="n">H</span><span class="o">=</span><span class="n">H</span><span class="p">,</span> <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">beta_ensemble</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">beta_s</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">beta_ensemble</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">beta_s</span><span class="p">)</span>
 
-<div class="viewcode-block" id="AdaBoostNRidge.fit_step"><a class="viewcode-back" href="../../../algorithms.html#pyridge.algorithm.AdaBoostNRidge.fit_step">[docs]</a>    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param numpy.array H: matrix that symbolises connection</span>
 <span class="sd">            from input neurons to the ones from the hidden layer.</span>
@@ -97,7 +97,7 @@
 <span class="sd">        :return: beta matrix for each iteration of the s ensemble.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">weight_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
-        <span class="n">H_reg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span>
+        <span class="n">H_reg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span>
                                                             <span class="n">weight_matrix</span><span class="p">),</span> <span class="n">H</span><span class="p">)</span>
         <span class="n">beta_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">H_reg</span><span class="p">,</span>
                                  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="n">weight_matrix</span><span class="p">),</span>
@@ -111,9 +111,9 @@
         <span class="n">alpha_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">e_s</span><span class="p">)</span> <span class="o">/</span> <span class="n">e_s</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">beta_s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">alpha_s</span> <span class="o">*</span> <span class="n">error_vector</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># Normalize</span>
-        <span class="k">return</span> <span class="n">beta_s</span></div>
+        <span class="k">return</span> <span class="n">beta_s</span>
 
-<div class="viewcode-block" id="AdaBoostNRidge.predict"><a class="viewcode-back" href="../../../algorithms.html#pyridge.algorithm.AdaBoostNRidge.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Once instanced, classifier can predict test target</span>
 <span class="sd">        from test data, using some mathematical rules.</span>
@@ -137,7 +137,7 @@
             <span class="n">test_target</span> <span class="o">+=</span> <span class="n">y_hat</span>
 
         <span class="n">test_target</span> <span class="o">=</span> <span class="n">j_renorm</span><span class="p">(</span><span class="n">test_target</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">test_target</span></div></div>
+        <span class="k">return</span> <span class="n">test_target</span></div>
 </pre></div>
 
           </div>

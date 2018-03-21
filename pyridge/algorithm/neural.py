@@ -77,8 +77,7 @@ class NRidge(NeuralMethod):
         """
         to_return = None
         to_return = {'C': self.C,
-                     'hidden_neurons': self.hidden_neurons,
-                     'ensemble_size': self.ensemble_size}
+                     'hidden_neurons': self.hidden_neurons}
         if deep is True:
             to_return.update(self.__dict__)
         return to_return
@@ -95,10 +94,8 @@ class NRidge(NeuralMethod):
                     meta algorithms as AdaBoost.
         """
         self.hidden_neurons = parameters['hidden_neurons'] if \
-            parameters['hidden_neurons'] == 0 else self.t
+            parameters['hidden_neurons'] != 0 else self.t
         self.C = parameters['C']
-        self.ensemble_size = parameters['ensemble_size'] if \
-            'ensemble_size' in parameters else 1
 
     def __call__(self, parameters):
         """

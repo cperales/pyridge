@@ -14,7 +14,7 @@ def test_newthyroid():
     Simple test with a UCI database.
     """
     # Data
-    folder = 'data/newthyroid'
+    folder = '../data/newthyroid'
     train_dataset = 'train_newthyroid.0'
     train_data, train_j_target = prepare_data(folder=folder,
                                               dataset=train_dataset)
@@ -29,13 +29,13 @@ def test_newthyroid():
     metric = metric_dict['accuracy']
     algorithm = algorithm_dict['AdaBoostNRidge']
     C_range = [10**i for i in range(-2, 3)]
-    neuron_range = [10*i for i in range(1, 21)]
+    hidden_neuron_range = [10*i for i in range(1, 21)]
     neural_fun = 'sigmoid'
-    ensemble_size = 3
+    ensemble_size = 5
 
     hyperparameters = {'neuronFun': neural_fun,
                        'C': C_range,
-                       'hiddenNeurons': neuron_range,
+                       'hiddenNeurons': hidden_neuron_range,
                        'ensembleSize': ensemble_size}
 
     clf = algorithm()

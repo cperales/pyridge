@@ -2,10 +2,10 @@
 
 
 *Package is supervised by Travis Continuous Implementation*
-[![Build Status](https://travis-ci.org/cperales/PyRidge.svg?branch=master)]
+[![Build Status](https://travis-ci.org/cperales/PyRidge.svg?branch=master)](https://travis-ci.org/cperales/PyRidge)
 
 <!---
-*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*
+*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyRidge)*
 -->
 
 This repository contains some supervised machine learning algorithms from the family of Ridge Classification,
