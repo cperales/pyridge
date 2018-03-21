@@ -65,7 +65,7 @@ Right now, there are the following algorithms programmed:
 
 * Kernel Ridge (KRidge) [1]
 * Neural Ridge (NRidge) [2]
-* AdaBoost Neural Ridge (AdaBoostNRidge) [2]
+* AdaBoost Neural Ridge (AdaBoostNRidge) [3]
 
 ## Code documentation
 
