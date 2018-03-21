@@ -1,17 +1,24 @@
 # PyRidge
 
+
+*Package is supervised by Travis Continuous Implementation*
+[![Build Status](https://travis-ci.org/cperales/PyRidge.svg?branch=master)]
+
 <!---
-*Package is supervised by Travis Continuous Implementation*  [![Build Status](https://travis-ci.com/cperales/PyELM.svg?token=1ZnAk4mSgkxzHQ8LGm2Q&branch=master)](https://travis-ci.com/cperales/PyELM)
-*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*  [![Coverage Status](https://coveralls.io/repos/github/cperales/PyELM/badge.svg?branch=stable)](https://coveralls.io/github/cperales/PyELM?branch=master)
+*Repository's coverage is supervised by [coveralls.io](https://coveralls.io/github/cperales/PyELM)*
 -->
 
-This repository contains some supervised machine learning algorithms from the family of
-[Ridge Classification](https://en.wikipedia.org/wiki/Extreme_learning_machine), also known as
+This repository contains some supervised machine learning algorithms from the family of Ridge Classification,
+also known as
 [Tikhonov regularization](https://en.wikipedia.org/wiki/Tikhonov_regularization) or 
-[Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine). Although ELM is a polemic topic,
+[Extreme Learning Machine](https://en.wikipedia.org/wiki/Extreme_learning_machine).
+A nice discussion about these terms can be seen in [this discussion in
+StackExchange](https://stats.stackexchange.com/questions/234280/is-tikhonov-regularization-the-same-as-ridge-regression). 
+
+Although ELM is a polemic topic,
 due to the accusations of plagiarism (see more [here](https://github.com/scikit-learn/scikit-learn/pull/10602) and
 [here](https://www.reddit.com/r/MachineLearning/comments/34y2nk/the_elm_scandal_a_formal_complaint_launched/)),
-some actual research is done by applying ensemble techniques to Ridge Classification ([3, 4]), some some papers
+some actual research is done by applying ensemble techniques to Ridge Classification ([3, 4]), thus some some papers
 are used for implementing algorithms.
 
 Main motivation of this repository is translating from MATLAB to Python 3 what
@@ -41,7 +48,7 @@ to install the requirements
 pip install -r requirements.txt
 ```
 
-To use it in any folder, you sould install it as a dependency:
+To use it in any folder, you should install it as a dependency:
 
 ```bash
 pip install -e .
