@@ -134,6 +134,15 @@ predicted_labels = clf.predict(test_data=test_data)
 ```
 
 
+## Future work
+
+- [ ] Functions to create classifiers from data, save them in as a file,
+ and use them to predict, giving an understandable output.
+- [ ] More examples with real predictions, not testing.
+- [ ] Combine PyRidge with [pylm](http://pylm.readthedocs.io/en/latest/),
+a high level queue manager in Python with communication patterns such as client-server-workers 
+
+
 ## Bibliography
 
 [1]: S. An, W. Liu and S. Venkatesh, "Face Recognition Using Kernel Ridge
