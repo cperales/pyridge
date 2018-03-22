@@ -136,6 +136,8 @@ predicted_labels = clf.predict(test_data=test_data)
 
 ## Future work
 
+- [ ] Make regression problems availables.
+- [ ] Look for regression datasets.
 - [ ] Functions to create classifiers from data, save them in as a file,
  and use them to predict, giving an understandable output.
 - [ ] More examples with real predictions, not testing.
