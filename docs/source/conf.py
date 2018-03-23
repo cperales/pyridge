@@ -54,7 +54,8 @@ master_doc = 'index'
 project = 'PyRidge'
 copyright = '2018, Carlos Perales'
 author = 'Carlos Perales'
-html_show_copyright = False
+html_show_copyright = True
+show_authors = True
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -91,11 +92,21 @@ todo_include_todos = True
 
 # html_theme = 'alabaster'
 
-html_theme = "classic"
-html_theme_options = {
-    "rightsidebar": "true",
-    "relbarbgcolor": "black"
+html_theme = "sphinx_rtd_theme"
+# html_theme_options = {
+#     "rightsidebar": "true",
+#     "relbarbgcolor": "black"
+# }
+
+html_context = {
+  'canonical_url': 'https://cperales.github.io/PyRidge/index.html',
+  'display_github': True,
+  'github_user': 'cperales',
+  'github_repo': 'PyRidge',
+  'github_version': 'master/docs/source/'
 }
+
+html_show_sourcelink = True
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
