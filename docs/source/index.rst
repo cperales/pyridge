@@ -46,5 +46,3 @@ The library is organized in the following way:
    generic
    algorithms
    functions
-
-:github_url: https://github.com/cperales/PyRidge
