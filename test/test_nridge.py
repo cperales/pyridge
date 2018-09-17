@@ -9,16 +9,16 @@ logger = logging.getLogger('PyRidge')
 logger.setLevel(logging.DEBUG)
 
 
-def test_newthyroid():
+def test_arrhythmia():
     """
     Simple test with a UCI database.
     """
     # Data
-    folder = 'data/newthyroid'
-    train_dataset = 'train_newthyroid.0'
+    folder = 'data/arrhythmia'
+    train_dataset = 'train_arrhythmia.1'
     train_data, train_j_target = prepare_data(folder=folder,
                                               dataset=train_dataset)
-    test_dataset = 'test_newthyroid.0'
+    test_dataset = 'test_arrhythmia.1'
     n_targ = train_j_target.shape[1]
 
     test_data, test_j_target = prepare_data(folder=folder,
@@ -43,9 +43,9 @@ def test_newthyroid():
     acc = metric(pred_targ=pred_targ,
                  real_targ=test_j_target)
 
-    logger.info('Accuracy for algorithm NRidge and dataset newthyroid.0,'
+    logger.info('Accuracy for algorithm NRidge and dataset arrhythmia.1,'
                 ' is {}'.format(acc))
 
 
 if __name__ == '__main__':
-    test_newthyroid()
+    test_arrhythmia()

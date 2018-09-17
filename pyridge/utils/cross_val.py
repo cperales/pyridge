@@ -33,6 +33,7 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
         for train_index, test_index in kf.split(train_data):
             param = {cv_param_names[i]: current_comb[i]
                      for i in range(len(cv_param_names))}
+            logger.debug('Trying with parameters: %s', param)
 
             train_data_fold = train_data[train_index]
             train_target_fold = train_target[train_index]
@@ -53,6 +54,7 @@ def cross_validation(classifier, train_data, train_target, n_folds=5):
 
         # L = np.array(L, dtype=np.float)
         current_cv_criteria = np.mean(L)
+        logger.debug('With these parameters, current loss is %f', current_cv_criteria)
 
         if current_cv_criteria < best_cv_criteria:
             position = L.index(min(L))

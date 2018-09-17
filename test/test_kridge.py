@@ -9,7 +9,7 @@ logger = logging.getLogger('PyRidge')
 logger.setLevel(logging.DEBUG)
 
 
-def test_newthyroid(train_data=None,
+def test_arrhythmia(train_data=None,
                     train_j_target=None,
                     test_data=None,
                     test_j_target=None):
@@ -18,12 +18,12 @@ def test_newthyroid(train_data=None,
     """
     # Data
     if train_data is None or train_j_target is None:
-        folder = 'data/newthyroid'
-        train_dataset = 'train_newthyroid.0'
+        folder = 'data/arrhythmia'
+        train_dataset = 'train_arrhythmia.1'
         train_data, train_j_target = prepare_data(folder=folder,
                                                   dataset=train_dataset)
     if test_data is None or test_j_target is None:
-        test_dataset = 'test_newthyroid.0'
+        test_dataset = 'test_arrhythmia.1'
         n_targ = train_j_target.shape[1]
         test_data, test_j_target = prepare_data(folder=folder,
                                                 dataset=test_dataset,
@@ -47,10 +47,10 @@ def test_newthyroid(train_data=None,
     acc = metric(pred_targ=pred_targ,
                  real_targ=test_j_target)
 
-    logger.info('Accuracy for algorithm KRidge and dataset newthyroid.0,'
+    logger.info('Accuracy for algorithm KRidge and dataset arrhythmia.1,'
                 ' is {}'.format(acc))
 
 
 if __name__ == '__main__':
-    test_newthyroid()
+    test_arrhythmia()
 

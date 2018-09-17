@@ -10,6 +10,6 @@ __all__ = ['NRidge',
 warnings.simplefilter('ignore')
 
 logger_pyridge = logging.Logger('PyRidge')
-logger_pyridge.setLevel(logging.ERROR)
-logging.basicConfig(level=logging.ERROR)
+logger_pyridge.setLevel(logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 logger_pyridge.debug('Logger instanced')
