@@ -6,11 +6,10 @@ logger.setLevel('INFO')
 
 
 if __name__ == '__main__':
-    hyperparameter = {'activation': ['sigmoid'],
+    hyperparameter = {'kernel': ['rbf'],
                       'reg': [10 ** i for i in range(-3, 4)],
-                      'hidden_neurons': [1000],
-                      'size': [3, 5]}
+                      'gamma': [10 ** i for i in range(-2, 2)]}
     test_algorithm(folder='data',
                    dataset='iris',
-                   algorithm='AdaBoostNELM',
+                   algorithm='KernelELM',
                    hyperparameter=hyperparameter)

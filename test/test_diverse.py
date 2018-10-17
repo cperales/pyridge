@@ -7,10 +7,11 @@ logger.setLevel('INFO')
 
 if __name__ == '__main__':
     hyperparameter = {'activation': ['sigmoid'],
-                      'reg': [10 ** i for i in range(-3, 4)],
-                      'hidden_neurons': [1000],
-                      'size': [3, 5]}
+                      'reg': [10 ** i for i in range(-1, 2)],
+                      'div': [10 ** i for i in range(-1, 2)],
+                      'hidden_neurons': [100],
+                      'size': [5]}
     test_algorithm(folder='data',
                    dataset='iris',
-                   algorithm='AdaBoostNELM',
+                   algorithm='DiverseNELM',
                    hyperparameter=hyperparameter)
