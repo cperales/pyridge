@@ -77,15 +77,3 @@ def diversity(clf, pred_data, real_targ):
                 div += div_step
                 count += 1
     return div / float(count)
-
-
-def kernel_diversity(clf, pred_data, real_targ):
-    """
-    TODO: Implement.
-
-    :param clf: Classifier
-    :param pred_data: Not used.
-    :param real_targ: Not used.
-    :return:
-    """
-    pass

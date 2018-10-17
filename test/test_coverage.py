@@ -16,16 +16,16 @@ if __name__ == '__main__':
                             'hidden_neurons': [100],
                             'size': [5]}
     hyperparameter_neural = {'activation': ['sigmoid'],
-                           'reg': [10 ** i for i in range(-1, 2)],
-                           'hidden_neurons': [100]}
+                             'reg': [10 ** i for i in range(-1, 2)],
+                             'hidden_neurons': [100]}
     hyperparameter_div = {'activation': ['sigmoid'],
                           'reg': [10 ** i for i in range(-1, 2)],
                           'div': [10 ** i for i in range(-1, 2)],
                           'hidden_neurons': [100],
                           'size': [5]}
-    hyperparameter_kernel = {'kernel': ['rbf'],
-                           'reg': [10 ** i for i in range(-1, 2)],
-                           'gamma': [10 ** i for i in range(-1, 2)]}
+    hyperparameter_kernel = {'kernel': ['rbf', 'linear'],
+                             'reg': [10 ** i for i in range(-1, 2)],
+                             'gamma': [10 ** i for i in range(-1, 2)]}
     algorithms = [('AdaBoostNRidge', hyperparameter_boost),
                   ('AdaBoostNCNRidge', hyperparameter_nc),
                   ('BaggingNRidge', hyperparameter_boost),
@@ -39,4 +39,5 @@ if __name__ == '__main__':
         test_algorithm(folder='data',
                        dataset='iris',
                        algorithm=alg_hyp[0],
-                       hyperparameter=alg_hyp[1])
+                       hyperparameter=alg_hyp[1],
+                       metric=['accuracy', 'rmse'])

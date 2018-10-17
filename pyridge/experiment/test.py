@@ -37,8 +37,8 @@ def test_algorithm(folder='data/',
             prepare_data(folder=folder,
                          dataset=train_dataset)
         test_data, test_target, _ = prepare_data(folder=folder,
-                                              dataset=test_dataset,
-                                              scaler=scaler)
+                                                 dataset=test_dataset,
+                                                 scaler=scaler)
         clf = algorithm_dict[algorithm]()
         cross_validation(classifier=clf,
                          train_data=train_data,
@@ -51,9 +51,9 @@ def test_algorithm(folder='data/',
                            real_targ=test_target)
             value_dict[m].append(v)
             logger.debug('{} in dataset {} '
-                        'is {}'.format(m,
-                                       train_dataset.split('_')[1],
-                                       v))
+                         'is {}'.format(m,
+                                        train_dataset.split('_')[1],
+                                        v))
     for m in metric:
         logger.info('{} for algorithm {} and '
                     'dataset {} is {}'.format(m,
