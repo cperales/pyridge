@@ -40,4 +40,4 @@ if __name__ == '__main__':
                        dataset='iris',
                        algorithm=alg_hyp[0],
                        hyperparameter=alg_hyp[1],
-                       metric=['accuracy', 'rmse'])
+                       metric=['accuracy', 'rmse', 'diversity'])

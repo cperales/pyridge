@@ -60,20 +60,22 @@ def diversity(clf, pred_data, real_targ):
     :param real_targ: Not used.
     :return:
     """
-    count = 1
+    ensemble_size = getattr(clf, 'size', None)
     div = 0.0
-    for s in range(clf.size):
-        beta_s = clf.output_weight[s]
-        for t in range(s + 1, clf.size):
-            beta_t = clf.output_weight[t]
-            for j in range(beta_t.shape[1]):
-                beta_s_j = beta_s[:, j]
-                beta_t_j = beta_t[:, j]
-                num = np.dot(np.dot(beta_s_j.T, beta_t_j),
-                                      np.dot(beta_t_j.T, beta_s_j))
-                dem = np.dot(np.dot(beta_t_j.T, beta_t_j),
-                             np.dot(beta_s_j.T, beta_s_j))
-                div_step = 1 - num / dem
-                div += div_step
-                count += 1
+    count = 1
+    if not ensemble_size is None:
+        for s in range(clf.size):
+            beta_s = clf.output_weight[s]
+            for t in range(s + 1, clf.size):
+                beta_t = clf.output_weight[t]
+                for j in range(beta_t.shape[1]):
+                    beta_s_j = beta_s[:, j]
+                    beta_t_j = beta_t[:, j]
+                    num = np.dot(np.dot(beta_s_j.T, beta_t_j),
+                                          np.dot(beta_t_j.T, beta_s_j))
+                    dem = np.dot(np.dot(beta_t_j.T, beta_t_j),
+                                 np.dot(beta_s_j.T, beta_s_j))
+                    div_step = 1 - num / dem
+                    div += div_step
+                    count += 1
     return div / float(count)
