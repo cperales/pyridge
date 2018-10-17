@@ -1,7 +1,6 @@
 # Folders
 env/
 .idea/
-experiment/
 __pycache__/
 
 # Installation
@@ -9,17 +8,8 @@ __pycache__/
 dist/
 build/
 
-
 # Profile
 *.prof
-
-# Documentation
-#docs/_sources/
-#docs/_modules/
-docs/.doctrees/
-#docs/.buildinfo
-#docs/searchindex.js
-#docs/objects.inv
 
 # Classifier
 *.clf
@@ -44,7 +34,3 @@ docs/.doctrees/
 # Coverage
 .coverage
 htmlcov/
-
-# Other data folders
-*.svn/*
-data*

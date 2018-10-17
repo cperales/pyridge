@@ -1,7 +1,7 @@
-from pyelm.experiment.test import test_algorithm
+from pyridge.experiment.test import test_algorithm
 import logging
 
-logger = logging.getLogger('pyelm')
+logger = logging.getLogger('pyridge')
 logger.setLevel('INFO')
 
 
@@ -11,5 +11,5 @@ if __name__ == '__main__':
                       'gamma': [10 ** i for i in range(-2, 2)]}
     test_algorithm(folder='data',
                    dataset='iris',
-                   algorithm='KernelELM',
+                   algorithm='KernelRidge',
                    hyperparameter=hyperparameter)

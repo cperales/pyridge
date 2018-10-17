@@ -1,48 +1,38 @@
 import numpy as np
 from scipy.special import expit
+from .classifier import Classifier
 
-from pyridge.generic.classifier import Classifier
-
-neuron_fun_dict = {'sin': np.sin,
+activation_dict = {'sin': np.sin,
                    'hard': lambda x: np.array(x > 0.0, dtype=float),
-                   # 'sigmoid': lambda x: 1.0/(1.0 + np.exp(-x))
                    'sigmoid': expit}
 
 
 class NeuralMethod(Classifier):
     __name__ = 'Neural network'
-    # Cross validated parameters
-    neuron_fun = expit
-    hidden_neurons = 0
-    lambda_nc = 0
-    C = 0
-    ensemble_size = 1
-    grid_param = {'C': C}
+    hidden_neurons: int = 2
+    activation: str = 'sigmoid'
+    neuron_fun = None
+    input_weight = None
+    bias_vector = None
 
-    # Neural network features
-    input_weight = 0
-    bias_vector = 0
-    output_weight = 0
-    t = 2  # At least, 2 labels are classified
+    def get_weight_bias_(self):
+        self.neuron_fun = activation_dict[self.activation]
+        self.input_weight = np.random.rand(self.hidden_neurons,
+                                           self.dim) * 2.0 - 1.0
+        self.bias_vector = np.random.rand(self.hidden_neurons,
+                                          1)
 
-    def set_cv_range(self, hyperparameters):
-        # Neuron function
-        self.neuron_fun = neuron_fun_dict[hyperparameters['neuronFun']]
-        # Number of neurons in the hidden layer
-        self.grid_param['hidden_neurons'] = \
-            np.array(hyperparameters['hiddenNeurons'])
-        # Regularization
-        self.grid_param['C'] = np.array(hyperparameters['C']) if \
-            'C' in hyperparameters \
-            else np.array([0], dtype=np.float)
-        # Ensemble
-        self.ensemble_size = hyperparameters['ensembleSize'] if \
-            'ensembleSize' \
-            in hyperparameters else 1
-        # Negative correlation
-        self.grid_param['lambda_nc'] = np.array(hyperparameters['lambda']) \
-            if 'lambda' in hyperparameters \
-            else np.array([0], dtype=np.float)
-        # Diversity
-        self.grid_param['D'] = np.array(hyperparameters['D']) if \
-            'D' in hyperparameters else np.array([0], dtype=np.float)
+    def get_h_matrix_(self, data):
+        """
+
+        :param data:
+        :return:
+        """
+        n = data.shape[0]  # Number of instances of the data
+        bias_matrix = np.resize(self.bias_vector.T,
+                                (n, self.hidden_neurons)).T
+        temp_h_matrix = np.dot(self.input_weight,
+                               data.T) + bias_matrix  # d x n
+        # Activation function
+        h_matrix = self.neuron_fun(temp_h_matrix.T)  # n x d
+        return h_matrix

@@ -1,39 +1,67 @@
 import logging
+from sklearn.preprocessing import LabelBinarizer
+import numpy as np
 
-logger = logging.getLogger('PyRidge')
+logger = logging.getLogger('pyridge')
 
 
 class Classifier(object):
     __name__ = 'Base classifier'
+    labels: int = 2
+    dim: int = 2
+    n: int = 2
+    reg: float = 1.0
+    train_target = None
+    train_data = None
+    label_encoder_ = None
+    label_decoder_ = None
+    Y = None
+    output_weight = None
 
-    def __init__(self, parameters=None):
-        """
-        :param dict parameters: dictionary with the parameters
-            needed for training.
-        """
-        if parameters is not None:
-            self.set_params(parameters)
+    def __init__(self):
         logger.debug('{} instanced'.format(self.__name__))
+        self.label_encoder_ = LabelBinarizer(neg_label=0, pos_label=1)
 
-    def fit(self, train_data, train_target):
+    def instance_param_(self, train_data, train_target, parameter):
         """
-        Use some train (data and target) and parameters to fit
-        the classifier and construct the rules.
+        Instance parameters from dict.
 
-        :param numpy.array train_data: data with features.
-        :param numpy.array train_target: targets in j codification.
+        :param numpy.matrix train_data:
+        :param numpy.array train_target:
+        :param dict parameter:
+        :return:
         """
-        pass
+        self.train_target = train_target
+        self.train_data = train_data
+        self.labels = len(np.unique(train_target))
+        self.dim = train_data.shape[1]  # Original dimension
+        self.n = train_data.shape[0]  # Number of instances
+
+        # TODO: for probabilities in binary problems, other
+        # transformation should be taking into account
+        label_encoder_ = LabelBinarizer(neg_label=0,
+                                        pos_label=1).fit(train_target)
+        self.label_encoder_ = label_encoder_.transform
+        self.label_decoder_ = label_encoder_.inverse_transform
+
+        self.Y = self.label_encoder_(train_target)
+
+        # Instance the parameter dictionary
+        self.__dict__.update(parameter)
+
+    def get_indicator(self, test_data):
+        """
+        :param numpy.array test_data: array like.
+        :return: predicted labels.
+        """
+        indicator = None
+        return indicator
 
     def predict(self, test_data):
         """
         :param numpy.array test_data: array like.
         :return: predicted labels.
         """
-        pass
-
-    def set_params(self, parameters):
-        """
-        :param dict parameters: parameters in a dict.
-        """
-        pass
+        indicator = self.get_indicator(test_data)
+        predicted_labels = self.label_decoder_(indicator)
+        return predicted_labels

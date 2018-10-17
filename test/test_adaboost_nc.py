@@ -1,7 +1,7 @@
-from pyelm.experiment.test import test_algorithm
+from pyridge.experiment.test import test_algorithm
 import logging
 
-logger = logging.getLogger('pyelm')
+logger = logging.getLogger('pyridge')
 logger.setLevel('INFO')
 
 
@@ -14,6 +14,6 @@ if __name__ == '__main__':
     metrics = ['accuracy', 'diversity', 'rmse']
     test_algorithm(folder='../data',
                    dataset='breast-cancer',
-                   algorithm='AdaBoostNCNELM',
+                   algorithm='AdaBoostNCNRidge',
                    metric=metrics,
                    hyperparameter=hyperparameter)

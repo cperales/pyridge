@@ -2,19 +2,22 @@ from setuptools import setup
 
 setup(
     name="pyridge",
-    description="Ridge Classification in Python",
-    version="1.0",
+    description="Python Ridge Classifier",
+    version="2.0",
     author="Carlos Perales",
     author_email="cperales@uloyola.es",
     packages=['pyridge',
-              'pyridge.algorithm',
-              'pyridge.utils',
-              'pyridge.generic'
+              'pyridge.experiment',
+              'pyridge.util',
+              'pyridge.generic',
+              'pyridge.kernel',
+              'pyridge.neural'
     ],
     zip_safe=False,
-    install_requires=[],
+    install_requires=['numpy',
+                      'sklearn',
+                      'scipy'],
     include_package_data=True,
     setup_requires=[],
     tests_require=[]
 )
-

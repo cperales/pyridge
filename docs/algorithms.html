@@ -24,27 +24,19 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="PyRidge  documentation" href="index.html"/>
-        <link rel="next" title="Functions" href="functions.html"/>
-        <link rel="prev" title="Generic classes" href="generic.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Functions" href="functions.html" />
+    <link rel="prev" title="Generic classes" href="generic.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -89,9 +81,19 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="generic.html">Generic classes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Algorithms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#neural-ridge-classifier">Neural Ridge Classifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adaboost-neural-ridge-classifier">AdaBoost Neural Ridge Classifier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#kernel-ridge-classifier">Kernel Ridge Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ridge-with-kernel-trick">Ridge with kernel trick</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-ridge-classifier">Kernel Ridge Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ridge-with-neural-functions">Ridge with neural functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#neural-ridge-classifier">Neural Ridge Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boosting-ridge-neural-ridge-classifier">Boosting Ridge Neural Ridge Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bagging-neural-ridge-classifier">Bagging Neural Ridge Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diverse-neural-ridge-classifier">Diverse Neural Ridge Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adaboost-neural-ridge-classifier">AdaBoost Neural Ridge Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adaboost-negative-correlation-neural-ridge-classifier">AdaBoost Negative Correlation Neural Ridge Classifier</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
@@ -106,7 +108,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">PyRidge</a>
@@ -114,9 +116,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -162,27 +165,62 @@
             
   <div class="section" id="algorithms">
 <h1>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ridge-with-kernel-trick">
+<h2>Ridge with kernel trick<a class="headerlink" href="#ridge-with-kernel-trick" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="kernel-ridge-classifier">
+<h3>Kernel Ridge Classifier<a class="headerlink" href="#kernel-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="pyridge.kernel.KernelRidge">
+<em class="property">class </em><code class="descclassname">pyridge.kernel.</code><code class="descname">KernelRidge</code><a class="reference internal" href="_modules/pyridge/kernel/kernel.html#KernelRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel Ridge classifier.</p>
+<dl class="method">
+<dt id="pyridge.kernel.KernelRidge.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kernel.html#KernelRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some train (data and target) and parameter to
+fit the classifier and construct the rules.
+:param numpy.array train_data: data with features.
+:param numpy.array train_target: targets in j codification.
+:param dict parameter:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.kernel.KernelRidge.get_indicator">
+<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kernel.html#KernelRidge.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelRidge.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once instanced, classifier can predict test target
+from test data, using some mathematical
+rules.
+:param numpy.array test_data: matrix of data to predict.
+:return: matrix.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="ridge-with-neural-functions">
+<h2>Ridge with neural functions<a class="headerlink" href="#ridge-with-neural-functions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="neural-ridge-classifier">
-<h2>Neural Ridge Classifier<a class="headerlink" href="#neural-ridge-classifier" title="Permalink to this headline">¶</a></h2>
+<h3>Neural Ridge Classifier<a class="headerlink" href="#neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
 <p>Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.</p>
 <dl class="class">
-<dt id="pyridge.algorithm.NRidge">
-<em class="property">class </em><code class="descclassname">pyridge.algorithm.</code><code class="descname">NRidge</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.NeuralRidge">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">NeuralRidge</code><a class="reference internal" href="_modules/pyridge/neural/neural.html#NeuralRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.NeuralRidge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Neural Ridge classifier, also known as Extreme Learning Machine.
 It works as a single hidden layer neural network where
 neuron’s weights are chosen randomly.</p>
 <dl class="method">
-<dt id="pyridge.algorithm.NRidge.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use some train (data and target) and parameters to
+<dt id="pyridge.neural.NeuralRidge.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#NeuralRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.NeuralRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some train (data and target) and parameter to
 fit the classifier and construct the rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>train_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – data with features.</li>
-<li><strong>train_target</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – targets in j codification.</li>
+<li><strong>train_data</strong> (<em>numpy.array</em>) – data with features.</li>
+<li><strong>train_target</strong> (<em>numpy.array</em>) – targets in j codification.</li>
+<li><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </li>
 </ul>
 </td>
 </tr>
@@ -191,31 +229,15 @@ fit the classifier and construct the rules.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.algorithm.NRidge.get_params">
-<code class="descname">get_params</code><span class="sig-paren">(</span><em>deep=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.get_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.get_params" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>deep</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – If just wants the hyperparameters, <cite>deep  = False</cite>.
-For getting subobjects and methods, <cite>deep = True</cite>.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Parameters as a dictionary.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyridge.algorithm.NRidge.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.predict" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.NeuralRidge.get_indicator">
+<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#NeuralRidge.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.NeuralRidge.get_indicator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Once instanced, classifier can predict test target
 from test data, using some mathematical rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – array like.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<em>numpy.array</em>) – array like.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
 </tr>
@@ -223,105 +245,224 @@ from test data, using some mathematical rules.</p>
 </table>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="boosting-ridge-neural-ridge-classifier">
+<h3>Boosting Ridge Neural Ridge Classifier<a class="headerlink" href="#boosting-ridge-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<dl class="class">
+<dt id="pyridge.neural.BoostingRidgeNRidge">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BoostingRidgeNRidge</code><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boosting Ridge ensemble applied to Neural Ridge.</p>
 <dl class="method">
-<dt id="pyridge.algorithm.NRidge.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/neural.html#NRidge.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.NRidge.set_params" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dt id="pyridge.neural.BoostingRidgeNRidge.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some train (data and target) and parameter to
+fit the classifier and construct the rules.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – <p>dictionary with the parameters
-needed for training. It must contain:</p>
-<blockquote>
-<div><ul class="simple">
-<li><dl class="first docutils">
-<dt>hidden_neurons: the number of the</dt>
-<dd>neurons in the hidden layer.</dd>
-</dl>
-</li>
-<li>C: regularization of H matrix.</li>
-<li><dl class="first docutils">
-<dt>ensemble_size: (optional) used for</dt>
-<dd>meta algorithms as AdaBoost.</dd>
-</dl>
-</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>train_data</strong> (<em>numpy.array</em>) – data with features.</li>
+<li><strong>train_target</strong> (<em>numpy.array</em>) – targets in j codification.</li>
+<li><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </li>
 </ul>
-</div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.BoostingRidgeNRidge.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each  step of the fit process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h_matrix</strong> – </li>
+<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:return :</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.BoostingRidgeNRidge.get_indicator">
+<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once instanced, classifier can predict test target
+from test data, using some mathematical rules.
+Valid for other ensembles.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<em>numpy.array</em>) – array like.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="bagging-neural-ridge-classifier">
+<h3>Bagging Neural Ridge Classifier<a class="headerlink" href="#bagging-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<dl class="class">
+<dt id="pyridge.neural.BaggingNRidge">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BaggingNRidge</code><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingNRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bagging implemented to Neural Extreme Learning Machine.</p>
+<dl class="method">
+<dt id="pyridge.neural.BaggingNRidge.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit with part of the data from the whole set.
+This proportion can be given in the parameter dict;
+if not, proportion is 75%.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h_matrix</strong> – </li>
+<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="diverse-neural-ridge-classifier">
+<h3>Diverse Neural Ridge Classifier<a class="headerlink" href="#diverse-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<dl class="class">
+<dt id="pyridge.neural.DiverseNRidge">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">DiverseNRidge</code><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseNRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Diverse Neural Extreme Learning Machine.</p>
+<dl class="method">
+<dt id="pyridge.neural.DiverseNRidge.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each  step of the fit process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h_matrix</strong> – </li>
+<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:return :</p>
 </dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="adaboost-neural-ridge-classifier">
-<h2>AdaBoost Neural Ridge Classifier<a class="headerlink" href="#adaboost-neural-ridge-classifier" title="Permalink to this headline">¶</a></h2>
+<h3>AdaBoost Neural Ridge Classifier<a class="headerlink" href="#adaboost-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
 <p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
 <dl class="class">
-<dt id="pyridge.algorithm.AdaBoostNRidge">
-<em class="property">class </em><code class="descclassname">pyridge.algorithm.</code><code class="descname">AdaBoostNRidge</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/adaboost.html#AdaBoostNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.AdaBoostNRidge" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.AdaBoostNRidge">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostNRidge</code><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNRidge" title="Permalink to this definition">¶</a></dt>
 <dd><p>AdaBoost meta-algorithm applied to Neural Ridge.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="kernel-ridge-classifier">
-<h2>Kernel Ridge Classifier<a class="headerlink" href="#kernel-ridge-classifier" title="Permalink to this headline">¶</a></h2>
-<p>Kernel ridge classifier.</p>
-<dl class="class">
-<dt id="pyridge.algorithm.KRidge">
-<em class="property">class </em><code class="descclassname">pyridge.algorithm.</code><code class="descname">KRidge</code><span class="sig-paren">(</span><em>parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/kernel.html#KRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.KRidge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel Ridge classifier.</p>
 <dl class="method">
-<dt id="pyridge.algorithm.KRidge.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/kernel.html#KRidge.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.KRidge.predict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once instanced, classifier can predict test target
-from test data, using some mathematical
-rules.</p>
+<dt id="pyridge.neural.AdaBoostNRidge.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostNRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add array of weights and call super.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.14)"><em>numpy.array</em></a>) – matrix of data to predict.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">matrix of the predicted targets.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyridge.algorithm.KRidge.set_params">
-<code class="descname">set_params</code><span class="sig-paren">(</span><em>parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/algorithm/kernel.html#KRidge.set_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.algorithm.KRidge.set_params" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – <p>dictionary with the parameters needed
-for training. It must contain:</p>
-<blockquote>
-<div><ul class="simple">
-<li>k: length scale of Radial Basis Function kernel</li>
-<li>C: regularization.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>train_data</strong> – </li>
+<li><strong>train_target</strong> – </li>
+<li><strong>parameter</strong> – </li>
 </ul>
-</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostNRidge.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each  step of the fit process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h_matrix</strong> – </li>
+<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:return :</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="adaboost-negative-correlation-neural-ridge-classifier">
+<h3>AdaBoost Negative Correlation Neural Ridge Classifier<a class="headerlink" href="#adaboost-negative-correlation-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<dl class="class">
+<dt id="pyridge.neural.AdaBoostNCNRidge">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostNCNRidge</code><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCNRidge" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBoost Negative Correlation meta-algorithm applied to Neural Ridge.</p>
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostNCNRidge.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each  step of the fit process.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h_matrix</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix" title="(in NumPy v1.15)"><em>numpy.matrix</em></a>) – </li>
+<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:return :</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
 </div>
+</div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -339,11 +480,11 @@ for training. It must contain:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Carlos Perales.
+        &copy; Copyright 2018, Carlos Perales
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -358,35 +499,24 @@ for training. It must contain:</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
