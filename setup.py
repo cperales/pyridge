@@ -15,6 +15,7 @@ setup(
     ],
     zip_safe=False,
     install_requires=['numpy',
+                      'pandas',
                       'sklearn',
                       'scipy'],
     include_package_data=True,
