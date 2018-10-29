@@ -2,10 +2,10 @@ from setuptools import setup
 
 setup(
     name="pyridge",
-    description="Python Ridge Classifier",
+    description="Python Ridge-ELM Classifier",
     version="2.0",
     author="Carlos Perales",
-    author_email="cperales@uloyola.es",
+    author_email="sir.perales@gmail.com",
     packages=['pyridge',
               'pyridge.experiment',
               'pyridge.util',
@@ -17,8 +17,14 @@ setup(
     install_requires=['numpy',
                       'pandas',
                       'sklearn',
-                      'scipy'],
+                      'scipy'
+                      ],
     include_package_data=True,
     setup_requires=[],
-    tests_require=[]
+    tests_require=[],
+    extras_require={
+        'docs': [
+            'sphinx'
+        ]
+    },
 )
