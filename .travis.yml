@@ -4,9 +4,10 @@ python:
 git:
   depth: false
 install:
-  - pip install -r requirements.txt
   - pip install coveralls
-  - pip install -e .
+  - python setup.py install
+  - wget https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip
+  - unzip data.zip
 script:
   - travis_wait 60 coverage run --source=pyridge --omit=env test/test_coverage.py
   - coveralls
