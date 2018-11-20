@@ -15,53 +15,53 @@ Kernel Ridge Classifier
 Ridge with neural functions
 *****************************
 
-Neural Ridge Classifier
+ELM Classifier
 --------------------------------
 
 Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.
 
-.. autoclass:: pyridge.neural.NeuralRidge
+.. autoclass:: pyridge.neural.ELM
 	:members:
 
-Boosting Ridge Neural Ridge Classifier
+Boosting Ridge ELM Classifier
 ------------------------------------------
 
-AdaBoost meta-algorithm with Neural Ridge as learner base.
+AdaBoost meta-algorithm with ELM as learner base.
 
-.. autoclass:: pyridge.neural.BoostingRidgeNRidge
+.. autoclass:: pyridge.neural.BoostingRidgeELM
 	:members:
 
 
-Bagging Neural Ridge Classifier
+Bagging ELM Classifier
 ------------------------------------------
 
-AdaBoost meta-algorithm with Neural Ridge as learner base.
+AdaBoost meta-algorithm with ELM as learner base.
 
-.. autoclass:: pyridge.neural.BaggingNRidge
+.. autoclass:: pyridge.neural.BaggingELM
 	:members:
 
-Diverse Neural Ridge Classifier
+Diverse ELM Classifier
 ------------------------------------------
 
-AdaBoost meta-algorithm with Neural Ridge as learner base.
+AdaBoost meta-algorithm with ELM as learner base.
 
-.. autoclass:: pyridge.neural.DiverseNRidge
+.. autoclass:: pyridge.neural.DiverseELM
 	:members:
 
 
-AdaBoost Neural Ridge Classifier
+AdaBoost ELM Classifier
 ------------------------------------------
 
-AdaBoost meta-algorithm with Neural Ridge as learner base.
+AdaBoost meta-algorithm with ELM as learner base.
 
-.. autoclass:: pyridge.neural.AdaBoostNRidge
+.. autoclass:: pyridge.neural.AdaBoostELM
 	:members:
 
 
-AdaBoost Negative Correlation Neural Ridge Classifier
+AdaBoost Negative Correlation ELM Classifier
 -------------------------------------------------------
 
-AdaBoost meta-algorithm with Neural Ridge as learner base.
+AdaBoost meta-algorithm with ELM as learner base.
 
-.. autoclass:: pyridge.neural.AdaBoostNCNRidge
+.. autoclass:: pyridge.neural.AdaBoostNCELM
 	:members:

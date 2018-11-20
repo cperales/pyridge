@@ -2,13 +2,13 @@ from pyridge.generic.neural import NeuralMethod
 import numpy as np
 
 
-class NeuralRidge(NeuralMethod):
+class ELM(NeuralMethod):
     """
-    Neural Ridge classifier, also known as Extreme Learning Machine.
+    ELM classifier, also known as Extreme Learning Machine.
     It works as a single hidden layer neural network where
     neuron's weights are chosen randomly.
     """
-    __name__ = 'Neural Ridge'
+    __name__ = 'ELM'
 
     def fit(self, train_data, train_target, parameter):
         """

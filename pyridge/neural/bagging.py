@@ -1,12 +1,12 @@
-from .boosting import BoostingRidgeNRidge
+from .boosting import BoostingRidgeELM
 import numpy as np
 
 
-class BaggingNRidge(BoostingRidgeNRidge):
+class BaggingELM(BoostingRidgeELM):
     """
     Bagging implemented to Neural Extreme Learning Machine.
     """
-    __name__ = 'Bagging Neural Ridge'
+    __name__ = 'Bagging ELM'
     prop: float = 0.75  # Proportion of the dataset, 0.0 < prop < 1.0
 
     def fit_step(self, h_matrix, s):

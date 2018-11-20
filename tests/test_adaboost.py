@@ -12,5 +12,5 @@ if __name__ == '__main__':
                       'size': [3, 5]}
     test_algorithm(folder='data',
                    dataset='iris',
-                   algorithm='BoostingRidgeNRidge',
+                   algorithm='AdaBoostELM',
                    hyperparameter=hyperparameter)

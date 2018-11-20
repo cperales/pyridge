@@ -1,14 +1,14 @@
-from .boosting import BoostingRidgeNRidge
+from .boosting import BoostingRidgeELM
 import numpy as np
 
 EPS = 10**-10
 
 
-class AdaBoostNRidge(BoostingRidgeNRidge):
+class AdaBoostELM(BoostingRidgeELM):
     """
-    AdaBoost meta-algorithm applied to Neural Ridge.
+    AdaBoost meta-algorithm applied to ELM.
     """
-    __name__ = 'AdaBoost Neural Ridge'
+    __name__ = 'AdaBoost ELM'
     weight = None
 
     def fit(self, train_data, train_target, parameter):

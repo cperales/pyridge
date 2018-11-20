@@ -14,6 +14,6 @@ if __name__ == '__main__':
     metrics = ['accuracy', 'diversity', 'rmse']
     test_algorithm(folder='../data',
                    dataset='breast-cancer',
-                   algorithm='AdaBoostNCNRidge',
+                   algorithm='AdaBoostNCELM',
                    metric=metrics,
                    hyperparameter=hyperparameter)

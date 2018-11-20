@@ -143,20 +143,20 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pyridge.neural.boosting</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.neural</span> <span class="k">import</span> <span class="n">NeuralRidge</span>
+<span></span><span class="kn">from</span> <span class="nn">.neural</span> <span class="k">import</span> <span class="n">ELM</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="BoostingRidgeNRidge"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeNRidge">[docs]</a><span class="k">class</span> <span class="nc">BoostingRidgeNRidge</span><span class="p">(</span><span class="n">NeuralRidge</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM">[docs]</a><span class="k">class</span> <span class="nc">BoostingRidgeELM</span><span class="p">(</span><span class="n">ELM</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Boosting Ridge ensemble applied to Neural Ridge.</span>
+<span class="sd">    Boosting Ridge ensemble applied to ELM.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Boosting Ridge Neural Ridge&#39;</span>
+    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Boosting Ridge ELM&#39;</span>
     <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">Y_mu</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="BoostingRidgeNRidge.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeNRidge.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use some train (data and target) and parameter to</span>
 <span class="sd">        fit the classifier and construct the rules.</span>
@@ -178,7 +178,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_step</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
 
-<div class="viewcode-block" id="BoostingRidgeNRidge.fit_step"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeNRidge.fit_step">[docs]</a>    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM.fit_step"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.fit_step">[docs]</a>    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Each  step of the fit process.</span>
 
@@ -198,7 +198,7 @@
 
         <span class="k">return</span> <span class="n">output_weight_s</span></div>
 
-<div class="viewcode-block" id="BoostingRidgeNRidge.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeNRidge.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Once instanced, classifier can predict test target</span>
 <span class="sd">        from test data, using some mathematical rules.</span>

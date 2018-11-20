@@ -1,12 +1,12 @@
-from .neural import NeuralRidge
+from .neural import ELM
 import numpy as np
 
 
-class BoostingRidgeNRidge(NeuralRidge):
+class BoostingRidgeELM(ELM):
     """
-    Boosting Ridge ensemble applied to Neural Ridge.
+    Boosting Ridge ensemble applied to ELM.
     """
-    __name__ = 'Boosting Ridge Neural Ridge'
+    __name__ = 'Boosting Ridge ELM'
     size: int = 2
     Y_mu = None
     alpha = None

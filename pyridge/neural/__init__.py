@@ -1,13 +1,13 @@
-from .neural import NeuralRidge
-from .bagging import BaggingNRidge
-from .adaboost import AdaBoostNRidge
-from .boosting import BoostingRidgeNRidge
-from .adaboost_nc import AdaBoostNCNRidge
-from .diverse import DiverseNRidge
+from .neural import ELM
+from .bagging import BaggingELM
+from .adaboost import AdaBoostELM
+from .boosting import BoostingRidgeELM
+from .adaboost_nc import AdaBoostNCELM
+from .diverse import DiverseELM
 
-neural_algorithm = {'NeuralRidge': NeuralRidge,
-                    'AdaBoostNRidge': AdaBoostNRidge,
-                    'BoostingRidgeNRidge': BoostingRidgeNRidge,
-                    'BaggingNRidge': BaggingNRidge,
-                    'AdaBoostNCNRidge': AdaBoostNCNRidge,
-                    'DiverseNRidge': DiverseNRidge}
+neural_algorithm = {'ELM': ELM,
+                    'AdaBoostELM': AdaBoostELM,
+                    'BoostingRidgeELM': BoostingRidgeELM,
+                    'BaggingELM': BaggingELM,
+                    'AdaBoostNCELM': AdaBoostNCELM,
+                    'DiverseELM': DiverseELM}

@@ -86,12 +86,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#ridge-with-neural-functions">Ridge with neural functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#neural-ridge-classifier">Neural Ridge Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#boosting-ridge-neural-ridge-classifier">Boosting Ridge Neural Ridge Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bagging-neural-ridge-classifier">Bagging Neural Ridge Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#diverse-neural-ridge-classifier">Diverse Neural Ridge Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adaboost-neural-ridge-classifier">AdaBoost Neural Ridge Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adaboost-negative-correlation-neural-ridge-classifier">AdaBoost Negative Correlation Neural Ridge Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neural-ridge-classifier">ELM Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boosting-ridge-neural-ridge-classifier">Boosting Ridge ELM Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bagging-neural-ridge-classifier">Bagging ELM Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diverse-neural-ridge-classifier">Diverse ELM Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adaboost-neural-ridge-classifier">AdaBoost ELM Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adaboost-negative-correlation-neural-ridge-classifier">AdaBoost Negative Correlation ELM Classifier</a></li>
 </ul>
 </li>
 </ul>
@@ -200,17 +200,17 @@ rules.
 <div class="section" id="ridge-with-neural-functions">
 <h2>Ridge with neural functions<a class="headerlink" href="#ridge-with-neural-functions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="neural-ridge-classifier">
-<h3>Neural Ridge Classifier<a class="headerlink" href="#neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<h3>ELM Classifier<a class="headerlink" href="#neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
 <p>Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.</p>
 <dl class="class">
-<dt id="pyridge.neural.NeuralRidge">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">NeuralRidge</code><a class="reference internal" href="_modules/pyridge/neural/neural.html#NeuralRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.NeuralRidge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Neural Ridge classifier, also known as Extreme Learning Machine.
+<dt id="pyridge.neural.ELM">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">ELM</code><a class="reference internal" href="_modules/pyridge/neural/neural.html#ELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>ELM classifier, also known as Extreme Learning Machine.
 It works as a single hidden layer neural network where
 neuron’s weights are chosen randomly.</p>
 <dl class="method">
-<dt id="pyridge.neural.NeuralRidge.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#NeuralRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.NeuralRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.ELM.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#ELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use some train (data and target) and parameter to
 fit the classifier and construct the rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -229,8 +229,8 @@ fit the classifier and construct the rules.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.neural.NeuralRidge.get_indicator">
-<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#NeuralRidge.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.NeuralRidge.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.ELM.get_indicator">
+<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#ELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.get_indicator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Once instanced, classifier can predict test target
 from test data, using some mathematical rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -249,15 +249,15 @@ from test data, using some mathematical rules.</p>
 
 </div>
 <div class="section" id="boosting-ridge-neural-ridge-classifier">
-<h3>Boosting Ridge Neural Ridge Classifier<a class="headerlink" href="#boosting-ridge-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<h3>Boosting Ridge ELM Classifier<a class="headerlink" href="#boosting-ridge-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with ELM as learner base.</p>
 <dl class="class">
-<dt id="pyridge.neural.BoostingRidgeNRidge">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BoostingRidgeNRidge</code><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Boosting Ridge ensemble applied to Neural Ridge.</p>
+<dt id="pyridge.neural.BoostingRidgeELM">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BoostingRidgeELM</code><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boosting Ridge ensemble applied to ELM.</p>
 <dl class="method">
-<dt id="pyridge.neural.BoostingRidgeNRidge.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.BoostingRidgeELM.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use some train (data and target) and parameter to
 fit the classifier and construct the rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -276,8 +276,8 @@ fit the classifier and construct the rules.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.neural.BoostingRidgeNRidge.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.BoostingRidgeELM.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM.fit_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Each  step of the fit process.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -295,8 +295,8 @@ fit the classifier and construct the rules.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.neural.BoostingRidgeNRidge.get_indicator">
-<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeNRidge.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeNRidge.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.BoostingRidgeELM.get_indicator">
+<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM.get_indicator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Once instanced, classifier can predict test target
 from test data, using some mathematical rules.
 Valid for other ensembles.</p>
@@ -316,15 +316,15 @@ Valid for other ensembles.</p>
 
 </div>
 <div class="section" id="bagging-neural-ridge-classifier">
-<h3>Bagging Neural Ridge Classifier<a class="headerlink" href="#bagging-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<h3>Bagging ELM Classifier<a class="headerlink" href="#bagging-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with ELM as learner base.</p>
 <dl class="class">
-<dt id="pyridge.neural.BaggingNRidge">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BaggingNRidge</code><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingNRidge" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.BaggingELM">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BaggingELM</code><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingELM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bagging implemented to Neural Extreme Learning Machine.</p>
 <dl class="method">
-<dt id="pyridge.neural.BaggingNRidge.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.BaggingELM.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingELM.fit_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fit with part of the data from the whole set.
 This proportion can be given in the parameter dict;
 if not, proportion is 75%.</p>
@@ -349,15 +349,15 @@ if not, proportion is 75%.</p>
 
 </div>
 <div class="section" id="diverse-neural-ridge-classifier">
-<h3>Diverse Neural Ridge Classifier<a class="headerlink" href="#diverse-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<h3>Diverse ELM Classifier<a class="headerlink" href="#diverse-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with ELM as learner base.</p>
 <dl class="class">
-<dt id="pyridge.neural.DiverseNRidge">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">DiverseNRidge</code><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseNRidge" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.DiverseELM">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">DiverseELM</code><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseELM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Diverse Neural Extreme Learning Machine.</p>
 <dl class="method">
-<dt id="pyridge.neural.DiverseNRidge.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.DiverseELM.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseELM.fit_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Each  step of the fit process.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -378,15 +378,15 @@ if not, proportion is 75%.</p>
 
 </div>
 <div class="section" id="adaboost-neural-ridge-classifier">
-<h3>AdaBoost Neural Ridge Classifier<a class="headerlink" href="#adaboost-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<h3>AdaBoost ELM Classifier<a class="headerlink" href="#adaboost-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with ELM as learner base.</p>
 <dl class="class">
-<dt id="pyridge.neural.AdaBoostNRidge">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostNRidge</code><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNRidge" title="Permalink to this definition">¶</a></dt>
-<dd><p>AdaBoost meta-algorithm applied to Neural Ridge.</p>
+<dt id="pyridge.neural.AdaBoostELM">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostELM</code><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBoost meta-algorithm applied to ELM.</p>
 <dl class="method">
-<dt id="pyridge.neural.AdaBoostNRidge.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostNRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.AdaBoostELM.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add array of weights and call super.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -407,8 +407,8 @@ if not, proportion is 75%.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.neural.AdaBoostNRidge.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.AdaBoostELM.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.fit_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Each  step of the fit process.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -429,15 +429,15 @@ if not, proportion is 75%.</p>
 
 </div>
 <div class="section" id="adaboost-negative-correlation-neural-ridge-classifier">
-<h3>AdaBoost Negative Correlation Neural Ridge Classifier<a class="headerlink" href="#adaboost-negative-correlation-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with Neural Ridge as learner base.</p>
+<h3>AdaBoost Negative Correlation ELM Classifier<a class="headerlink" href="#adaboost-negative-correlation-neural-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with ELM as learner base.</p>
 <dl class="class">
-<dt id="pyridge.neural.AdaBoostNCNRidge">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostNCNRidge</code><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCNRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCNRidge" title="Permalink to this definition">¶</a></dt>
-<dd><p>AdaBoost Negative Correlation meta-algorithm applied to Neural Ridge.</p>
+<dt id="pyridge.neural.AdaBoostNCELM">
+<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostNCELM</code><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBoost Negative Correlation meta-algorithm applied to ELM.</p>
 <dl class="method">
-<dt id="pyridge.neural.AdaBoostNCNRidge.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCNRidge.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCNRidge.fit_step" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.AdaBoostNCELM.fit_step">
+<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCELM.fit_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Each  step of the fit process.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

@@ -22,7 +22,15 @@ in [Universidad Loyola Andalucía](https://www.uloyola.es/en/research/department
 
 Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/PyRidge/).
 
-## How to install it within a virtual environment
+## Install
+
+To install the library along with the dependencies,
+
+```bash
+python setup.py install
+```
+
+## How to use a virtual environment
 
 It is recommended to install the framework in a virtual environment
 
@@ -36,32 +44,23 @@ In order to activate the virtual environment
 source env/bin/activate
 ```
 
-To deactivate, just write ```deactivate```. Then, it is necessary
-to install the requirements
+To deactivate, just write ```deactivate```.
 
-```bash
-pip install -r requirements.txt
-```
-
-To use it in any folder, you should install it as a dependency:
-
-```bash
-pip install -e .
-```
-
-or 
-
-```bash
-python setup.py install
-```
 
 ## Algorithms
 
 Right now, there are the following algorithms programmed:
 
+### Kernel algorithms (or Ridge classification)
+
 * Kernel Ridge (KRidge) [1]
-* Neural Ridge (NRidge) [2]
-* AdaBoost Neural Ridge (AdaBoostNRidge) [3]
+
+### Neural algorithms (or ELM classification)
+* ELM [2]
+* AdaBoost ELM (AdaBoostELM) [3]
+* AdaBoost Negative Correlation (AdaBoostNCELM) [4]
+* Bagging ELM (BaggingELM) [5]
+* Diverse ELM (DiverseELM) [6]
 
 ## Code documentation
 
@@ -77,68 +76,18 @@ sphinx-build docs/source docs/
 Some data can be downloaded [here!](https://drive.google.com/file/d/1O67sgZzRtWtVUHa3qaklTsZnvEWF10Iv/view?usp=sharing).
 In order to run the tests, `data` folder should be in main directory.
 
+Also, repository [uci-download-process](https://github.com/cperales/uci-download-process)
+could help you to download some examples from [UCI dataset](https://archive.ics.uci.edu/ml/datasets.html).
 
 ## An example
 
 You can run a test for every algorithm, just simply
 
 ```bash
-python test/
-```
-
-Also, there is an individual test for each algorithm,
-and a test with JSON implementation
-
-```bash
-python test/test_json.py
+python test/test_coverage.py
 ```
 
 By default, logging level is set to `DEBUG`.
-
-## How to use a classifier manually
-
-It is also useful to know how to use a classifier. In this framework, a classifier is an object with different methods,
-that allows you to train from data, predict a label for test data, save the classifier...
-
-Training a classifier, for example, a Kernel Ridge classifier:
-
-```python
-from pyridge.algorithm import KRidge
-from pyridge.utils.preprocess import prepare_data
-
-# Data
-folder = 'data/newthyroid'
-train_dataset = 'train_newthyroid.0'
-train_data, train_target = prepare_data(folder=folder,
-                                          dataset=train_dataset)
-# Classifier                                        
-clf = KRidge()
-clf.fit(train_data=train_data, train_target=train_target)
-``` 
-
-Once trained, using the classifier to predict a label for test data is as easy as:
-
-```python
-test_dataset = 'test_newthyroid.0'
-# In case in test data there are less target labels than in train data 
-n_targ = train_target.shape[1]
-
-test_data, test_target = prepare_data(folder=folder,
-                                      dataset=test_dataset,
-                                      n_targ=n_targ)
-predicted_labels = clf.predict(test_data=test_data)
-```
-
-
-## Future work
-
-- [ ] Make regression problems availables.
-- [ ] Look for regression datasets.
-- [ ] Functions to create classifiers from data, save them in as a file,
- and use them to predict, giving an understandable output.
-- [ ] More examples with real predictions, not testing.
-- [ ] Combine PyRidge with [pylm](http://pylm.readthedocs.io/en/latest/),
-a high level queue manager in Python with communication patterns such as client-server-workers 
 
 
 ## Bibliography
@@ -159,3 +108,13 @@ pp. 1898–1909, 2014.
 [4]: Wang, S., Chen, H., & Yao, X. (2010, July). Negative correlation
 learning for classification ensembles. In Neural Networks (IJCNN),
 The 2010 International Joint Conference on (pp. 1-8). IEEE.
+
+[5]: Tian, H., & Meng, B. (2010, September). A new modeling method based
+on bagging ELM for day-ahead electricity price prediction. In Bio-Inspired
+Computing: Theories and Applications (BIC-TA), 2010 IEEE Fifth
+International Conference on (pp. 1076-1079). IEEE.
+
+[6]: Perales-González, C., Carbonero-Ruz, M., Becerra-Alonso, D., &
+Fernández-Navarro, F. (2018, June). A Preliminary Study of Diversity
+in Extreme Learning Machines Ensembles. In International Conference
+on Hybrid Artificial Intelligence Systems (pp. 302-314). Springer, Cham.

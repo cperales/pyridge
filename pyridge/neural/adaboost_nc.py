@@ -1,12 +1,12 @@
-from .adaboost import AdaBoostNRidge, EPS
+from .adaboost import AdaBoostELM, EPS
 import numpy as np
 
 
-class AdaBoostNCNRidge(AdaBoostNRidge):
+class AdaBoostNCELM(AdaBoostELM):
     """
-    AdaBoost Negative Correlation meta-algorithm applied to Neural Ridge.
+    AdaBoost Negative Correlation meta-algorithm applied to ELM.
     """
-    __name__ = 'AdaBoost Negative Correlation Neural Ridge'
+    __name__ = 'AdaBoost Negative Correlation ELM'
     lambda_ = 0.0  # lambda hyperparameter
 
     def fit_step(self, h_matrix, s):

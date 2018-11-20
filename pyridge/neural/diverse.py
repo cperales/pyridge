@@ -1,12 +1,12 @@
-from .boosting import BoostingRidgeNRidge
+from .boosting import BoostingRidgeELM
 import numpy as np
 
 
-class DiverseNRidge(BoostingRidgeNRidge):
+class DiverseELM(BoostingRidgeELM):
     """
     Diverse Neural Extreme Learning Machine.
     """
-    __name__ = 'Diverse Neural Ridge'
+    __name__ = 'Diverse ELM'
     M_k = None
     div: float = 1.0
 

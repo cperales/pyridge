@@ -26,12 +26,12 @@ if __name__ == '__main__':
     hyperparameter_kernel = {'kernel': ['rbf', 'linear'],
                              'reg': [10 ** i for i in range(-1, 2)],
                              'gamma': [10 ** i for i in range(-1, 2)]}
-    algorithms = [('AdaBoostNRidge', hyperparameter_boost),
-                  ('AdaBoostNCNRidge', hyperparameter_nc),
-                  ('BaggingNRidge', hyperparameter_boost),
-                  ('BoostingRidgeNRidge', hyperparameter_boost),
-                  ('DiverseNRidge', hyperparameter_div),
-                  ('NeuralRidge', hyperparameter_neural),
+    algorithms = [('AdaBoostELM', hyperparameter_boost),
+                  ('AdaBoostNCELM', hyperparameter_nc),
+                  ('BaggingELM', hyperparameter_boost),
+                  ('BoostingRidgeELM', hyperparameter_boost),
+                  ('DiverseELM', hyperparameter_div),
+                  ('ELM', hyperparameter_neural),
                   ('KernelRidge', hyperparameter_kernel)]
 
     for alg_hyp in algorithms:

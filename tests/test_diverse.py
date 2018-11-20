@@ -13,5 +13,5 @@ if __name__ == '__main__':
                       'size': [5]}
     test_algorithm(folder='data',
                    dataset='iris',
-                   algorithm='DiverseNRidge',
+                   algorithm='DiverseELM',
                    hyperparameter=hyperparameter)
