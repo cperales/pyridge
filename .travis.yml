@@ -10,7 +10,7 @@ install:
   - wget https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip
   - unzip data.zip
 script:
-  - coverage run --source=pyridge --omit=env tests/test_coverage.py
+  - coverage run --source=pyridge --omit=env test_coverage.py
   - coveralls
 branches:
   only:
