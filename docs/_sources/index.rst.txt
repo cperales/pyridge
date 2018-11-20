@@ -6,11 +6,11 @@
 Welcome to PyRidge's documentation!
 ====================================
 
-.. image:: https://travis-ci.org/cperales/PyRidge.svg?branch=master
-    :target: https://travis-ci.org/cperales/PyRidge
+.. image:: https://travis-ci.org/cperales/pyridge.svg?branch=master
+    :target: https://travis-ci.org/cperales/pyridge
 
-.. image:: https://coveralls.io/repos/github/cperales/PyRidge/badge.svg
-    :target: https://coveralls.io/github/cperales/PyRidge
+.. image:: https://coveralls.io/repos/github/cperales/pyridge/badge.svg
+    :target: https://coveralls.io/github/cperales/pyridge
 
 
 This project is aimed to write an useful machine learning library in Python based on
