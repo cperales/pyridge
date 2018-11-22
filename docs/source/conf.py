@@ -99,10 +99,10 @@ html_theme = "sphinx_rtd_theme"
 # }
 
 html_context = {
-  'canonical_url': 'https://cperales.github.io/PyRidge/index.html',
+  'canonical_url': 'https://cperales.github.io/pyridge/index.html',
   'display_github': True,
   'github_user': 'cperales',
-  'github_repo': 'PyRidge',
+  'github_repo': 'pyridge',
   'github_version': 'master/docs/source/'
 }
 
