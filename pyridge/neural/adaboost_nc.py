@@ -15,7 +15,7 @@ class AdaBoostNCELM(AdaBoostELM):
 
         :param numpy.matrix h_matrix:
         :param int s:
-        :return :
+        :return:
         """
         # Beta is calculated
         weight_matrix = np.diag(self.weight)

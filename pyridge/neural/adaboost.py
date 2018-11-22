@@ -31,7 +31,7 @@ class AdaBoostELM(BoostingRidgeELM):
 
         :param h_matrix:
         :param int s:
-        :return :
+        :return:
         """
         weight_matrix = np.diag(self.weight)
         izq = np.eye(h_matrix.shape[1]) + \

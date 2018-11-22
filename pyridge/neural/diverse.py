@@ -16,7 +16,7 @@ class DiverseELM(BoostingRidgeELM):
 
         :param h_matrix:
         :param int s:
-        :return :
+        :return:
         """
         if s == 0:
             self.M_k = np.zeros((self.labels, self.hidden_neurons, self.hidden_neurons))

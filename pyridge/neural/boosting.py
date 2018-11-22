@@ -39,7 +39,7 @@ class BoostingRidgeELM(ELM):
 
         :param h_matrix:
         :param int s:
-        :return :
+        :return:
         """
         # Beta is calculated
         izq = np.eye(h_matrix.shape[1]) + \
