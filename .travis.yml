@@ -10,7 +10,7 @@ install:
   - wget https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip
   - unzip data.zip
 script:
-  - pytest --source=pyridge
+  - pytest --cov=pyridge
   - coveralls
 branches:
   only:
