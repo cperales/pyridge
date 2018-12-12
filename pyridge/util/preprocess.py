@@ -9,7 +9,7 @@ scaler_dict = {'standard': StandardScaler(),
 
 def prepare_data(folder,
                  dataset,
-                 sep='\s+',
+                 sep=' ',
                  scaler='standard'):
     """
     Read the data from the files and scale them.
@@ -27,7 +27,7 @@ def prepare_data(folder,
                        sep=sep,
                        header=None)
 
-    file_matrix = file.as_matrix()
+    file_matrix = file.values
 
     file_matrix_t = file_matrix.transpose()
     target = file_matrix_t[-1].transpose()

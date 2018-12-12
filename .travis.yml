@@ -5,12 +5,12 @@ python:
 git:
   depth: false
 install:
-  - pip install coveralls PyYAML
+  - pip install coveralls PyYAML pytest-cov
   - python setup.py install
   - wget https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip
   - unzip data.zip
 script:
-  - coverage run --source=pyridge --omit=env test_coverage.py
+  - pytest --source=pyridge
   - coveralls
 branches:
   only:

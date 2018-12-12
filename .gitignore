@@ -1,5 +1,6 @@
 # Folders
 env*/
+data/
 .idea/
 __pycache__/
 

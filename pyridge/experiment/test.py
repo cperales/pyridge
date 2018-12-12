@@ -11,7 +11,7 @@ hyperparameter_nelm = {'activation': ['sigmoid'],
 
 def test_algorithm(folder='data/',
                    dataset='iris',
-                   algorithm='NeuralELM',
+                   algorithm='ELM',
                    metric=['accuracy'],
                    hyperparameter=hyperparameter_nelm):
     """
