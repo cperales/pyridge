@@ -6,16 +6,17 @@ class BaggingELM(BoostingRidgeELM):
     """
     Bagging implemented to Neural Extreme Learning Machine.
     """
-    __name__ = 'Bagging ELM'
+    __name__ = 'Bagging Neural ELM'
     prop: float = 0.75  # Proportion of the dataset, 0.0 < prop < 1.0
 
-    def fit_step(self, h_matrix, s):
+    def fit_step(self, h_matrix, y_mu=None, s:int=1):
         """
         Fit with part of the data from the whole set.
         This proportion can be given in the parameter dict;
         if not, proportion is 75%.
 
         :param h_matrix:
+        :param y_mu:
         :param int s:
         :return:
         """

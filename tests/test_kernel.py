@@ -5,7 +5,7 @@ logger = logging.getLogger('pyridge')
 logger.setLevel('INFO')
 
 
-if __name__ == '__main__':
+def test_kernel():
     hyperparameter = {'kernel': ['rbf'],
                       'reg': [10 ** i for i in range(-3, 4)],
                       'gamma': [10 ** i for i in range(-2, 2)]}

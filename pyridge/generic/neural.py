@@ -9,7 +9,7 @@ activation_dict = {'sin': np.sin,
 
 class NeuralMethod(Classifier):
     __name__ = 'Neural network'
-    hidden_neurons: int = 2
+    hidden_neurons: int
     activation: str = 'sigmoid'
     neuron_fun = None
     input_weight = None

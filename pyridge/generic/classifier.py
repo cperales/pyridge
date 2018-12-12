@@ -7,9 +7,9 @@ logger = logging.getLogger('pyridge')
 
 class Classifier(object):
     __name__ = 'Base classifier'
-    labels: int = 2
-    dim: int = 2
-    n: int = 2
+    labels: int
+    dim: int
+    n: int
     reg: float = 1.0
     train_target = None
     train_data = None
@@ -44,9 +44,12 @@ class Classifier(object):
         self.label_encoder_ = label_encoder_.transform
         self.label_decoder_ = label_encoder_.inverse_transform
 
-        self.Y = self.label_encoder_(train_target)
+        self.Y = self.label_encoder_(train_target).astype(np.float64)
 
         # Instance the parameter dictionary
+        if 'ensemble_size' in parameter.keys():
+            parameter.update({'size': parameter['ensemble_size']})
+            parameter.pop('ensemble_size')
         self.__dict__.update(parameter)
 
     def get_indicator(self, test_data):

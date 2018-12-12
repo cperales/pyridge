@@ -5,7 +5,7 @@ logger = logging.getLogger('pyridge')
 logger.setLevel('INFO')
 
 
-if __name__ == '__main__':
+def test_diverse():
     hyperparameter = {'activation': ['sigmoid'],
                       'reg': [10 ** i for i in range(-1, 2)],
                       'div': [10 ** i for i in range(-1, 2)],

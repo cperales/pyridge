@@ -5,7 +5,7 @@ logger = logging.getLogger('pyridge')
 logger.setLevel('INFO')
 
 
-if __name__ == '__main__':
+def test_boosting_ridge():
     hyperparameter = {'activation': ['sigmoid'],
                       'reg': [10 ** i for i in range(-3, 4)],
                       'hidden_neurons': [1000],

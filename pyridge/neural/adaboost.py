@@ -8,7 +8,7 @@ class AdaBoostELM(BoostingRidgeELM):
     """
     AdaBoost meta-algorithm applied to ELM.
     """
-    __name__ = 'AdaBoost ELM'
+    __name__ = 'AdaBoost Neural ELM'
     weight = None
 
     def fit(self, train_data, train_target, parameter):
@@ -25,11 +25,12 @@ class AdaBoostELM(BoostingRidgeELM):
                     train_target=train_target,
                     parameter=parameter)
 
-    def fit_step(self, h_matrix, s):
+    def fit_step(self, h_matrix, y_mu=None, s:int=1):
         """
-        Each  step of the fit process.
+        Each step of the fit process.
 
         :param h_matrix:
+        :param y_mu:
         :param int s:
         :return:
         """

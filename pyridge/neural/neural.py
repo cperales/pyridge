@@ -4,11 +4,11 @@ import numpy as np
 
 class ELM(NeuralMethod):
     """
-    ELM classifier, also known as Extreme Learning Machine.
+    Neural Ridge classifier, also known as Extreme Learning Machine.
     It works as a single hidden layer neural network where
     neuron's weights are chosen randomly.
     """
-    __name__ = 'ELM'
+    __name__ = 'Neural ELM'
 
     def fit(self, train_data, train_target, parameter):
         """

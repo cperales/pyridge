@@ -6,8 +6,8 @@ class BoostingRidgeELM(ELM):
     """
     Boosting Ridge ensemble applied to ELM.
     """
-    __name__ = 'Boosting Ridge ELM'
-    size: int = 2
+    __name__ = 'Boosting Ridge Neural ELM'
+    size: int
     Y_mu = None
     alpha = None
 
@@ -26,31 +26,30 @@ class BoostingRidgeELM(ELM):
         self.alpha = np.ones(self.size)
         self.get_weight_bias_()
         h_matrix = self.get_h_matrix_(data=train_data)
-        self.Y_mu = self.Y.astype(np.float64)
 
+        y_mu = self.Y.copy()
         self.output_weight = np.zeros((self.size, self.hidden_neurons, self.Y.shape[1]))
         for s in range(self.size):
-            self.output_weight[s] = self.fit_step(h_matrix, s)
+            self.output_weight[s] = self.fit_step(h_matrix=h_matrix,
+                                                  y_mu=y_mu,
+                                                  s=s)
+            # y_mu updated
+            mu = np.dot(h_matrix, self.output_weight[s])
+            y_mu -= mu
         self.output_weight[np.isnan(self.output_weight)] = 0.0
 
-    def fit_step(self, h_matrix, s):
+    def fit_step(self, h_matrix, y_mu=None, s:int=1):
         """
         Each  step of the fit process.
 
         :param h_matrix:
-        :param int s:
+        :param y_mu:
+        :param int s: element of the ensemble, for inheritance.
         :return:
         """
-        # Beta is calculated
-        izq = np.eye(h_matrix.shape[1]) + \
-              self.reg * np.dot(h_matrix.T, h_matrix)
-        der = np.dot(h_matrix.T, self.Y_mu)
+        izq = np.eye(h_matrix.shape[1]) / self.reg + np.dot(h_matrix.T, h_matrix)
+        der = np.dot(h_matrix.T, y_mu)
         output_weight_s = np.linalg.solve(a=izq, b=der)
-
-        # Y_mu updated
-        y_pred = np.dot(h_matrix, output_weight_s)
-        self.Y_mu -= y_pred
-
         return output_weight_s
 
     def get_indicator(self, test_data):

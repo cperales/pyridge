@@ -4,16 +4,17 @@ import numpy as np
 
 class AdaBoostNCELM(AdaBoostELM):
     """
-    AdaBoost Negative Correlation meta-algorithm applied to ELM.
+    AdaBoost Negative Correlation meta-algorithm applied to Neural ELM.
     """
-    __name__ = 'AdaBoost Negative Correlation ELM'
-    lambda_ = 0.0  # lambda hyperparameter
+    __name__ = 'AdaBoost Negative Correlation Neural ELM'
+    lambda_: float  # lambda hyperparameter
 
-    def fit_step(self, h_matrix, s):
+    def fit_step(self, h_matrix, y_mu=None, s:int=1):
         """
-        Each  step of the fit process.
+        Each step of the fit process.
 
-        :param numpy.matrix h_matrix:
+        :param h_matrix:
+        :param y_mu:
         :param int s:
         :return:
         """

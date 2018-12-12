@@ -4,17 +4,18 @@ import numpy as np
 
 class DiverseELM(BoostingRidgeELM):
     """
-    Diverse Neural Extreme Learning Machine.
+    Diverse Extreme Learning Machine.
     """
-    __name__ = 'Diverse ELM'
+    __name__ = 'Diverse Neural ELM'
     M_k = None
-    div: float = 1.0
+    div: float
 
-    def fit_step(self, h_matrix, s):
+    def fit_step(self, h_matrix, y_mu=None, s:int=1):
         """
-        Each  step of the fit process.
+        Each step of the fit process.
 
         :param h_matrix:
+        :param y_mu:
         :param int s:
         :return:
         """
