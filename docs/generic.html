@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Algorithms" href="algorithms.html" />
+    <link rel="next" title="Predictors" href="algorithms.html" />
     <link rel="prev" title="Welcome to PyRidge’s documentation!" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -80,13 +82,13 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Generic classes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#classifier">Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#predictor">Predictor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#neural-method">Neural Method</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kernel-method">Kernel Method</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions for experiments and utilities</a></li>
 </ul>
 
             
@@ -156,61 +158,108 @@
   <div class="section" id="generic-classes">
 <h1>Generic classes<a class="headerlink" href="#generic-classes" title="Permalink to this headline">¶</a></h1>
 <p>The different algorithms in this library inherits from these generic classes.</p>
-<div class="section" id="classifier">
-<h2>Classifier<a class="headerlink" href="#classifier" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="predictor">
+<h2>Predictor<a class="headerlink" href="#predictor" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyridge.generic.Classifier">
-<em class="property">class </em><code class="descclassname">pyridge.generic.</code><code class="descname">Classifier</code><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.generic.predictor.Predictor">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.generic.predictor.</code><code class="sig-name descname">Predictor</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="pyridge.generic.Classifier.get_indicator">
-<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier.get_indicator" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<em>numpy.array</em>) – array like.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
-</tr>
-</tbody>
-</table>
+<dt id="pyridge.generic.predictor.Predictor.get_indicator">
+<code class="sig-name descname">get_indicator</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> (<em>numpy.array</em>) – array like.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predicted labels.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.generic.Classifier.instance_param_">
-<code class="descname">instance_param_</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier.instance_param_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier.instance_param_" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.generic.predictor.Predictor.instance_param_">
+<code class="sig-name descname">instance_param_</code><span class="sig-paren">(</span><em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.instance_param_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.instance_param_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance parameters from dict.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>train_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix" title="(in NumPy v1.15)"><em>numpy.matrix</em></a>) – </li>
-<li><strong>train_target</strong> (<em>numpy.array</em>) – </li>
-<li><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix" title="(in NumPy v1.16)"><em>numpy.matrix</em></a>) – </p></li>
+<li><p><strong>train_target</strong> (<em>numpy.array</em>) – </p></li>
+<li><p><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.generic.Classifier.predict">
-<code class="descname">predict</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/classifier.html#Classifier.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.Classifier.predict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<em>numpy.array</em>) – array like.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
-</tr>
-</tbody>
-</table>
+<dt id="pyridge.generic.predictor.Predictor.predict_classifier">
+<code class="sig-name descname">predict_classifier</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.predict_classifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.predict_classifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> (<em>numpy.array</em>) – array like.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predicted labels.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.generic.predictor.Predictor.predict_proba">
+<code class="sig-name descname">predict_proba</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.predict_proba"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.predict_proba" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the probability.of class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> (<em>numpy.array</em>) – array like.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predicted labels.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.generic.predictor.Predictor.predict_regressor">
+<code class="sig-name descname">predict_regressor</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.predict_regressor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.predict_regressor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the value (for linear).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> (<em>numpy.array</em>) – array like.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predicted values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.generic.predictor.Predictor.target_classification">
+<code class="sig-name descname">target_classification</code><span class="sig-paren">(</span><em class="sig-param">train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.target_classification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.target_classification" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_target</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.generic.predictor.Predictor.target_regression">
+<code class="sig-name descname">target_regression</code><span class="sig-paren">(</span><em class="sig-param">train_target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/predictor.html#Predictor.target_regression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.predictor.Predictor.target_regression" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_target</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -220,20 +269,18 @@
 <h2>Neural Method<a class="headerlink" href="#neural-method" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyridge.generic.NeuralMethod">
-<em class="property">class </em><code class="descclassname">pyridge.generic.</code><code class="descname">NeuralMethod</code><a class="reference internal" href="_modules/pyridge/generic/neural.html#NeuralMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.NeuralMethod" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.generic.</code><code class="sig-name descname">NeuralMethod</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/neural.html#NeuralMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.NeuralMethod" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="pyridge.generic.NeuralMethod.get_h_matrix_">
-<code class="descname">get_h_matrix_</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/neural.html#NeuralMethod.get_h_matrix_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.NeuralMethod.get_h_matrix_" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dt id="pyridge.generic.NeuralMethod.get_h_matrix">
+<code class="sig-name descname">get_h_matrix</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/neural.html#NeuralMethod.get_h_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.NeuralMethod.get_h_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -243,7 +290,7 @@
 <h2>Kernel Method<a class="headerlink" href="#kernel-method" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyridge.generic.KernelMethod">
-<em class="property">class </em><code class="descclassname">pyridge.generic.</code><code class="descname">KernelMethod</code><a class="reference internal" href="_modules/pyridge/generic/kernel.html#KernelMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.KernelMethod" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.generic.</code><code class="sig-name descname">KernelMethod</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/generic/kernel.html#KernelMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.generic.KernelMethod" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -257,10 +304,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="algorithms.html" class="btn btn-neutral float-right" title="Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="algorithms.html" class="btn btn-neutral float-right" title="Predictors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to PyRidge’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to PyRidge’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -286,26 +333,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

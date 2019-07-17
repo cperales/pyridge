@@ -1,67 +1,74 @@
-Algorithms
+Predictors
 ===========
 
-Ridge with kernel trick
-*************************
 
+Single predictors
+******************
 
-Kernel Ridge Classifier
+Extreme Learning Machine
 --------------------------------
 
-.. autoclass:: pyridge.kernel.KernelRidge
-	:members:
-
-
-Ridge with neural functions
-*****************************
-
-ELM Classifier
---------------------------------
-
-Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.
+Also known as single-hidden-layer version of Extreme Learning Machine.
+Weights for neurons in the hidden layer are chosen randomly.
 
 .. autoclass:: pyridge.neural.ELM
 	:members:
 
-Boosting Ridge ELM Classifier
-------------------------------------------
+Kernel ELM
+--------------------------------
 
-AdaBoost meta-algorithm with ELM as learner base.
+Kernel version of Extreme Learning Machine.
 
-.. autoclass:: pyridge.neural.BoostingRidgeELM
+.. autoclass:: pyridge.kernel.KernelELM
 	:members:
 
+Ensembles
+**********
 
-Bagging ELM Classifier
+AdaBoost ELM
 ------------------------------------------
 
-AdaBoost meta-algorithm with ELM as learner base.
-
-.. autoclass:: pyridge.neural.BaggingELM
-	:members:
-
-Diverse ELM Classifier
-------------------------------------------
-
-AdaBoost meta-algorithm with ELM as learner base.
-
-.. autoclass:: pyridge.neural.DiverseELM
-	:members:
-
-
-AdaBoost ELM Classifier
-------------------------------------------
-
-AdaBoost meta-algorithm with ELM as learner base.
+AdaBoost meta-algorithm with ELM as base learner.
 
 .. autoclass:: pyridge.neural.AdaBoostELM
 	:members:
 
+Bagging ELM
+------------------
 
-AdaBoost Negative Correlation ELM Classifier
--------------------------------------------------------
+Bagging implementation with ELM as base learner.
 
-AdaBoost meta-algorithm with ELM as learner base.
+.. autoclass:: pyridge.neural.BaggingELM
+
+Boosting Ridge ELM
+--------------------
+
+Boosting Ridge with ELM as base learner.
+
+.. autoclass:: pyridge.neural.BoostingRidgeELM
+
+AdaBoost Negative Correlation ELM
+------------------------------------
+
+Xin Yao et al. implementation of Negative Correlation and Adaboost.
 
 .. autoclass:: pyridge.neural.AdaBoostNCELM
-	:members:
+
+Diverse ELM
+------------
+
+Ensemble proposed by `Perales et al (2018)`_.
+
+.. autoclass:: pyridge.neural.DiverseELM
+
+.. _Perales et al (2018): http://www.doi.org/10.1007/978-3-319-92639-1_25
+
+
+Regularized Ensemble ELM (REELM)
+----------------------------------
+
+Ensemble proposed by `Perales et al (2019)`_.
+
+.. autoclass:: pyridge.neural.DiverseELM
+
+.. _Perales et al (2019): http://www.doi.org/10.1016/j.neucom.2019.06.040

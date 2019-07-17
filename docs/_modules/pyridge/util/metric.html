@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -78,8 +80,8 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
 </ul>
 
             
@@ -146,7 +148,7 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="accuracy"><a class="viewcode-back" href="../../../functions.html#pyridge.util.accuracy">[docs]</a><span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">):</span>
+<div class="viewcode-block" id="accuracy"><a class="viewcode-back" href="../../../functions.html#pyridge.util.metric.accuracy">[docs]</a><span class="k">def</span> <span class="nf">accuracy</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Percentage of predicted targets that actually</span>
 <span class="sd">    coincide with real targets.</span>
@@ -159,26 +161,12 @@
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pred_targ</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pred_data</span><span class="p">)</span>
-    <span class="n">comp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">pred_targ</span> <span class="o">==</span> <span class="n">real_targ</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">pred_targ</span> <span class="o">==</span> <span class="n">real_targ</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
     <span class="n">acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">acc</span></div>
 
 
-<span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">predicted_targets</span><span class="p">,</span> <span class="n">real_targets</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Inverse of the accuracy. It is used for cross validation.</span>
-
-<span class="sd">    :param predicted_targets:</span>
-<span class="sd">    :param real_targets:</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">comp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">predicted_targets</span> <span class="o">==</span> <span class="n">real_targets</span><span class="p">),</span>
-                    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-    <span class="n">acc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">acc</span>
-
-
-<div class="viewcode-block" id="rmse"><a class="viewcode-back" href="../../../functions.html#pyridge.util.rmse">[docs]</a><span class="k">def</span> <span class="nf">rmse</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">):</span>
+<div class="viewcode-block" id="rmse"><a class="viewcode-back" href="../../../functions.html#pyridge.util.metric.rmse">[docs]</a><span class="k">def</span> <span class="nf">rmse</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param clf:</span>
@@ -186,21 +174,80 @@
 <span class="sd">    :param real_targ:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">real_j_targ</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">Y</span>
+    <span class="n">real_j_targ</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">real_targ</span><span class="p">)</span>
     <span class="n">ind_matrix</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">get_indicator</span><span class="p">(</span><span class="n">pred_data</span><span class="p">)</span>
 
     <span class="n">rmse_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">real_row</span> <span class="o">-</span> <span class="n">ind_row</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">ind_row</span><span class="p">,</span> <span class="n">real_row</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ind_matrix</span><span class="p">,</span>
-                                             <span class="n">real_j_targ</span><span class="p">)]</span>
+                <span class="k">for</span> <span class="n">ind_row</span><span class="p">,</span> <span class="n">real_row</span> <span class="ow">in</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="n">ind_matrix</span><span class="p">,</span> <span class="n">real_j_targ</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmse_vec</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="diversity"><a class="viewcode-back" href="../../../functions.html#pyridge.util.diversity">[docs]</a><span class="k">def</span> <span class="nf">diversity</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">rmse_train</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    :param clf:</span>
+<span class="sd">    :param pred_data:</span>
+<span class="sd">    :param real_targ:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">real_j_targ</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">train_target</span><span class="p">)</span>
+    <span class="n">ind_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">clf</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">h_matrix</span><span class="p">,</span>
+                                                           <span class="n">clf</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
+                                     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">size</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">rmse_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">real_row</span> <span class="o">-</span> <span class="n">ind_row</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ind_row</span><span class="p">,</span> <span class="n">real_row</span> <span class="ow">in</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="n">ind_matrix</span><span class="p">,</span> <span class="n">real_j_targ</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmse_vec</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">disagreement</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">real_targ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    For Bagging Stepwise ELM Ensemble.</span>
+
+<span class="sd">    :param clf: classifier</span>
+<span class="sd">    :param pred_data: data to predict.</span>
+<span class="sd">    :param real_targ:</span>
+<span class="sd">    :param S:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">S</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">output_weight</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">acc_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">pred_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">S</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
+        <span class="n">prediction_s</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pred_data</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">acc_matrix</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">prediction_s</span> <span class="o">==</span> <span class="n">real_targ</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">S</span><span class="p">,</span> <span class="n">S</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+            <span class="n">c_1</span> <span class="o">=</span> <span class="n">acc_matrix</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+            <span class="n">c_2</span> <span class="o">=</span> <span class="n">acc_matrix</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c_1</span> <span class="o">*</span> <span class="n">c_2</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">c_1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">c_2</span><span class="p">))</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">c_1</span><span class="p">)</span> <span class="o">*</span> <span class="n">c_2</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">c_1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">c_2</span><span class="p">))</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span>
+            <span class="n">Q</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="n">Q_m</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
+            <span class="n">Q_m</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">S</span> <span class="o">*</span> <span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Q_m</span>
+
+
+<div class="viewcode-block" id="diversity"><a class="viewcode-back" href="../../../functions.html#pyridge.util.metric.diversity">[docs]</a><span class="k">def</span> <span class="nf">diversity</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">real_targ</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implemented directly from MATLAB, not pythonic.</span>
 <span class="sd">    TODO: rewrite.</span>
 
-<span class="sd">    :param clf: Classifier.</span>
+<span class="sd">    :param clf: Predictor.</span>
 <span class="sd">    :param pred_data: Not used.</span>
 <span class="sd">    :param real_targ: Not used.</span>
 <span class="sd">    :return:</span>
@@ -209,7 +256,7 @@
     <span class="n">div</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ensemble_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ensemble_size</span><span class="p">):</span>
             <span class="n">beta_s</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
                 <span class="n">beta_t</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
@@ -224,6 +271,33 @@
                     <span class="n">div</span> <span class="o">+=</span> <span class="n">div_step</span>
                     <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">div</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">count</span><span class="p">)</span></div>
+
+
+<span class="n">metric_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">,</span>
+    <span class="s1">&#39;rmse&#39;</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span>
+    <span class="s1">&#39;diversity&#39;</span><span class="p">:</span> <span class="n">diversity</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It is used for cross validation.</span>
+
+<span class="sd">    :param clf: classifier with predict method.</span>
+<span class="sd">    :param pred_data: array of the targets</span>
+<span class="sd">        according to the classifier.</span>
+<span class="sd">    :param numpy.array real_targ: array of the real targets.</span>
+<span class="sd">    :param bool real_targ: array of the real targets.</span>
+<span class="sd">    :param str metric: metric to use</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metric_fun</span> <span class="o">=</span> <span class="n">metric_dict</span><span class="p">[</span><span class="n">metric</span><span class="p">]</span>
+    <span class="n">metric_value</span> <span class="o">=</span> <span class="n">metric_fun</span><span class="p">(</span><span class="n">clf</span><span class="o">=</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="o">=</span><span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="o">=</span><span class="n">real_targ</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="ow">is</span> <span class="s1">&#39;rmse&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">metric_value</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">metric_value</span>
 </pre></div>
 
            </div>
@@ -253,26 +327,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

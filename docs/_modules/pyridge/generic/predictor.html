@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyridge.generic.predictor &mdash; PyRidge  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyRidge
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyRidge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyridge.generic.predictor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyridge.generic.predictor</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..util.target_encode</span> <span class="k">import</span> <span class="n">id_encoder</span><span class="p">,</span> <span class="n">id_decoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelBinarizer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyridge&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Predictor"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor">[docs]</a><span class="k">class</span> <span class="nc">Predictor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Base predictor&#39;</span>
+    <span class="n">__base_type__</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">t</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">reg</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">train_target</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">train_data</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">label_encoder</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">label_decoder</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">output_weight</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classification</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> instanced&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__classification__</span> <span class="o">=</span> <span class="n">classification</span>  <span class="c1"># Default it works as a classifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__classification__</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># It works as a regressor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span> <span class="o">=</span> <span class="n">id_encoder</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_decoder</span> <span class="o">=</span> <span class="n">id_decoder</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_regression</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_regressor</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_binarizer_</span> <span class="o">=</span> <span class="n">LabelBinarizer</span><span class="p">(</span><span class="n">neg_label</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_classification</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_classifier</span>
+
+<div class="viewcode-block" id="Predictor.instance_param_"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.instance_param_">[docs]</a>    <span class="k">def</span> <span class="nf">instance_param_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instance parameters from dict.</span>
+
+<span class="sd">        :param numpy.matrix train_data:</span>
+<span class="sd">        :param numpy.array train_target:</span>
+<span class="sd">        :param dict parameter:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_target</span> <span class="o">=</span> <span class="n">train_target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Number of instances</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Original dimension</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_manager</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
+
+        <span class="c1"># Instance the parameter dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Predictor.target_regression"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.target_regression">[docs]</a>    <span class="k">def</span> <span class="nf">target_regression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param train_target:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Predictor.target_classification"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.target_classification">[docs]</a>    <span class="k">def</span> <span class="nf">target_classification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param train_target:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_binarizer_</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_binarizer_</span><span class="o">.</span><span class="n">transform</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_decoder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_binarizer_</span><span class="o">.</span><span class="n">inverse_transform</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_target</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Predictor.get_indicator"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param numpy.array test_data: array like.</span>
+<span class="sd">        :return: predicted labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">indicator</span></div>
+
+<div class="viewcode-block" id="Predictor.predict_classifier"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.predict_classifier">[docs]</a>    <span class="k">def</span> <span class="nf">predict_classifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the label.</span>
+
+<span class="sd">        :param numpy.array test_data: array like.</span>
+<span class="sd">        :return: predicted labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indicator</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+        <span class="n">predicted_labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_decoder</span><span class="p">(</span><span class="n">indicator</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">predicted_labels</span></div>
+
+<div class="viewcode-block" id="Predictor.predict_proba"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.predict_proba">[docs]</a>    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the probability.of class.</span>
+
+<span class="sd">        :param numpy.array test_data: array like.</span>
+<span class="sd">        :return: predicted labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indicator</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+        <span class="n">predicted_prob</span> <span class="o">=</span> <span class="n">indicator</span> <span class="o">/</span> <span class="n">indicator</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">predicted_prob</span></div>
+
+<div class="viewcode-block" id="Predictor.predict_regressor"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.predict_regressor">[docs]</a>    <span class="k">def</span> <span class="nf">predict_regressor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the value (for linear).</span>
+
+<span class="sd">        :param numpy.array test_data: array like.</span>
+<span class="sd">        :return: predicted values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indicator</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carlos Perales
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

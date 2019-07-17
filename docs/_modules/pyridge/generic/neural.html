@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -78,8 +80,8 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
 </ul>
 
             
@@ -144,18 +146,14 @@
             
   <h1>Source code for pyridge.generic.neural</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="k">import</span> <span class="n">expit</span>
-<span class="kn">from</span> <span class="nn">.classifier</span> <span class="k">import</span> <span class="n">Classifier</span>
-
-<span class="n">activation_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sin&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span>
-                   <span class="s1">&#39;hard&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">),</span>
-                   <span class="s1">&#39;sigmoid&#39;</span><span class="p">:</span> <span class="n">expit</span><span class="p">}</span>
+<span class="kn">from</span> <span class="nn">.predictor</span> <span class="k">import</span> <span class="n">Predictor</span>
+<span class="kn">from</span> <span class="nn">..util.activation</span> <span class="k">import</span> <span class="n">activation_dict</span>
 
 
-<div class="viewcode-block" id="NeuralMethod"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.NeuralMethod">[docs]</a><span class="k">class</span> <span class="nc">NeuralMethod</span><span class="p">(</span><span class="n">Classifier</span><span class="p">):</span>
+<div class="viewcode-block" id="NeuralMethod"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.NeuralMethod">[docs]</a><span class="k">class</span> <span class="nc">NeuralMethod</span><span class="p">(</span><span class="n">Predictor</span><span class="p">):</span>
     <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Neural network&#39;</span>
-    <span class="n">hidden_neurons</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">activation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;sigmoid&#39;</span>
+    <span class="n">hidden_neurons</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">activation</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">neuron_fun</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">input_weight</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">bias_vector</span> <span class="o">=</span> <span class="kc">None</span>
@@ -167,19 +165,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bias_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span>
                                           <span class="mi">1</span><span class="p">)</span>
 
-<div class="viewcode-block" id="NeuralMethod.get_h_matrix_"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.NeuralMethod.get_h_matrix_">[docs]</a>    <span class="k">def</span> <span class="nf">get_h_matrix_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="NeuralMethod.get_h_matrix"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.NeuralMethod.get_h_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">get_h_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param data:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Number of instances of the data</span>
-        <span class="n">bias_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_vector</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-                                <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">temp_h_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span><span class="p">,</span>
-                               <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">bias_matrix</span>  <span class="c1"># d x n</span>
-        <span class="c1"># Activation function</span>
-        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neuron_fun</span><span class="p">(</span><span class="n">temp_h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># n x d</span>
+        <span class="n">temp_h_matrix</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">bias_vector</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">neuron_fun</span><span class="p">(</span><span class="n">temp_h_matrix</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">h_matrix</span></div></div>
 </pre></div>
 
@@ -210,26 +204,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

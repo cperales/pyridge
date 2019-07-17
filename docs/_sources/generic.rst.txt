@@ -3,10 +3,12 @@ Generic classes
 
 The different algorithms in this library inherits from these generic classes.
 
-Classifier
------------
-.. autoclass:: pyridge.generic.Classifier
+
+Predictor
+-------------
+.. autoclass:: pyridge.generic.predictor.Predictor
     :members:
+
 
 Neural Method
 --------------

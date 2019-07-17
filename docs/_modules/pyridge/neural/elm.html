@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyridge.neural.elm &mdash; PyRidge  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyRidge
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyRidge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyridge.neural.elm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyridge.neural.elm</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..generic.neural</span> <span class="k">import</span> <span class="n">NeuralMethod</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">solver</span>
+
+
+<div class="viewcode-block" id="ELM"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.ELM">[docs]</a><span class="k">class</span> <span class="nc">ELM</span><span class="p">(</span><span class="n">NeuralMethod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Neural Ridge classifier, also known as Extreme Learning Machine.</span>
+<span class="sd">    It works as a single hidden layer neural network where</span>
+<span class="sd">    neuron&#39;s weights are chosen randomly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Neural ELM&#39;</span>
+
+<div class="viewcode-block" id="ELM.instance_weight"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.ELM.instance_weight">[docs]</a>    <span class="k">def</span> <span class="nf">instance_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instance parameters and get weight of neurons.</span>
+
+<span class="sd">        :param train_data:</span>
+<span class="sd">        :param train_target:</span>
+<span class="sd">        :param parameter:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance_param_</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                             <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                             <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_weight_bias_</span><span class="p">()</span>
+        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_h_matrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h_matrix</span></div>
+
+<div class="viewcode-block" id="ELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.ELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use some train (data and target) and parameter to</span>
+<span class="sd">        fit the classifier and construct the rules.</span>
+
+<span class="sd">        :param numpy.array train_data: data with features.</span>
+<span class="sd">        :param numpy.array train_target: targets in j codification.</span>
+<span class="sd">        :param dict parameter:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_weight</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                                        <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                                        <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+
+        <span class="n">left</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">+</span> \
+               <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">)</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">right</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ELM.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.ELM.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Once instanced, classifier can predict test target</span>
+<span class="sd">        from test data, using some mathematical rules.</span>
+<span class="sd">        Valid for other ensembles.</span>
+
+<span class="sd">        :param numpy.array test_data: array like.</span>
+<span class="sd">        :return: indicator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_h_matrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">test_data</span><span class="p">),</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">indicator</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carlos Perales
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

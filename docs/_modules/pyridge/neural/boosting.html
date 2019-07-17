@@ -17,32 +17,34 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -78,8 +80,8 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
 </ul>
 
             
@@ -143,20 +145,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pyridge.neural.boosting</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">.neural</span> <span class="k">import</span> <span class="n">ELM</span>
+<span></span><span class="kn">from</span> <span class="nn">.elm</span> <span class="k">import</span> <span class="n">ELM</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="k">import</span> <span class="n">solver</span>
 
 
 <div class="viewcode-block" id="BoostingRidgeELM"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM">[docs]</a><span class="k">class</span> <span class="nc">BoostingRidgeELM</span><span class="p">(</span><span class="n">ELM</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Boosting Ridge ensemble applied to ELM.</span>
+<span class="sd">    Boosting Ridge ensemble applied to Neural ELM.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Boosting Ridge ELM&#39;</span>
-    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Boosting Ridge Neural ELM&#39;</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">Y_mu</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="BoostingRidgeELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use some train (data and target) and parameter to</span>
 <span class="sd">        fit the classifier and construct the rules.</span>
@@ -165,53 +168,50 @@
 <span class="sd">        :param numpy.array train_target: targets in j codification.</span>
 <span class="sd">        :param dict parameter:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">instance_param_</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
-                             <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
-                             <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance_weight</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                                        <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                                        <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_weight_bias_</span><span class="p">()</span>
-        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_h_matrix_</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Y_mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">y_mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_step</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_step</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">=</span><span class="n">h_matrix</span><span class="p">,</span>
+                                                  <span class="n">y_mu</span><span class="o">=</span><span class="n">y_mu</span><span class="p">,</span>
+                                                  <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+            <span class="c1"># y_mu updated</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
+            <span class="n">y_mu</span> <span class="o">-=</span> <span class="n">mu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-<div class="viewcode-block" id="BoostingRidgeELM.fit_step"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.fit_step">[docs]</a>    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>  <span class="n">y_mu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Each  step of the fit process.</span>
 
 <span class="sd">        :param h_matrix:</span>
-<span class="sd">        :param int s:</span>
+<span class="sd">        :param int s: element of the ensemble.</span>
+<span class="sd">        :param y_mu:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Beta is calculated</span>
-        <span class="n">izq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> \
-              <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">)</span>
-        <span class="n">der</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y_mu</span><span class="p">)</span>
-        <span class="n">output_weight_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">izq</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">der</span><span class="p">)</span>
+        <span class="n">izq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">)</span>
+        <span class="n">der</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">y_mu</span><span class="p">)</span>
+        <span class="n">output_weight_s</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">izq</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">der</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output_weight_s</span>
 
-        <span class="c1"># Y_mu updated</span>
-        <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span> <span class="n">output_weight_s</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Y_mu</span> <span class="o">-=</span> <span class="n">y_pred</span>
-
-        <span class="k">return</span> <span class="n">output_weight_s</span></div>
-
-<div class="viewcode-block" id="BoostingRidgeELM.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Once instanced, classifier can predict test target</span>
 <span class="sd">        from test data, using some mathematical rules.</span>
 <span class="sd">        Valid for other ensembles.</span>
 
 <span class="sd">        :param numpy.array test_data: array like.</span>
-<span class="sd">        :return: predicted labels.</span>
+<span class="sd">        :return: f(X) vector.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_h_matrix_</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">test_data</span><span class="p">)</span>
+        <span class="n">h_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_h_matrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">test_data</span><span class="p">)</span>
         <span class="n">indicator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span>
                                                    <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
-                            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">))],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">indicator</span></div></div>
+                            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">indicator</span></div>
 </pre></div>
 
            </div>
@@ -241,26 +241,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

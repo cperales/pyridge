@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Functions &mdash; PyRidge  documentation</title>
+  <title>Functions for experiments and utilities &mdash; PyRidge  documentation</title>
   
 
   
@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Algorithms" href="algorithms.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="Predictors" href="algorithms.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -79,10 +81,16 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="generic.html">Generic classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#cross-validation">Cross validation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Predictors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions for experiments and utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#utilities">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-the-datasets">Preparing the datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#activation-and-kernel-functions">Activation and kernel functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-validation">Cross validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metrics">Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#experiments">Experiments</a></li>
 </ul>
 </li>
 </ul>
@@ -130,7 +138,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Functions</li>
+      <li>Functions for experiments and utilities</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -151,104 +159,270 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="functions">
-<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="cross-validation">
-<h2>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="functions-for-experiments-and-utilities">
+<h1>Functions for experiments and utilities<a class="headerlink" href="#functions-for-experiments-and-utilities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="preparing-the-datasets">
+<h3>Preparing the datasets<a class="headerlink" href="#preparing-the-datasets" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="pyridge.util.cross_validation">
-<code class="descclassname">pyridge.util.</code><code class="descname">cross_validation</code><span class="sig-paren">(</span><em>classifier</em>, <em>train_data</em>, <em>train_target</em>, <em>hyperparameter</em>, <em>n_folds=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/cross.html#cross_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.cross_validation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cross validation training in order to find best parameter.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>classifier</strong> – </li>
-<li><strong>train_data</strong> – </li>
-<li><strong>train_target</strong> – </li>
-<li><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </li>
-<li><strong>n_folds</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+<dt id="pyridge.util.preprocess.prepare_data">
+<code class="sig-prename descclassname">pyridge.util.preprocess.</code><code class="sig-name descname">prepare_data</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">dataset</em>, <em class="sig-param">sep='\\s+'</em>, <em class="sig-param">scaler='standard'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/preprocess.html#prepare_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.preprocess.prepare_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the data from the files and scale them.
+Target is supposed to be at the last column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – name of the folder where
+the dataset is.</p></li>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – name of the dataset to load.</p></li>
+<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – separator in string form. Default is spaces.</p></li>
+<li><p><strong>scaler</strong> – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="activation-and-kernel-functions">
+<h3>Activation and kernel functions<a class="headerlink" href="#activation-and-kernel-functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pyridge.util.activation.sigmoid">
+<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">sigmoid</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#sigmoid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.sigmoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sigmoid function. It can be replaced with scipy.special.expit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyridge.util.activation.sigmoid_derivative">
+<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">sigmoid_derivative</code><span class="sig-paren">(</span><em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#sigmoid_derivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.sigmoid_derivative" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivate of the sigmoid function.
+We assume y is already sigmoided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>y</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyridge.util.activation.linear_kernel">
+<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">linear_kernel</code><span class="sig-paren">(</span><em class="sig-param">gamma: float = 1.0</em>, <em class="sig-param">X=None</em>, <em class="sig-param">Y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#linear_kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.linear_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gamma</strong> – </p></li>
+<li><p><strong>X</strong> – </p></li>
+<li><p><strong>Y</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyridge.util.activation.rbf_kernel">
+<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">rbf_kernel</code><span class="sig-paren">(</span><em class="sig-param">gamma: float = 1.0</em>, <em class="sig-param">X=None</em>, <em class="sig-param">Y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#rbf_kernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.rbf_kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to obtain omega matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#float" title="(in Python v3.5)"><em>float</em></a>) – </p></li>
+<li><p><strong>X</strong> (<em>np.matrix</em>) – </p></li>
+<li><p><strong>Y</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyridge.util.activation.u_dot_norm">
+<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">u_dot_norm</code><span class="sig-paren">(</span><em class="sig-param">u</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#u_dot_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.u_dot_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return u vector with norm = 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>u</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="cross-validation">
+<h3>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="pyridge.util.cross.cross_validation">
+<code class="sig-prename descclassname">pyridge.util.cross.</code><code class="sig-name descname">cross_validation</code><span class="sig-paren">(</span><em class="sig-param">predictor</em>, <em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">hyperparameter</em>, <em class="sig-param">metric='accuracy'</em>, <em class="sig-param">n_folds=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/cross.html#cross_validation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.cross.cross_validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross validation training in order to find best parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor</strong> – </p></li>
+<li><p><strong>train_data</strong> – </p></li>
+<li><p><strong>train_target</strong> – </p></li>
+<li><p><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>n_folds</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyridge.util.cross.train_predictor">
+<code class="sig-prename descclassname">pyridge.util.cross.</code><code class="sig-name descname">train_predictor</code><span class="sig-paren">(</span><em class="sig-param">predictor</em>, <em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">hyperparameter</em>, <em class="sig-param">metric='accuracy'</em>, <em class="sig-param">n_folds=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/cross.html#train_predictor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.cross.train_predictor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross validation training in order to find best parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predictor</strong> – </p></li>
+<li><p><strong>train_data</strong> – </p></li>
+<li><p><strong>train_target</strong> – </p></li>
+<li><p><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
+<li><p><strong>metric</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>n_folds</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 <div class="section" id="metrics">
-<h2>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<h3>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
-<dt id="pyridge.util.accuracy">
-<code class="descclassname">pyridge.util.</code><code class="descname">accuracy</code><span class="sig-paren">(</span><em>clf</em>, <em>pred_data</em>, <em>real_targ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.accuracy" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.util.metric.accuracy">
+<code class="sig-prename descclassname">pyridge.util.metric.</code><code class="sig-name descname">accuracy</code><span class="sig-paren">(</span><em class="sig-param">clf</em>, <em class="sig-param">pred_data</em>, <em class="sig-param">real_targ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#accuracy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.metric.accuracy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Percentage of predicted targets that actually
 coincide with real targets.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>clf</strong> – classifier with predict method.</li>
-<li><strong>pred_data</strong> – array of the targets
-according to the classifier.</li>
-<li><strong>real_targ</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – array of the real targets.</li>
-<li><strong>real_targ</strong> – array of the real targets.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clf</strong> – classifier with predict method.</p></li>
+<li><p><strong>pred_data</strong> – array of the targets
+according to the classifier.</p></li>
+<li><p><strong>real_targ</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – array of the real targets.</p></li>
+<li><p><strong>real_targ</strong> – array of the real targets.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyridge.util.rmse">
-<code class="descclassname">pyridge.util.</code><code class="descname">rmse</code><span class="sig-paren">(</span><em>clf</em>, <em>pred_data</em>, <em>real_targ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#rmse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.rmse" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>clf</strong> – </li>
-<li><strong>pred_data</strong> – </li>
-<li><strong>real_targ</strong> – </li>
+<dt id="pyridge.util.metric.rmse">
+<code class="sig-prename descclassname">pyridge.util.metric.</code><code class="sig-name descname">rmse</code><span class="sig-paren">(</span><em class="sig-param">clf</em>, <em class="sig-param">pred_data</em>, <em class="sig-param">real_targ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#rmse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.metric.rmse" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clf</strong> – </p></li>
+<li><p><strong>pred_data</strong> – </p></li>
+<li><p><strong>real_targ</strong> – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyridge.util.diversity">
-<code class="descclassname">pyridge.util.</code><code class="descname">diversity</code><span class="sig-paren">(</span><em>clf</em>, <em>pred_data</em>, <em>real_targ</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#diversity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.diversity" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.util.metric.diversity">
+<code class="sig-prename descclassname">pyridge.util.metric.</code><code class="sig-name descname">diversity</code><span class="sig-paren">(</span><em class="sig-param">clf</em>, <em class="sig-param">pred_data=None</em>, <em class="sig-param">real_targ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#diversity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.metric.diversity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implemented directly from MATLAB, not pythonic.
 TODO: rewrite.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>clf</strong> – Classifier.</li>
-<li><strong>pred_data</strong> – Not used.</li>
-<li><strong>real_targ</strong> – Not used.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clf</strong> – Predictor.</p></li>
+<li><p><strong>pred_data</strong> – Not used.</p></li>
+<li><p><strong>real_targ</strong> – Not used.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="experiments">
+<h2>Experiments<a class="headerlink" href="#experiments" title="Permalink to this headline">¶</a></h2>
+<p>In order to perform several experiments and tests de predictors,
+generic test function is used for different algorithms and cross-validation
+hyperparameters.</p>
+<dl class="function">
+<dt id="pyridge.experiment.test.test_fold">
+<code class="sig-prename descclassname">pyridge.experiment.test.</code><code class="sig-name descname">test_fold</code><span class="sig-paren">(</span><em class="sig-param">folder_dataset='data/iris', train_dataset='train_iris.0', test_dataset='test_iris.0', algorithm='ELM', metric_list=['accuracy', 'rmse'], metric_cross='accuracy', hyperparameter={'activation': ['sigmoid'], 'hidden_neurons': [1000], 'reg': [0.001, 0.01, 0.1, 1, 10, 100, 1000]}, classification=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/experiment/test.html#test_fold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.experiment.test.test_fold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder_dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>train_dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>test_dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>metric_list</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – </p></li>
+<li><p><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
+<li><p><strong>metric_cross</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>classification</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – True if we want a classification;
+False if we are looking for a linear.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary, with the metrics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyridge.experiment.test.test_algorithm">
+<code class="sig-prename descclassname">pyridge.experiment.test.</code><code class="sig-name descname">test_algorithm</code><span class="sig-paren">(</span><em class="sig-param">folder='data/', dataset='iris', algorithm='ELM', metric_list=['accuracy', 'rmse'], hyperparameter={'activation': ['sigmoid'], 'hidden_neurons': [1000], 'reg': [0.001, 0.01, 0.1, 1, 10, 100, 1000]}, classification=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/experiment/test.html#test_algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.experiment.test.test_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Testing easily a predictor along all the folds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folder</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>metric_list</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – </p></li>
+<li><p><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
+<li><p><strong>classification</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – True if we want a classification;
+False if we are looking for a linear.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary, with the metrics.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -263,7 +437,7 @@ TODO: rewrite.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="algorithms.html" class="btn btn-neutral" title="Algorithms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="algorithms.html" class="btn btn-neutral float-left" title="Predictors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -289,26 +463,16 @@ TODO: rewrite.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

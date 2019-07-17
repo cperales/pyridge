@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Algorithms &mdash; PyRidge  documentation</title>
+  <title>Predictors &mdash; PyRidge  documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Functions" href="functions.html" />
+    <link rel="next" title="Functions for experiments and utilities" href="functions.html" />
     <link rel="prev" title="Generic classes" href="generic.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -80,23 +82,24 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="generic.html">Generic classes</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Algorithms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ridge-with-kernel-trick">Ridge with kernel trick</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#kernel-ridge-classifier">Kernel Ridge Classifier</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Predictors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#single-predictors">Single predictors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extreme-learning-machine">Extreme Learning Machine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-elm">Kernel ELM</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#ridge-with-neural-functions">Ridge with neural functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#elm-classifier">ELM Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#boosting-ridge-elm-classifier">Boosting Ridge ELM Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#bagging-elm-classifier">Bagging ELM Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#diverse-elm-classifier">Diverse ELM Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adaboost-elm-classifier">AdaBoost ELM Classifier</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#adaboost-negative-correlation-elm-classifier">AdaBoost Negative Correlation ELM Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ensembles">Ensembles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adaboost-elm">AdaBoost ELM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bagging-elm">Bagging ELM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#boosting-ridge-elm">Boosting Ridge ELM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adaboost-negative-correlation-elm">AdaBoost Negative Correlation ELM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diverse-elm">Diverse ELM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regularized-ensemble-elm-reelm">Regularized Ensemble ELM (REELM)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions for experiments and utilities</a></li>
 </ul>
 
             
@@ -142,7 +145,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Algorithms</li>
+      <li>Predictors</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -163,19 +166,83 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="algorithms">
-<h1>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="ridge-with-kernel-trick">
-<h2>Ridge with kernel trick<a class="headerlink" href="#ridge-with-kernel-trick" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="kernel-ridge-classifier">
-<h3>Kernel Ridge Classifier<a class="headerlink" href="#kernel-ridge-classifier" title="Permalink to this headline">¶</a></h3>
+  <div class="section" id="predictors">
+<h1>Predictors<a class="headerlink" href="#predictors" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="single-predictors">
+<h2>Single predictors<a class="headerlink" href="#single-predictors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="extreme-learning-machine">
+<h3>Extreme Learning Machine<a class="headerlink" href="#extreme-learning-machine" title="Permalink to this headline">¶</a></h3>
+<p>Also known as single-hidden-layer version of Extreme Learning Machine.
+Weights for neurons in the hidden layer are chosen randomly.</p>
 <dl class="class">
-<dt id="pyridge.kernel.KernelRidge">
-<em class="property">class </em><code class="descclassname">pyridge.kernel.</code><code class="descname">KernelRidge</code><a class="reference internal" href="_modules/pyridge/kernel/kernel.html#KernelRidge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelRidge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Kernel Ridge classifier.</p>
+<dt id="pyridge.neural.ELM">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">ELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/elm.html#ELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neural Ridge classifier, also known as Extreme Learning Machine.
+It works as a single hidden layer neural network where
+neuron’s weights are chosen randomly.</p>
 <dl class="method">
-<dt id="pyridge.kernel.KernelRidge.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kernel.html#KernelRidge.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelRidge.fit" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.neural.ELM.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/elm.html#ELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use some train (data and target) and parameter to
+fit the classifier and construct the rules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> (<em>numpy.array</em>) – data with features.</p></li>
+<li><p><strong>train_target</strong> (<em>numpy.array</em>) – targets in j codification.</p></li>
+<li><p><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.ELM.get_indicator">
+<code class="sig-name descname">get_indicator</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/elm.html#ELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once instanced, classifier can predict test target
+from test data, using some mathematical rules.
+Valid for other ensembles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> (<em>numpy.array</em>) – array like.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>indicator.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.ELM.instance_weight">
+<code class="sig-name descname">instance_weight</code><span class="sig-paren">(</span><em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/elm.html#ELM.instance_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.instance_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance parameters and get weight of neurons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> – </p></li>
+<li><p><strong>train_target</strong> – </p></li>
+<li><p><strong>parameter</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="kernel-elm">
+<h3>Kernel ELM<a class="headerlink" href="#kernel-elm" title="Permalink to this headline">¶</a></h3>
+<p>Kernel version of Extreme Learning Machine.</p>
+<dl class="class">
+<dt id="pyridge.kernel.KernelELM">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.kernel.</code><code class="sig-name descname">KernelELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kelm.html#KernelELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kernel ELM classifier.</p>
+<dl class="method">
+<dt id="pyridge.kernel.KernelELM.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kelm.html#KernelELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelELM.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use some train (data and target) and parameter to
 fit the classifier and construct the rules.
 :param numpy.array train_data: data with features.
@@ -184,8 +251,8 @@ fit the classifier and construct the rules.
 </dd></dl>
 
 <dl class="method">
-<dt id="pyridge.kernel.KernelRidge.get_indicator">
-<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kernel.html#KernelRidge.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelRidge.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.kernel.KernelELM.get_indicator">
+<code class="sig-name descname">get_indicator</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/kernel/kelm.html#KernelELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.kernel.KernelELM.get_indicator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Once instanced, classifier can predict test target
 from test data, using some mathematical
 rules.
@@ -197,271 +264,186 @@ rules.
 
 </div>
 </div>
-<div class="section" id="ridge-with-neural-functions">
-<h2>Ridge with neural functions<a class="headerlink" href="#ridge-with-neural-functions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="elm-classifier">
-<h3>ELM Classifier<a class="headerlink" href="#elm-classifier" title="Permalink to this headline">¶</a></h3>
-<p>Also known as classical Extreme Learning Machine. Features from training instances are chosen randomly.</p>
-<dl class="class">
-<dt id="pyridge.neural.ELM">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">ELM</code><a class="reference internal" href="_modules/pyridge/neural/neural.html#ELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>ELM classifier, also known as Extreme Learning Machine.
-It works as a single hidden layer neural network where
-neuron’s weights are chosen randomly.</p>
-<dl class="method">
-<dt id="pyridge.neural.ELM.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#ELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use some train (data and target) and parameter to
-fit the classifier and construct the rules.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>train_data</strong> (<em>numpy.array</em>) – data with features.</li>
-<li><strong>train_target</strong> (<em>numpy.array</em>) – targets in j codification.</li>
-<li><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyridge.neural.ELM.get_indicator">
-<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/neural.html#ELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.ELM.get_indicator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once instanced, classifier can predict test target
-from test data, using some mathematical rules.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<em>numpy.array</em>) – array like.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="boosting-ridge-elm-classifier">
-<h3>Boosting Ridge ELM Classifier<a class="headerlink" href="#boosting-ridge-elm-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with ELM as learner base.</p>
-<dl class="class">
-<dt id="pyridge.neural.BoostingRidgeELM">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BoostingRidgeELM</code><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Boosting Ridge ensemble applied to ELM.</p>
-<dl class="method">
-<dt id="pyridge.neural.BoostingRidgeELM.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM.fit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use some train (data and target) and parameter to
-fit the classifier and construct the rules.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>train_data</strong> (<em>numpy.array</em>) – data with features.</li>
-<li><strong>train_target</strong> (<em>numpy.array</em>) – targets in j codification.</li>
-<li><strong>parameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyridge.neural.BoostingRidgeELM.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM.fit_step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Each  step of the fit process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>h_matrix</strong> – </li>
-<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyridge.neural.BoostingRidgeELM.get_indicator">
-<code class="descname">get_indicator</code><span class="sig-paren">(</span><em>test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM.get_indicator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once instanced, classifier can predict test target
-from test data, using some mathematical rules.
-Valid for other ensembles.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_data</strong> (<em>numpy.array</em>) – array like.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">predicted labels.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="bagging-elm-classifier">
-<h3>Bagging ELM Classifier<a class="headerlink" href="#bagging-elm-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with ELM as learner base.</p>
-<dl class="class">
-<dt id="pyridge.neural.BaggingELM">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">BaggingELM</code><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bagging implemented to Neural Extreme Learning Machine.</p>
-<dl class="method">
-<dt id="pyridge.neural.BaggingELM.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingELM.fit_step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fit with part of the data from the whole set.
-This proportion can be given in the parameter dict;
-if not, proportion is 75%.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>h_matrix</strong> – </li>
-<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="diverse-elm-classifier">
-<h3>Diverse ELM Classifier<a class="headerlink" href="#diverse-elm-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with ELM as learner base.</p>
-<dl class="class">
-<dt id="pyridge.neural.DiverseELM">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">DiverseELM</code><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Diverse Neural Extreme Learning Machine.</p>
-<dl class="method">
-<dt id="pyridge.neural.DiverseELM.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseELM.fit_step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Each  step of the fit process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>h_matrix</strong> – </li>
-<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="adaboost-elm-classifier">
-<h3>AdaBoost ELM Classifier<a class="headerlink" href="#adaboost-elm-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with ELM as learner base.</p>
+<div class="section" id="ensembles">
+<h2>Ensembles<a class="headerlink" href="#ensembles" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="adaboost-elm">
+<h3>AdaBoost ELM<a class="headerlink" href="#adaboost-elm" title="Permalink to this headline">¶</a></h3>
+<p>AdaBoost meta-algorithm with ELM as base learner.</p>
 <dl class="class">
 <dt id="pyridge.neural.AdaBoostELM">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostELM</code><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>AdaBoost meta-algorithm applied to ELM.</p>
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">AdaBoostELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBoost meta-algorithm applied to Neural ELM.</p>
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostELM.adaboost_weight">
+<code class="sig-name descname">adaboost_weight</code><span class="sig-paren">(</span><em class="sig-param">h_matrix</em>, <em class="sig-param">f_pred</em>, <em class="sig-param">s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.adaboost_weight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.adaboost_weight" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h_matrix</strong> – </p></li>
+<li><p><strong>f_pred</strong> – </p></li>
+<li><p><strong>s</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>error vector</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostELM.error_function_classification">
+<code class="sig-name descname">error_function_classification</code><span class="sig-paren">(</span><em class="sig-param">f_pred</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.error_function_classification"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.error_function_classification" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_pred</strong> – </p></li>
+<li><p><strong>y</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>error_vector</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostELM.error_function_regression">
+<code class="sig-name descname">error_function_regression</code><span class="sig-paren">(</span><em class="sig-param">f_pred</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.error_function_regression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.error_function_regression" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_pred</strong> – </p></li>
+<li><p><strong>y</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyridge.neural.AdaBoostELM.fit">
-<code class="descname">fit</code><span class="sig-paren">(</span><em>train_data</em>, <em>train_target</em>, <em>parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.fit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">train_data</em>, <em class="sig-param">train_target</em>, <em class="sig-param">parameter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.fit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add array of weights and call super.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>train_data</strong> – </li>
-<li><strong>train_target</strong> – </li>
-<li><strong>parameter</strong> – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> – </p></li>
+<li><p><strong>train_target</strong> – </p></li>
+<li><p><strong>parameter</strong> – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="pyridge.neural.AdaBoostELM.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.fit_step" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fit_step</code><span class="sig-paren">(</span><em class="sig-param">h_matrix</em>, <em class="sig-param">s: int</em>, <em class="sig-param">y_mu=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.fit_step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Each  step of the fit process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>h_matrix</strong> – </li>
-<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h_matrix</strong> – </p></li>
+<li><p><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – element of the ensemble.</p></li>
+<li><p><strong>y_mu</strong> – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostELM.get_indicator">
+<code class="sig-name descname">get_indicator</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.get_indicator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.get_indicator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once instanced, classifier can predict test target
+from test data, using some mathematical rules.
+Valid for other ensembles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> (<em>numpy.array</em>) – array like.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>f(X) vector.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyridge.neural.AdaBoostELM.positiveness">
+<code class="sig-name descname">positiveness</code><a class="headerlink" href="#pyridge.neural.AdaBoostELM.positiveness" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">builtins.float</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyridge.neural.AdaBoostELM.predict_classifier">
+<code class="sig-name descname">predict_classifier</code><span class="sig-paren">(</span><em class="sig-param">test_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost.html#AdaBoostELM.predict_classifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostELM.predict_classifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Following SAMME algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test_data</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="adaboost-negative-correlation-elm-classifier">
-<h3>AdaBoost Negative Correlation ELM Classifier<a class="headerlink" href="#adaboost-negative-correlation-elm-classifier" title="Permalink to this headline">¶</a></h3>
-<p>AdaBoost meta-algorithm with ELM as learner base.</p>
+<div class="section" id="bagging-elm">
+<h3>Bagging ELM<a class="headerlink" href="#bagging-elm" title="Permalink to this headline">¶</a></h3>
+<p>Bagging implementation with ELM as base learner.</p>
 <dl class="class">
-<dt id="pyridge.neural.AdaBoostNCELM">
-<em class="property">class </em><code class="descclassname">pyridge.neural.</code><code class="descname">AdaBoostNCELM</code><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCELM" title="Permalink to this definition">¶</a></dt>
-<dd><p>AdaBoost Negative Correlation meta-algorithm applied to ELM.</p>
-<dl class="method">
-<dt id="pyridge.neural.AdaBoostNCELM.fit_step">
-<code class="descname">fit_step</code><span class="sig-paren">(</span><em>h_matrix</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCELM.fit_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCELM.fit_step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Each  step of the fit process.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>h_matrix</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.matrix.html#numpy.matrix" title="(in NumPy v1.15)"><em>numpy.matrix</em></a>) – </li>
-<li><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#int" title="(in Python v3.5)"><em>int</em></a>) – </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="pyridge.neural.BaggingELM">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">BaggingELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/bagging.html#BaggingELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BaggingELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bagging implemented to Neural Extreme Learning Machine.</p>
 </dd></dl>
 
+</div>
+<div class="section" id="boosting-ridge-elm">
+<h3>Boosting Ridge ELM<a class="headerlink" href="#boosting-ridge-elm" title="Permalink to this headline">¶</a></h3>
+<p>Boosting Ridge with ELM as base learner.</p>
+<dl class="class">
+<dt id="pyridge.neural.BoostingRidgeELM">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">BoostingRidgeELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/boosting.html#BoostingRidgeELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.BoostingRidgeELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boosting Ridge ensemble applied to Neural ELM.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="adaboost-negative-correlation-elm">
+<h3>AdaBoost Negative Correlation ELM<a class="headerlink" href="#adaboost-negative-correlation-elm" title="Permalink to this headline">¶</a></h3>
+<p>Xin Yao et al. implementation of Negative Correlation and Adaboost.</p>
+<dl class="class">
+<dt id="pyridge.neural.AdaBoostNCELM">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">AdaBoostNCELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/adaboost_nc.html#AdaBoostNCELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.AdaBoostNCELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBoost Negative Correlation meta-algorithm applied to Neural ELM.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="diverse-elm">
+<h3>Diverse ELM<a class="headerlink" href="#diverse-elm" title="Permalink to this headline">¶</a></h3>
+<p>Ensemble proposed by <a class="reference external" href="http://www.doi.org/10.1007/978-3-319-92639-1_25">Perales et al (2018)</a>.</p>
+<dl class="class">
+<dt id="pyridge.neural.DiverseELM">
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">DiverseELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseELM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.neural.DiverseELM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Diverse Neural Extreme Learning Machine.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="regularized-ensemble-elm-reelm">
+<h3>Regularized Ensemble ELM (REELM)<a class="headerlink" href="#regularized-ensemble-elm-reelm" title="Permalink to this headline">¶</a></h3>
+<p>Ensemble proposed by <a class="reference external" href="http://www.doi.org/10.1016/j.neucom.2019.06.040">Perales et al (2019)</a>.</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyridge.neural.</code><code class="sig-name descname">DiverseELM</code><span class="sig-paren">(</span><em class="sig-param">classification: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/neural/diverse.html#DiverseELM"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Diverse Neural Extreme Learning Machine.</p>
 </dd></dl>
 
 </div>
@@ -476,10 +458,10 @@ if not, proportion is 75%.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="functions.html" class="btn btn-neutral float-right" title="Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="functions.html" class="btn btn-neutral float-right" title="Functions for experiments and utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="generic.html" class="btn btn-neutral" title="Generic classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="generic.html" class="btn btn-neutral float-left" title="Generic classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -505,26 +487,16 @@ if not, proportion is 75%.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
