@@ -5,7 +5,7 @@ from ..util import solver
 
 class BaggingELM(ELM):
     """
-    Bagging implemented to Neural Extreme Learning Machine.
+    Bagging implementation for Neural Extreme Learning Machine.
     """
     __name__ = 'Bagging Neural ELM'
     size: int

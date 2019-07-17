@@ -4,7 +4,7 @@ from .bselm import BaggingStepwiseELM
 from .adaboost import AdaBoostELM
 from .boosting import BoostingRidgeELM
 from .adaboost_nc import AdaBoostNCELM
-from .regularized import RegularizedELM
+from .regularized import RegularizedEnsembleELM
 from .diverse import DiverseELM
 
 
@@ -15,7 +15,7 @@ neural_algorithm = {
     'BaggingELM': BaggingELM,
     'BaggingStepwiseELM': BaggingStepwiseELM,
     'AdaBoostNCELM': AdaBoostNCELM,
-    'RegularizedELM': RegularizedELM,
-    'REELM': RegularizedELM,  # Another way of writing it
+    'RegularizedEnsembleELM': RegularizedEnsembleELM,
+    'REELM': RegularizedEnsembleELM,  # Another way of writing it
     'DiverseELM': DiverseELM,
                     }

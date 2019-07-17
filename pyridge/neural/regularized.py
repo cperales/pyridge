@@ -3,12 +3,11 @@ import numpy as np
 from ..util import solver
 
 
-class RegularizedELM(DiverseELM):
+class RegularizedEnsembleELM(DiverseELM):
     """
     Regularized Extreme Learning Machine.
-    Diverse Extreme Learning Machine with Sherman-Morrison.
     """
-    __name__ = 'Regularized Neural ELM'
+    __name__ = 'Regularized Ensemble ELM'
     r: float  # Composition of alphas, 0 < r < 1
     b = None
     der = None

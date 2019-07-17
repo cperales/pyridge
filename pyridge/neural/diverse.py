@@ -5,7 +5,7 @@ from ..util import solver
 
 class DiverseELM(BoostingRidgeELM):
     """
-    Diverse Neural Extreme Learning Machine.
+    Diverse Extreme Learning Machine.
     """
     __name__ = 'Diverse Neural ELM'
     M_k = None
