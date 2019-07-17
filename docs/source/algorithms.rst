@@ -69,6 +69,6 @@ Regularized Ensemble ELM (REELM)
 
 Ensemble proposed by `Perales et al (2019)`_.
 
-.. autoclass:: pyridge.neural.DiverseELM
+.. autoclass:: pyridge.neural.RegularizedEnsembleELM
 
 .. _Perales et al (2019): http://www.doi.org/10.1016/j.neucom.2019.06.040
