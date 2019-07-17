@@ -2,7 +2,7 @@ import pickle
 import os
 
 
-def save_classifier(clf, name='classifier'):
+def save_classifier(clf, folder=None, name='classifier'):
     """
     Save the classifier object into a pickle.
 
@@ -10,16 +10,16 @@ def save_classifier(clf, name='classifier'):
     :param name: name of the pickle.
     :return:
     """
-    try:
-        file_name = os.path.join('saved_clf', name)
-        name_clf = open(file_name, 'wb')
-    except FileNotFoundError:
-        name_clf = open(name, 'wb')
-    pickle.dump(clf, name_clf)
-    name_clf.close()
+    name += '.pkl'
+    if folder is not None:
+        filename = os.path.join(folder, name)
+    else:
+        filename = name
+    with open(filename, 'wb') as name_clf:
+        pickle.dump(clf, name_clf)
 
 
-def load_classifier(clf, name='classifier'):
+def load_classifier(folder=None, name='classifier'):
     """
     Load the classifier object from a pickle.
 
@@ -27,10 +27,11 @@ def load_classifier(clf, name='classifier'):
     :param name: name of the pickle.
     :return:
     """
-    try:
-        file_name = os.path.join(os.path.sep, 'saved_clf', name)
-        name_clf = open(file_name, 'wb')
-    except FileNotFoundError:
-        name_clf = open(name, 'wb')
-    pickle.load(name_clf)
-    name_clf.close()
+    name += '.pkl'
+    if folder is not None:
+        filename = os.path.join(folder, name)
+    else:
+        filename = name
+    with open(filename, 'rb') as name_clf:
+        clf = pickle.load(name_clf)
+    return clf

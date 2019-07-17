@@ -1,3 +1,3 @@
-from .kernel import KernelRidge
+from .kelm import KernelELM
 
-kernel_algorithm = {'KernelRidge': KernelRidge}
+kernel_algorithm = {'KernelELM': KernelELM}

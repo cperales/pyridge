@@ -1,6 +1,5 @@
 import os
 import pandas as pd
-import numpy as np
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 scaler_dict = {'standard': StandardScaler(),
@@ -9,7 +8,7 @@ scaler_dict = {'standard': StandardScaler(),
 
 def prepare_data(folder,
                  dataset,
-                 sep=' ',
+                 sep='\s+',
                  scaler='standard'):
     """
     Read the data from the files and scale them.

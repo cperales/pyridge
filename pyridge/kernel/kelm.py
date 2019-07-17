@@ -1,16 +1,17 @@
 import numpy as np
-from pyridge.generic.kernel import KernelMethod, kernel_dict
+from ..generic.kernel import KernelMethod, kernel_dict
 from functools import partial
 import logging
+from ..util import solver
 
 logger = logging.getLogger('pyridge')
 
 
-class KernelRidge(KernelMethod):
+class KernelELM(KernelMethod):
     """
-    Kernel Ridge classifier.
+    Kernel ELM classifier.
     """
-    __name__ = 'Kernel Ridge'
+    __name__ = 'Kernel ELM'
 
     def fit(self, train_data, train_target, parameter):
         """
@@ -30,7 +31,7 @@ class KernelRidge(KernelMethod):
         omega_train = self.kernel_fun(X=self.train_data)
         n = train_data.shape[0]
         izq = np.eye(n, dtype=np.float64) + self.reg * omega_train
-        self.output_weight = np.linalg.solve(a=izq, b=self.Y)
+        self.output_weight = solver(a=izq, b=self.Y)
 
     def get_indicator(self, test_data):
         """

@@ -14,23 +14,9 @@ def accuracy(clf, pred_data, real_targ):
     :return:
     """
     pred_targ = clf.predict(pred_data)
-    comp = np.array((pred_targ == real_targ), dtype=np.float64)
+    comp = np.array((pred_targ == real_targ), dtype=np.float)
     acc = np.mean(comp)
     return acc
-
-
-def loss(predicted_targets, real_targets):
-    """
-    Inverse of the accuracy. It is used for cross validation.
-
-    :param predicted_targets:
-    :param real_targets:
-    :return:
-    """
-    comp = np.array((predicted_targets == real_targets),
-                    dtype=np.float64)
-    acc = np.mean(comp)
-    return 1 - acc
 
 
 def rmse(clf, pred_data, real_targ):
@@ -41,21 +27,80 @@ def rmse(clf, pred_data, real_targ):
     :param real_targ:
     :return:
     """
-    real_j_targ = clf.Y
+    real_j_targ = clf.label_encoder(real_targ)
     ind_matrix = clf.get_indicator(pred_data)
 
     rmse_vec = [np.linalg.norm(real_row - ind_row)
-                for ind_row, real_row in zip(ind_matrix,
-                                             real_j_targ)]
+                for ind_row, real_row in
+                zip(ind_matrix, real_j_targ)]
     return np.mean(rmse_vec)
 
 
-def diversity(clf, pred_data, real_targ):
+def rmse_train(clf):
+    """
+
+    :param clf:
+    :param pred_data:
+    :param real_targ:
+    :return:
+    """
+    real_j_targ = clf.label_encoder(clf.train_target)
+    ind_matrix = np.sum([clf.alpha[s] * np.dot(clf.h_matrix,
+                                                           clf.output_weight[s])
+                                     for s in range(clf.size)], axis=0)
+
+    rmse_vec = [np.linalg.norm(real_row - ind_row)
+                for ind_row, real_row in
+                zip(ind_matrix, real_j_targ)]
+    return np.mean(rmse_vec)
+
+
+def disagreement(clf, pred_data=None, real_targ=None, S=None):
+    """
+    For Bagging Stepwise ELM Ensemble.
+
+    :param clf: classifier
+    :param pred_data: data to predict.
+    :param real_targ:
+    :param S:
+    :return:
+    """
+    if S is None:
+        S = clf.output_weight.shape[0]
+    acc_matrix = np.empty((pred_data.shape[0], S))
+    for s in range(S):
+        prediction_s = clf.predict(pred_data, s).ravel()
+        try:
+            acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=np.float)
+        except Exception as e:
+            raise ValueError(e)
+    Q = np.empty((S, S))
+    for i in range(S - 1):
+        for j in range(i + 1, S):
+            c_1 = acc_matrix[:, i]
+            c_2 = acc_matrix[:, j]
+            a = np.sum(c_1 * c_2)
+            b = np.sum(c_1 * (1 - c_2))
+            c = np.sum((1 - c_1) * c_2)
+            d = np.sum((1 - c_1) * (1 - c_2))
+            if (a * d + b * c) == 0:
+                Q[i, j] = 1
+            else:
+                Q[i, j] = (a * d - b * c) / (a * d + b * c)
+            Q[j, i] = Q[i, j]
+    Q_m = 0.0
+    for i in range(S - 1):
+        for j in range(i + 1, S):
+            Q_m += 2 / (S * (S - 1)) * Q[i, j]
+    return Q_m
+
+
+def diversity(clf, pred_data=None, real_targ=None):
     """
     Implemented directly from MATLAB, not pythonic.
     TODO: rewrite.
 
-    :param clf: Classifier.
+    :param clf: Predictor.
     :param pred_data: Not used.
     :param real_targ: Not used.
     :return:
@@ -64,7 +109,7 @@ def diversity(clf, pred_data, real_targ):
     div = 0.0
     count = 1
     if not ensemble_size is None:
-        for s in range(clf.size):
+        for s in range(ensemble_size):
             beta_s = clf.output_weight[s]
             for t in range(s + 1, clf.size):
                 beta_t = clf.output_weight[t]
@@ -79,3 +124,30 @@ def diversity(clf, pred_data, real_targ):
                     div += div_step
                     count += 1
     return div / float(count)
+
+
+metric_dict = {
+    'accuracy': accuracy,
+    'rmse': rmse,
+    'diversity': diversity,
+}
+
+
+def loss(clf, pred_data, real_targ, metric='accuracy'):
+    """
+    It is used for cross validation.
+
+    :param clf: classifier with predict method.
+    :param pred_data: array of the targets
+        according to the classifier.
+    :param numpy.array real_targ: array of the real targets.
+    :param bool real_targ: array of the real targets.
+    :param str metric: metric to use
+    :return:
+    """
+    metric_fun = metric_dict[metric]
+    metric_value = metric_fun(clf=clf, pred_data=pred_data, real_targ=real_targ)
+    if metric is 'rmse':
+        return metric_value
+    else:
+        return 1.0 - metric_value
