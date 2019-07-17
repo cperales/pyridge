@@ -61,6 +61,7 @@ Right now, there are the following algorithms programmed:
 * AdaBoost Negative Correlation (AdaBoostNCELM) [4]
 * Bagging ELM (BaggingELM) [5]
 * Diverse ELM (DiverseELM) [6]
+* Regularized Ensemble ELM (RegularizedEnsembleELM) [7]
 
 ## Code documentation
 
@@ -73,8 +74,9 @@ sphinx-build docs/source docs/
 
 ## Data
 
-Some data can be downloaded [here!](https://drive.google.com/file/d/1O67sgZzRtWtVUHa3qaklTsZnvEWF10Iv/view?usp=sharing).
-In order to run the tests, `data` folder should be in main directory.
+Some data can be downloaded [here for classification](https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip) and
+[here for regression](https://www.dropbox.com/s/xvan4n74w690rg9/data_regression.zip).
+In order to run the tests, `data` and `data_regression` folders should be in main directory.
 
 Also, repository [uci-download-process](https://github.com/cperales/uci-download-process)
 could help you to download some examples from [UCI dataset](https://archive.ics.uci.edu/ml/datasets.html).
@@ -118,3 +120,9 @@ International Conference on (pp. 1076-1079). IEEE.
 Fernández-Navarro, F. (2018, June). A Preliminary Study of Diversity
 in Extreme Learning Machines Ensembles. In International Conference
 on Hybrid Artificial Intelligence Systems (pp. 302-314). Springer, Cham.
+
+[7]: Perales-González, C., Carbonero-Ruz, M., Becerra-Alonso, D.,
+Pérez-Rodríguez, F., & Fernández-Navarro, F. 
+(2019, June). Regularized Ensemble Neural Networks models in the
+Extreme Learning Machine framework. In Neurocomputing (DOI: 10.1016/j.neucom.2019.06.040)
+
