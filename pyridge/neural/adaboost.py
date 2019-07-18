@@ -17,14 +17,9 @@ class AdaBoostELM(BoostingRidgeELM):
     positiveness = float
 
     def __init__(self, classification: bool = True):
-        """
-        """
-        if classification is True:
-            self.error_function = self.error_function_classification
-        else:
-            if self.__name__ in classification_adaboost:
-                raise ValueError('This algorithm cannot be set '
-                                 'for regression problems')
+        if classification is False:
+            raise ValueError('This algorithm cannot be set '
+                             'for regression problems')
         self.positiveness = 0.0
         super().__init__(classification=classification)
 
