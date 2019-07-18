@@ -9,8 +9,8 @@ def test_adaboost_nc():
                           'lambda_': [0.5, 1.0, 5.0],
                           'size': [5]}
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm='AdaBoostNCELM',
-                   hyperparameter=hyperparameter_anc,
-                   metric_list=['accuracy', 'rmse'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm='AdaBoostNCELM',
+                                hyperparameter=hyperparameter_anc,
+                                metric_list=['accuracy', 'rmse'])

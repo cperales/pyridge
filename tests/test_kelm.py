@@ -7,11 +7,11 @@ def test_kelm():
                            'gamma': [10]}
     algorithm = 'KernelELM'
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_kelm,
-                   metric_list=['accuracy', 'rmse'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_kelm,
+                                metric_list=['accuracy', 'rmse'])
 
 
 def test_kelm_regression():
@@ -20,9 +20,9 @@ def test_kelm_regression():
                            'gamma': [10]}
     algorithm = 'KernelELM'
 
-    test_algorithm(folder='data_regression',
-                   dataset='housing',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_kelm,
-                   metric_list=['rmse'],
-                   classification=False)
+    value_dict = test_algorithm(folder='data_regression',
+                                dataset='housing',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_kelm,
+                                metric_list=['rmse'],
+                                classification=False)

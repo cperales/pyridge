@@ -7,11 +7,11 @@ def test_elm():
                           'hidden_neurons': [10]}
     algorithm = 'ELM'
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_elm,
-                   metric_list=['accuracy', 'rmse'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_elm,
+                                metric_list=['accuracy', 'rmse'])
 
 
 def test_elm_regression():
@@ -20,9 +20,9 @@ def test_elm_regression():
                           'hidden_neurons': [10]}
     algorithm = 'ELM'
 
-    test_algorithm(folder='data_regression',
-                   dataset='housing',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_elm,
-                   metric_list=['rmse'],
-                   classification=False)
+    value_dict = test_algorithm(folder='data_regression',
+                                dataset='housing',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_elm,
+                                metric_list=['rmse'],
+                                classification=False)

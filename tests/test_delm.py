@@ -9,11 +9,11 @@ def test_diverse_elm():
                           'size': [5]}
     algorithm = 'DiverseELM'
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_div,
-                   metric_list=['accuracy', 'rmse', 'diversity'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_div,
+                                metric_list=['accuracy', 'rmse', 'diversity'])
 
 
 def test_diverse_elm_regression():
@@ -24,9 +24,9 @@ def test_diverse_elm_regression():
                           'size': [5]}
     algorithm = 'DiverseELM'
 
-    test_algorithm(folder='data_regression',
-                   dataset='housing',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_div,
-                   metric_list=['rmse', 'diversity'],
-                   classification=False)
+    value_dict = test_algorithm(folder='data_regression',
+                                dataset='housing',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_div,
+                                metric_list=['rmse', 'diversity'],
+                                classification=False)

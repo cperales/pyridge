@@ -8,11 +8,11 @@ def test_boosting_ridge():
                             'size': [5]}
     algorithm = 'BoostingRidgeELM'
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_boost,
-                   metric_list=['accuracy', 'rmse'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_boost,
+                                metric_list=['accuracy', 'rmse'])
 
 
 def test_boosting_ridge_elm_regression():
@@ -22,9 +22,9 @@ def test_boosting_ridge_elm_regression():
                             'size': [5]}
     algorithm = 'BoostingRidgeELM'
 
-    test_algorithm(folder='data_regression',
-                   dataset='housing',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_boost,
-                   metric_list=['rmse'],
-                   classification=False)
+    value_dict = test_algorithm(folder='data_regression',
+                                dataset='housing',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_boost,
+                                metric_list=['rmse'],
+                                classification=False)

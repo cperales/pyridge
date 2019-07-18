@@ -9,11 +9,11 @@ def test_reelm():
                           'size': [5]}
     algorithm = 'RegularizedEnsembleELM'
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_reg,
-                   metric_list=['accuracy', 'rmse'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_reg,
+                                metric_list=['accuracy', 'rmse'])
 
 
 def test_reelm_regression():
@@ -24,14 +24,9 @@ def test_reelm_regression():
                           'size': [5]}
     algorithm = 'RegularizedEnsembleELM'
 
-    test_algorithm(folder='data_regression',
-                   dataset='housing',
-                   algorithm=algorithm,
-                   hyperparameter=hyperparameter_reg,
-                   metric_list=['rmse'],
-                   classification=False)
-
-
-if __name__ == '__main__':
-    test_reelm()
-    test_reelm_regression()
+    value_dict = test_algorithm(folder='data_regression',
+                                dataset='housing',
+                                algorithm=algorithm,
+                                hyperparameter=hyperparameter_reg,
+                                metric_list=['rmse'],
+                                classification=False)

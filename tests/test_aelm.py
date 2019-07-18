@@ -7,8 +7,8 @@ def test_adaboost():
                       'hidden_neurons': [10],
                       'size': [5]}
 
-    test_algorithm(folder='data',
-                   dataset='iris',
-                   algorithm='AdaBoostELM',
-                   hyperparameter=hyperparameter,
-                   metric_list=['accuracy', 'rmse'])
+    value_dict = test_algorithm(folder='data',
+                                dataset='iris',
+                                algorithm='AdaBoostELM',
+                                hyperparameter=hyperparameter,
+                                metric_list=['accuracy', 'rmse'])
