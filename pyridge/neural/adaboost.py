@@ -25,7 +25,6 @@ class AdaBoostELM(BoostingRidgeELM):
             if self.__name__ in classification_adaboost:
                 raise ValueError('This algorithm cannot be set '
                                  'for regression problems')
-            self.error_function = self.error_function_regression
         self.positiveness = 0.0
         super().__init__(classification=classification)
 
