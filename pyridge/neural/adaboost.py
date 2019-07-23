@@ -94,7 +94,7 @@ class AdaBoostELM(BoostingRidgeELM):
 
         return output_weight_s
 
-    def error_function_classification(self, f_pred, y):
+    def error_function(self, f_pred, y):
         """
 
         :param f_pred:
@@ -103,16 +103,6 @@ class AdaBoostELM(BoostingRidgeELM):
         """
         y_pred = self.label_decoder(f_pred)
         error_vector = np.array(np.invert(y_pred == y), dtype=np.float)
-        return error_vector
-
-    def error_function_regression(self, f_pred, y):
-        """
-
-        :param f_pred:
-        :param y:
-        :return:
-        """
-        error_vector = np.abs(f_pred.ravel() - y.ravel()) / self.n
         return error_vector
 
     def get_indicator(self, test_data):
