@@ -159,7 +159,7 @@
     <span class="n">Y_mu</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use some train (data and target) and parameter to</span>
 <span class="sd">        fit the classifier and construct the rules.</span>
@@ -182,9 +182,9 @@
             <span class="c1"># y_mu updated</span>
             <span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
             <span class="n">y_mu</span> <span class="o">-=</span> <span class="n">mu</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
 
-    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>  <span class="n">y_mu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM.fit_step"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.fit_step">[docs]</a>    <span class="k">def</span> <span class="nf">fit_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>  <span class="n">y_mu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Each  step of the fit process.</span>
 
@@ -196,9 +196,9 @@
         <span class="n">izq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">h_matrix</span><span class="p">)</span>
         <span class="n">der</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">y_mu</span><span class="p">)</span>
         <span class="n">output_weight_s</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">izq</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">der</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output_weight_s</span>
+        <span class="k">return</span> <span class="n">output_weight_s</span></div>
 
-    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+<div class="viewcode-block" id="BoostingRidgeELM.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.BoostingRidgeELM.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Once instanced, classifier can predict test target</span>
 <span class="sd">        from test data, using some mathematical rules.</span>
@@ -211,7 +211,7 @@
         <span class="n">indicator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">h_matrix</span><span class="p">,</span>
                                                    <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
                             <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">indicator</span></div>
+        <span class="k">return</span> <span class="n">indicator</span></div></div>
 </pre></div>
 
            </div>

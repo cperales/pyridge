@@ -183,26 +183,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmse_vec</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">rmse_train</span><span class="p">(</span><span class="n">clf</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    :param clf:</span>
-<span class="sd">    :param pred_data:</span>
-<span class="sd">    :param real_targ:</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">real_j_targ</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">train_target</span><span class="p">)</span>
-    <span class="n">ind_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">clf</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">h_matrix</span><span class="p">,</span>
-                                                           <span class="n">clf</span><span class="o">.</span><span class="n">output_weight</span><span class="p">[</span><span class="n">s</span><span class="p">])</span>
-                                     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">size</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="n">rmse_vec</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">real_row</span> <span class="o">-</span> <span class="n">ind_row</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">ind_row</span><span class="p">,</span> <span class="n">real_row</span> <span class="ow">in</span>
-                <span class="nb">zip</span><span class="p">(</span><span class="n">ind_matrix</span><span class="p">,</span> <span class="n">real_j_targ</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">rmse_vec</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">disagreement</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">real_targ</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">disagreement</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For Bagging Stepwise ELM Ensemble.</span>
 
@@ -212,15 +193,10 @@
 <span class="sd">    :param S:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">S</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">S</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">output_weight</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">acc_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">pred_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">S</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
         <span class="n">prediction_s</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">pred_data</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">acc_matrix</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">prediction_s</span> <span class="o">==</span> <span class="n">real_targ</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">acc_matrix</span><span class="p">[:,</span> <span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">prediction_s</span> <span class="o">==</span> <span class="n">real_targ</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
     <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">S</span><span class="p">,</span> <span class="n">S</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">S</span><span class="p">):</span>
@@ -245,7 +221,6 @@
 <div class="viewcode-block" id="diversity"><a class="viewcode-back" href="../../../functions.html#pyridge.util.metric.diversity">[docs]</a><span class="k">def</span> <span class="nf">diversity</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">real_targ</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implemented directly from MATLAB, not pythonic.</span>
-<span class="sd">    TODO: rewrite.</span>
 
 <span class="sd">    :param clf: Predictor.</span>
 <span class="sd">    :param pred_data: Not used.</span>
@@ -282,7 +257,7 @@
 
 <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">pred_data</span><span class="p">,</span> <span class="n">real_targ</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    It is used for cross validation.</span>
+<span class="sd">    Inverse of the accuracy. It is used for cross validation.</span>
 
 <span class="sd">    :param clf: classifier with predict method.</span>
 <span class="sd">    :param pred_data: array of the targets</span>
