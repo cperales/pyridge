@@ -177,7 +177,11 @@
       <li><a href="functions.html#pyridge.util.metric.accuracy">accuracy() (in module pyridge.util.metric)</a>
 </li>
       <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.adaboost_weight">adaboost_weight() (pyridge.neural.AdaBoostELM method)</a>
+
+      <ul>
+        <li><a href="algorithms.html#pyridge.neural.AdaBoostNCELM.adaboost_weight">(pyridge.neural.AdaBoostNCELM method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="algorithms.html#pyridge.neural.AdaBoostELM">AdaBoostELM (class in pyridge.neural)</a>
@@ -190,10 +194,12 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="algorithms.html#pyridge.neural.BaggingELM">BaggingELM (class in pyridge.neural)</a>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.backpropagation">backpropagation() (pyridge.neural.nn.NeuralNetwork method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="algorithms.html#pyridge.neural.BaggingELM">BaggingELM (class in pyridge.neural)</a>
+</li>
       <li><a href="algorithms.html#pyridge.neural.BoostingRidgeELM">BoostingRidgeELM (class in pyridge.neural)</a>
 </li>
   </ul></td>
@@ -202,6 +208,12 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="functions.html#pyridge.experiment.check.check_algorithm">check_algorithm() (in module pyridge.experiment.check)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="functions.html#pyridge.experiment.check.check_fold">check_fold() (in module pyridge.experiment.check)</a>
+</li>
       <li><a href="functions.html#pyridge.util.cross.cross_validation">cross_validation() (in module pyridge.util.cross)</a>
 </li>
   </ul></td>
@@ -226,9 +238,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.error_function_classification">error_function_classification() (pyridge.neural.AdaBoostELM method)</a>
-</li>
-      <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.error_function_regression">error_function_regression() (pyridge.neural.AdaBoostELM method)</a>
+      <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.error_function">error_function() (pyridge.neural.AdaBoostELM method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -239,21 +249,47 @@
       <li><a href="algorithms.html#pyridge.kernel.KernelELM.fit">fit() (pyridge.kernel.KernelELM method)</a>
 
       <ul>
+        <li><a href="algorithms.html#pyridge.negcor.nc_elm.NegativeCorrelationELM.fit">(pyridge.negcor.nc_elm.NegativeCorrelationELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.negcor.nc_nn.NegativeCorrelationNN.fit">(pyridge.negcor.nc_nn.NegativeCorrelationNN method)</a>
+</li>
         <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.fit">(pyridge.neural.AdaBoostELM method)</a>
 </li>
+        <li><a href="algorithms.html#pyridge.neural.BaggingELM.fit">(pyridge.neural.BaggingELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.neural.BoostingRidgeELM.fit">(pyridge.neural.BoostingRidgeELM method)</a>
+</li>
         <li><a href="algorithms.html#pyridge.neural.ELM.fit">(pyridge.neural.ELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.fit">(pyridge.neural.nn.NeuralNetwork method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.fit_step">fit_step() (pyridge.neural.AdaBoostELM method)</a>
+
+      <ul>
+        <li><a href="algorithms.html#pyridge.neural.BaggingELM.fit_step">(pyridge.neural.BaggingELM method)</a>
 </li>
+        <li><a href="algorithms.html#pyridge.neural.BoostingRidgeELM.fit_step">(pyridge.neural.BoostingRidgeELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.neural.DiverseELM.fit_step">(pyridge.neural.DiverseELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.neural.RegularizedEnsembleELM.fit_step">(pyridge.neural.RegularizedEnsembleELM method)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.get_batches">get_batches() (pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.get_dE_dW">get_dE_dW() (pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.get_grads">get_grads() (pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
       <li><a href="generic.html#pyridge.generic.NeuralMethod.get_h_matrix">get_h_matrix() (pyridge.generic.NeuralMethod method)</a>
 </li>
       <li><a href="generic.html#pyridge.generic.predictor.Predictor.get_indicator">get_indicator() (pyridge.generic.predictor.Predictor method)</a>
@@ -261,22 +297,42 @@
       <ul>
         <li><a href="algorithms.html#pyridge.kernel.KernelELM.get_indicator">(pyridge.kernel.KernelELM method)</a>
 </li>
+        <li><a href="algorithms.html#pyridge.negcor.nc_nn.NegativeCorrelationNN.get_indicator">(pyridge.negcor.nc_nn.NegativeCorrelationNN method)</a>
+</li>
         <li><a href="algorithms.html#pyridge.neural.AdaBoostELM.get_indicator">(pyridge.neural.AdaBoostELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.neural.BaggingELM.get_indicator">(pyridge.neural.BaggingELM method)</a>
+</li>
+        <li><a href="algorithms.html#pyridge.neural.BoostingRidgeELM.get_indicator">(pyridge.neural.BoostingRidgeELM method)</a>
 </li>
         <li><a href="algorithms.html#pyridge.neural.ELM.get_indicator">(pyridge.neural.ELM method)</a>
 </li>
+        <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.get_indicator">(pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.get_input_layer">get_input_layer() (pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.negcor.nc_elm.NegativeCorrelationELM.get_inv_left">get_inv_left() (pyridge.negcor.nc_elm.NegativeCorrelationELM method)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.get_layers">get_layers() (pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.initial">initial() (pyridge.neural.nn.NeuralNetwork method)</a>
+</li>
       <li><a href="generic.html#pyridge.generic.predictor.Predictor.instance_param_">instance_param_() (pyridge.generic.predictor.Predictor method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="algorithms.html#pyridge.neural.ELM.instance_weight">instance_weight() (pyridge.neural.ELM method)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.irprop">irprop() (pyridge.neural.nn.NeuralNetwork method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -304,7 +360,15 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="algorithms.html#pyridge.negcor.nc_elm.NegativeCorrelationELM">NegativeCorrelationELM (class in pyridge.negcor.nc_elm)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.negcor.nc_nn.NegativeCorrelationNN">NegativeCorrelationNN (class in pyridge.negcor.nc_nn)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generic.html#pyridge.generic.NeuralMethod">NeuralMethod (class in pyridge.generic)</a>
+</li>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork">NeuralNetwork (class in pyridge.neural.nn)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -350,11 +414,13 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="functions.html#pyridge.util.activation.sigmoid">sigmoid() (in module pyridge.util.activation)</a>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.sgd">sgd() (pyridge.neural.nn.NeuralNetwork method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="functions.html#pyridge.util.activation.sigmoid_derivative">sigmoid_derivative() (in module pyridge.util.activation)</a>
+      <li><a href="functions.html#pyridge.util.activation.sigmoid">sigmoid() (in module pyridge.util.activation)</a>
+</li>
+      <li><a href="functions.html#pyridge.util.activation.sigmoid_der">sigmoid_der() (in module pyridge.util.activation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -364,13 +430,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="generic.html#pyridge.generic.predictor.Predictor.target_classification">target_classification() (pyridge.generic.predictor.Predictor method)</a>
 </li>
-      <li><a href="generic.html#pyridge.generic.predictor.Predictor.target_regression">target_regression() (pyridge.generic.predictor.Predictor method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="functions.html#pyridge.experiment.test.test_algorithm">test_algorithm() (in module pyridge.experiment.test)</a>
-</li>
-      <li><a href="functions.html#pyridge.experiment.test.test_fold">test_fold() (in module pyridge.experiment.test)</a>
+      <li><a href="generic.html#pyridge.generic.predictor.Predictor.target_regression">target_regression() (pyridge.generic.predictor.Predictor method)</a>
 </li>
       <li><a href="functions.html#pyridge.util.cross.train_predictor">train_predictor() (in module pyridge.util.cross)</a>
 </li>
@@ -381,6 +443,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="functions.html#pyridge.util.activation.u_dot_norm">u_dot_norm() (in module pyridge.util.activation)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="algorithms.html#pyridge.neural.nn.NeuralNetwork.update">update() (pyridge.neural.nn.NeuralNetwork method)</a>
 </li>
   </ul></td>
 </tr></table>

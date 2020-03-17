@@ -11,7 +11,7 @@ Preparing the datasets
 Activation and kernel functions
 ...................................
 .. autofunction:: pyridge.util.activation.sigmoid
-.. autofunction:: pyridge.util.activation.sigmoid_derivative
+.. autofunction:: pyridge.util.activation.sigmoid_der
 .. autofunction:: pyridge.util.activation.linear_kernel
 .. autofunction:: pyridge.util.activation.rbf_kernel
 .. autofunction:: pyridge.util.activation.u_dot_norm
@@ -34,5 +34,5 @@ In order to perform several experiments and tests de predictors,
 generic test function is used for different algorithms and cross-validation
 hyperparameters.
 
-.. autofunction::  pyridge.experiment.test.test_fold
-.. autofunction::  pyridge.experiment.test.test_algorithm
+.. autofunction::  pyridge.experiment.check.check_fold
+.. autofunction::  pyridge.experiment.check.check_algorithm

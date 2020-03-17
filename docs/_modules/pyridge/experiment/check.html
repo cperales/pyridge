@@ -1,0 +1,466 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyridge.experiment.check &mdash; PyRidge  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyRidge
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyRidge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyridge.experiment.check</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyridge.experiment.check</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyridge.util</span> <span class="k">import</span> <span class="n">metric_dict</span><span class="p">,</span> <span class="n">prepare_data</span>
+<span class="kn">from</span> <span class="nn">pyridge.util.cross</span> <span class="k">import</span> <span class="n">get_best_param</span><span class="p">,</span> <span class="n">product_dict</span>
+<span class="kn">from</span> <span class="nn">pyridge</span> <span class="k">import</span> <span class="n">algorithm_dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">perf_counter</span>
+
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyridge&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="check_algorithm"><a class="viewcode-back" href="../../../functions.html#pyridge.experiment.check.check_algorithm">[docs]</a><span class="k">def</span> <span class="nf">check_algorithm</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span>
+                    <span class="n">dataset</span><span class="p">,</span>
+                    <span class="n">algorithm</span><span class="p">,</span>
+                    <span class="n">metric_list</span><span class="p">,</span>
+                    <span class="n">hyperparameter</span><span class="p">,</span>
+                    <span class="n">metric_cross</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">classification</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">autoencoder</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Testing easily a predictor along all the folds.</span>
+
+<span class="sd">    :param str folder:</span>
+<span class="sd">    :param str dataset:</span>
+<span class="sd">    :param str algorithm:</span>
+<span class="sd">    :param list metric_list:</span>
+<span class="sd">    :param str metric_cross:</span>
+<span class="sd">    :param dict hyperparameter:</span>
+<span class="sd">    :param bool classification: True if we want a classification;</span>
+<span class="sd">        False if we are looking for a regression.</span>
+<span class="sd">    :param bool autoencoder: True if we want autoencoder test;</span>
+<span class="sd">        False if we are looking for a classic supervised test.</span>
+<span class="sd">    :return: a dictionary, with the metrics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Starting algorithm </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">autoencoder</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">classification</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">if</span> <span class="n">metric_cross</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;accuracy&#39;</span> <span class="ow">in</span> <span class="n">metric_list</span> <span class="ow">and</span> <span class="n">classification</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">metric_cross</span> <span class="o">=</span> <span class="s1">&#39;accuracy&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">metric_cross</span> <span class="o">=</span> <span class="s1">&#39;rmse&#39;</span>
+
+    <span class="c1"># Data</span>
+    <span class="n">folder_dataset</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;train_&#39;</span> <span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                 <span class="s1">&#39;test_&#39;</span> <span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="n">value_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metric_list</span><span class="p">}</span>
+    <span class="c1"># Time</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;cross_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;train_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;test_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;sum_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">fold</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">train_dataset</span><span class="p">,</span> <span class="n">test_dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="n">value_dict_fold</span> <span class="o">=</span> <span class="n">check_fold</span><span class="p">(</span><span class="n">folder_dataset</span><span class="o">=</span><span class="n">folder_dataset</span><span class="p">,</span>
+                                     <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+                                     <span class="n">test_dataset</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">,</span>
+                                     <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">,</span>
+                                     <span class="n">metric_list</span><span class="o">=</span><span class="n">metric_list</span><span class="p">,</span>
+                                     <span class="n">metric_cross</span><span class="o">=</span><span class="n">metric_cross</span><span class="p">,</span>
+                                     <span class="n">hyperparameter</span><span class="o">=</span><span class="n">hyperparameter</span><span class="p">,</span>
+                                     <span class="n">classification</span><span class="o">=</span><span class="n">classification</span><span class="p">,</span>
+                                     <span class="n">autoencoder</span><span class="o">=</span><span class="n">autoencoder</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value_dict_fold</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value_dict</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">fold</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">fold</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">sum_time</span> <span class="o">=</span> <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;sum_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">value_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">value_dict</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">value_dict</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s1">&#39;time&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> for algorithm </span><span class="si">{}</span><span class="s1"> and &#39;</span>
+                           <span class="s1">&#39;dataset </span><span class="si">{}</span><span class="s1"> is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">,</span>
+                                                     <span class="n">algorithm</span><span class="p">,</span>
+                                                     <span class="n">dataset</span><span class="p">,</span>
+                                                     <span class="n">value_dict</span><span class="p">[</span><span class="n">m</span><span class="p">]))</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;time_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sum_time</span><span class="p">)</span>
+
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Elapsed time is </span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">value_dict</span></div>
+
+
+<div class="viewcode-block" id="check_fold"><a class="viewcode-back" href="../../../functions.html#pyridge.experiment.check.check_fold">[docs]</a><span class="k">def</span> <span class="nf">check_fold</span><span class="p">(</span><span class="n">folder_dataset</span><span class="o">=</span><span class="s1">&#39;data/iris&#39;</span><span class="p">,</span>
+               <span class="n">train_dataset</span><span class="o">=</span><span class="s1">&#39;train_iris.0&#39;</span><span class="p">,</span>
+               <span class="n">test_dataset</span><span class="o">=</span><span class="s1">&#39;test_iris.0&#39;</span><span class="p">,</span>
+               <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span>
+               <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;ELM&#39;</span><span class="p">,</span>
+               <span class="n">metric_list</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;rmse&#39;</span><span class="p">],</span>
+               <span class="n">metric_cross</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span>
+               <span class="n">hyperparameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">classification</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+               <span class="n">autoencoder</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generic test.</span>
+
+<span class="sd">    :param str folder_dataset:</span>
+<span class="sd">    :param str train_dataset:</span>
+<span class="sd">    :param str test_dataset:</span>
+<span class="sd">    :param str sep:</span>
+<span class="sd">    :param str algorithm:</span>
+<span class="sd">    :param list metric_list:</span>
+<span class="sd">    :param dict hyperparameter:</span>
+<span class="sd">    :param str metric_cross:</span>
+<span class="sd">    :param bool classification: True if we want a classification;</span>
+<span class="sd">        False if we are looking for a regression.</span>
+<span class="sd">    :param bool autoencoder: True if we want autoencoder test;</span>
+<span class="sd">        False if we are looking for a classic supervised test.</span>
+<span class="sd">    :return: a dictionary, with the metrics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Data</span>
+    <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> \
+        <span class="n">prepare_data</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">folder_dataset</span><span class="p">,</span>
+                     <span class="n">dataset</span><span class="o">=</span><span class="n">train_dataset</span><span class="p">,</span>
+                     <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">)</span>
+    <span class="n">test_data</span><span class="p">,</span> <span class="n">test_target</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">prepare_data</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">folder_dataset</span><span class="p">,</span>
+                                             <span class="n">dataset</span><span class="o">=</span><span class="n">test_dataset</span><span class="p">,</span>
+                                             <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span>
+                                             <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">autoencoder</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">train_target</span> <span class="o">=</span> <span class="n">train_data</span>
+        <span class="n">test_target</span> <span class="o">=</span> <span class="n">train_target</span>
+
+    <span class="c1"># Algorithm</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">algorithm_dict</span><span class="p">[</span><span class="n">algorithm</span><span class="p">](</span><span class="n">classification</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">hyperparameter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">best_param</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">end_cross</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">best_param</span> <span class="o">=</span> <span class="n">get_best_param</span><span class="p">(</span><span class="n">predictor</span><span class="o">=</span><span class="n">clf</span><span class="p">,</span>
+                                    <span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                                    <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                                    <span class="n">hyperparameter</span><span class="o">=</span><span class="n">hyperparameter</span><span class="p">,</span>
+                                    <span class="n">metric</span><span class="o">=</span><span class="n">metric_cross</span><span class="p">)</span>
+        <span class="n">end_cross</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">clf</span> <span class="o">=</span> <span class="n">algorithm_dict</span><span class="p">[</span><span class="n">algorithm</span><span class="p">](</span><span class="n">classification</span><span class="p">)</span>
+        <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                <span class="n">parameter</span><span class="o">=</span><span class="n">best_param</span><span class="p">)</span>
+    <span class="n">end_train</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+
+    <span class="c1"># Metric</span>
+    <span class="n">test_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">value_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metric_list</span><span class="p">:</span>
+        <span class="n">metric_fun</span> <span class="o">=</span> <span class="n">metric_dict</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+        <span class="n">start_test</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">metric_fun</span><span class="p">(</span><span class="n">clf</span><span class="o">=</span><span class="n">clf</span><span class="p">,</span>
+                       <span class="n">pred_data</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span>
+                       <span class="n">real_targ</span><span class="o">=</span><span class="n">test_target</span><span class="p">)</span>
+        <span class="n">test_time</span> <span class="o">+=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_test</span>
+        <span class="n">value_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">m</span><span class="p">:</span> <span class="n">v</span><span class="p">})</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> in dataset </span><span class="si">{}</span><span class="s1"> &#39;</span>
+                     <span class="s1">&#39;is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">,</span>
+                                    <span class="n">test_dataset</span><span class="p">,</span>
+                                    <span class="n">v</span><span class="p">))</span>
+
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;test_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_time</span>
+    <span class="n">cross_time</span> <span class="o">=</span> <span class="n">end_cross</span> <span class="o">-</span> <span class="n">start</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;cross_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cross_time</span>
+    <span class="n">train_time</span> <span class="o">=</span> <span class="n">end_train</span> <span class="o">-</span> <span class="n">end_cross</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;train_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_time</span>
+    <span class="n">value_dict</span><span class="p">[</span><span class="s1">&#39;sum_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cross_time</span> <span class="o">+</span> <span class="n">train_time</span> <span class="o">+</span> <span class="n">test_time</span>
+
+    <span class="k">return</span> <span class="n">value_dict</span></div>
+
+
+<span class="k">def</span> <span class="nf">check_hyperparameter_sensitivity</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span>
+                                     <span class="n">dataset</span><span class="p">,</span>
+                                     <span class="n">algorithm</span><span class="p">,</span>
+                                     <span class="n">metric</span><span class="p">,</span>
+                                     <span class="n">hyp_range_dict</span><span class="p">,</span>
+                                     <span class="n">fixed_hyp</span><span class="p">,</span>
+                                     <span class="n">repetitions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                                     <span class="n">classification</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to check hyperparameter sensitivity.</span>
+
+<span class="sd">    :param str folder:</span>
+<span class="sd">    :param str dataset:</span>
+<span class="sd">    :param str algorithm:</span>
+<span class="sd">    :param dict hyp_range_dict:</span>
+<span class="sd">    :param dict fixed_hyp:</span>
+<span class="sd">    :param int repetitions:</span>
+<span class="sd">    :param bool classification:</span>
+<span class="sd">    :return: A dataframe with the value of the</span>
+<span class="sd">        hyperparameters and the chosen metric.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Load dataset</span>
+    <span class="n">folder_dataset</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+    <span class="n">k_datasets</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;train_&#39;</span> <span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+                   <span class="s1">&#39;test_&#39;</span> <span class="o">+</span> <span class="n">dataset</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="n">final_length</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value_list</span> <span class="ow">in</span> <span class="n">hyp_range_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">final_length</span> <span class="o">=</span> <span class="n">final_length</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">value_list</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Hyperparameter sensitivity test is going &#39;</span>
+                 <span class="s1">&#39;to check </span><span class="si">{}</span><span class="s1"> combinations&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">final_length</span><span class="p">))</span>
+    <span class="c1"># Prepare result dict</span>
+    <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">metric</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">final_length</span><span class="p">)}</span>
+    <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">hyp_range_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="n">result_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">parameter</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">final_length</span><span class="p">)})</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Fixed parameters: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fixed_hyp</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">hyp_combination</span> <span class="ow">in</span> <span class="n">product_dict</span><span class="p">(</span><span class="o">**</span><span class="n">hyp_range_dict</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Trying with parameter: </span><span class="si">%s</span><span class="s1">, combination </span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">hyp_combination</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+        <span class="c1"># Load algorithm</span>
+        <span class="n">fixed_hyp</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">hyp_combination</span><span class="p">)</span>
+        <span class="n">predictor</span> <span class="o">=</span> <span class="n">algorithm_dict</span><span class="p">[</span><span class="n">algorithm</span><span class="p">](</span><span class="n">classification</span><span class="p">)</span>
+
+        <span class="c1"># K fold over repetitions</span>
+        <span class="n">metric_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">repetitions</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">train_k_dataset</span><span class="p">,</span> <span class="n">test_k_dataset</span> <span class="ow">in</span> <span class="n">k_datasets</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Fold </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">train_k_dataset</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># Load data</span>
+            <span class="n">train_k_data</span><span class="p">,</span> <span class="n">train_k_target</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> \
+                <span class="n">prepare_data</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">folder_dataset</span><span class="p">,</span>
+                             <span class="n">dataset</span><span class="o">=</span><span class="n">train_k_dataset</span><span class="p">)</span>
+            <span class="n">test_k_data</span><span class="p">,</span> <span class="n">test_k_target</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> \
+                <span class="n">prepare_data</span><span class="p">(</span><span class="n">folder</span><span class="o">=</span><span class="n">folder_dataset</span><span class="p">,</span>
+                             <span class="n">dataset</span><span class="o">=</span><span class="n">test_k_dataset</span><span class="p">,</span>
+                             <span class="n">scaler</span><span class="o">=</span><span class="n">scaler</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repetitions</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Repetition </span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+                <span class="c1"># TRAIN</span>
+                <span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_k_data</span><span class="p">,</span>
+                              <span class="n">train_target</span><span class="o">=</span><span class="n">train_k_target</span><span class="p">,</span>
+                              <span class="n">parameter</span><span class="o">=</span><span class="n">fixed_hyp</span><span class="p">)</span>
+                <span class="c1"># TEST</span>
+                <span class="n">metric_value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric_dict</span><span class="p">[</span><span class="n">metric</span><span class="p">](</span><span class="n">clf</span><span class="o">=</span><span class="n">predictor</span><span class="p">,</span>
+                                                      <span class="n">pred_data</span><span class="o">=</span><span class="n">test_k_data</span><span class="p">,</span>
+                                                      <span class="n">real_targ</span><span class="o">=</span><span class="n">test_k_target</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Updating dict</span>
+        <span class="n">result_dict</span><span class="p">[</span><span class="n">metric</span><span class="p">][</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric_value</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">hyp_combination</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">result_dict</span><span class="p">[</span><span class="n">parameter</span><span class="p">][</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">result_dict</span>
+
+
+<span class="k">def</span> <span class="nf">create_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s1">&#39;INFO&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;pyridge&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a logger with time format.</span>
+
+<span class="sd">    :param str level: DEBUG, INFO, WARNING, ERROR, CRITICAL.</span>
+<span class="sd">    :param str name: name of the logger.</span>
+<span class="sd">    :return: logger instanced.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># create logger</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span><span class="p">)</span>
+
+    <span class="c1"># create console handler and set level to debug</span>
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+
+    <span class="c1"># create formatter</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(name)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># add formatter to ch</span>
+    <span class="n">ch</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+    <span class="c1"># add ch to logger</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logger</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carlos Perales
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

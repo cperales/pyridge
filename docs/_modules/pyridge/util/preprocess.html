@@ -174,10 +174,12 @@
                        <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="n">file_matrix</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">values</span>
-
     <span class="n">file_matrix_t</span> <span class="o">=</span> <span class="n">file_matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
     <span class="n">target</span> <span class="o">=</span> <span class="n">file_matrix_t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">file_matrix_t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+
+    <span class="c1"># target = file[file.columns[-1]].values</span>
+    <span class="c1"># data = file[file.columns[:-1]].values</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scaler</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">scaler</span> <span class="o">=</span> <span class="n">scaler_dict</span><span class="p">[</span><span class="n">scaler</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>

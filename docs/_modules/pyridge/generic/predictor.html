@@ -168,19 +168,19 @@
     <span class="n">Y</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">output_weight</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classification</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> instanced&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classification</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">logging</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__classification__</span> <span class="o">=</span> <span class="n">classification</span>  <span class="c1"># Default it works as a classifier</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__classification__</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>  <span class="c1"># It works as a regressor</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span> <span class="o">=</span> <span class="n">id_encoder</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">label_decoder</span> <span class="o">=</span> <span class="n">id_decoder</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">target_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_regression</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_regressor</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">label_binarizer_</span> <span class="o">=</span> <span class="n">LabelBinarizer</span><span class="p">(</span><span class="n">neg_label</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">target_manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_classification</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">predict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_classifier</span>
+        <span class="c1"># if logging is True:</span>
+        <span class="c1">#     logger.debug(&#39;{} instanced&#39;.format(self.__name__))</span>
 
 <div class="viewcode-block" id="Predictor.instance_param_"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.instance_param_">[docs]</a>    <span class="k">def</span> <span class="nf">instance_param_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -205,7 +205,8 @@
 <span class="sd">        :param train_target:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_encoder</span><span class="p">(</span><span class="n">train_target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Predictor.target_classification"><a class="viewcode-back" href="../../../generic.html#pyridge.generic.predictor.Predictor.target_classification">[docs]</a>    <span class="k">def</span> <span class="nf">target_classification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_target</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

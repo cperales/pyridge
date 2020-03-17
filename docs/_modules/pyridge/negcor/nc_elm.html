@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyridge.negcor.nc_elm &mdash; PyRidge  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyRidge
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyRidge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyridge.negcor.nc_elm</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyridge.negcor.nc_elm</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyridge.generic.tensor</span> <span class="k">import</span> <span class="n">TensorELM</span><span class="p">,</span> <span class="n">_TOL_</span>
+<span class="kn">from</span> <span class="nn">pyridge.util</span> <span class="k">import</span> <span class="n">solver</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyridge&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="NegativeCorrelationELM"><a class="viewcode-back" href="../../../algorithms.html#pyridge.negcor.nc_elm.NegativeCorrelationELM">[docs]</a><span class="k">class</span> <span class="nc">NegativeCorrelationELM</span><span class="p">(</span><span class="n">TensorELM</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Iterative Negative Correlation with Sherman-Morrison, updated.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;Negative Correlation ELM updated&#39;</span>
+    <span class="c1"># Negative Correlation</span>
+    <span class="n">lambda_</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">max_iter_</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">inv_left</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="NegativeCorrelationELM.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.negcor.nc_elm.NegativeCorrelationELM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use some train (data and target) and parameter to</span>
+<span class="sd">        fit the classifier and construct the rules.</span>
+
+<span class="sd">        :param numpy.array train_data: data with features.</span>
+<span class="sd">        :param numpy.array train_target: targets in j codification.</span>
+<span class="sd">        :param dict parameter:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance_param_</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                             <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                             <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_weight_bias_</span><span class="p">()</span>
+        <span class="c1"># Simple ELMs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_h_matrix</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inv_left</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">solver</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">[</span><span class="n">s</span><span class="p">]),</span>
+                                         <span class="n">b</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+                                  <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inv_left</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)])</span>
+        <span class="n">beta_prev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)</span>
+
+        <span class="c1"># Multiple ELMs</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+        <span class="n">iter_</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">norm</span> <span class="o">&gt;</span> <span class="n">_TOL_</span> <span class="ow">and</span> <span class="n">iter_</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iter_</span><span class="p">:</span>
+            <span class="n">F</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_f</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_inv_left</span><span class="p">(</span><span class="n">f_j</span><span class="o">=</span><span class="n">F</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">),</span>
+                                                            <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="p">:,</span> <span class="n">j</span><span class="p">])</span>
+                                                     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+                                           <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)])</span>
+            <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">beta_prev</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">beta_prev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)</span>
+            <span class="n">iter_</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="NegativeCorrelationELM.get_inv_left"><a class="viewcode-back" href="../../../algorithms.html#pyridge.negcor.nc_elm.NegativeCorrelationELM.get_inv_left">[docs]</a>    <span class="k">def</span> <span class="nf">get_inv_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_j</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param f_j:</span>
+<span class="sd">        :param int s:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">A_inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inv_left</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">H</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">f_j</span><span class="p">)</span>
+
+        <span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_inv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">A_inv</span><span class="p">))</span>
+        <span class="n">dem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reg</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A_inv</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">A_inv</span> <span class="o">-</span> <span class="n">num</span> <span class="o">/</span> <span class="n">dem</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carlos Perales
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

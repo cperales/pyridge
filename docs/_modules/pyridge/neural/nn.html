@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyridge.neural.nn &mdash; PyRidge  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> PyRidge
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generic.html">Generic classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../algorithms.html">Predictors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../functions.html">Functions for experiments and utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyRidge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyridge.neural.nn</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyridge.neural.nn</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..generic.neural</span> <span class="k">import</span> <span class="n">NeuralMethod</span>
+<span class="kn">from</span> <span class="nn">..util.activation</span> <span class="k">import</span> <span class="n">nn_activation_dict</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;pyridge&#39;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="NeuralNetwork"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork">[docs]</a><span class="k">class</span> <span class="nc">NeuralNetwork</span><span class="p">(</span><span class="n">NeuralMethod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple Neural Network with one hidden layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__name__</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Neural Network&#39;</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># Number of iterations</span>
+    <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span>  <span class="c1"># Step</span>
+    <span class="c1"># Matrix</span>
+    <span class="n">input_weight</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="n">output_weight</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="n">bias_input_layer</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="n">bias_output_layer</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>
+    <span class="n">temp_h</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>  <span class="c1"># Value of the hidden layer before applying activation.</span>
+    <span class="n">temp_o</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span>  <span class="c1"># Value of the output layer before applying activation.</span>
+    <span class="c1"># Neuronal functions</span>
+    <span class="n">activation</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">activation_der</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">activation_out</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">activation_out_der</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># Solver</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="c1"># SGD</span>
+    <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="c1"># IRPROP+</span>
+    <span class="n">initial_step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0125</span>
+    <span class="n">min_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">max_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span>
+    <span class="n">pos_eta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.2</span>
+    <span class="n">neg_eta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span>
+    <span class="n">dE_dW_pre_output</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">dE_dW_pre_input</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">delta_output</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">delta_input</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">update_output</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">update_input</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">prev_error</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="NeuralNetwork.get_layers"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.get_layers">[docs]</a>    <span class="k">def</span> <span class="nf">get_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Feed forward random assignation of the two layers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_input_layer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_output_layer</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.get_input_layer"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.get_input_layer">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Weights and bias for input layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_input_layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">get_output_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_output_layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<div class="viewcode-block" id="NeuralNetwork.initial"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.initial">[docs]</a>    <span class="k">def</span> <span class="nf">initial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instance parameters and initial layer.</span>
+
+<span class="sd">        :param train_data:</span>
+<span class="sd">        :param train_target:</span>
+<span class="sd">        :param parameter:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">instance_param_</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                             <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                             <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+=</span> <span class="s1">&#39; with &#39;</span> <span class="o">+</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;batch_size&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span> <span class="k">if</span> <span class="n">batch_size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+        <span class="k">if</span> <span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;irprop&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_step</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">))</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_step</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prev_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dE_dW_pre_output</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dE_dW_pre_input</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">act_dict</span> <span class="o">=</span> <span class="n">nn_activation_dict</span><span class="p">[</span><span class="n">parameter</span><span class="p">[</span><span class="s1">&#39;activation&#39;</span><span class="p">]]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">=</span> <span class="n">act_dict</span><span class="p">[</span><span class="s1">&#39;activation&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation_der</span> <span class="o">=</span> <span class="n">act_dict</span><span class="p">[</span><span class="s1">&#39;derivative&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__classification__</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activation_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activation_out_der</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_der</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Linear activation in the output layer</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activation_out</span> <span class="o">=</span> <span class="n">nn_activation_dict</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">][</span><span class="s1">&#39;activation&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">activation_out_der</span> <span class="o">=</span> <span class="n">nn_activation_dict</span><span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">][</span><span class="s1">&#39;derivative&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.fit"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">train_target</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Train the neural network with gradient descent.</span>
+
+<span class="sd">        :param train_data: numpy.array with data (instances and features).</span>
+<span class="sd">        :param train_target: numpy.array with the target to predict.</span>
+<span class="sd">        :param dict parameter: keys</span>
+<span class="sd">            - max_iter: number of iterations for training.</span>
+<span class="sd">            - neurons: number of neurons in the hidden layer.</span>
+<span class="sd">            - learning_rate: step to add in each iteration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+                     <span class="n">train_target</span><span class="o">=</span><span class="n">train_target</span><span class="p">,</span>
+                     <span class="n">parameter</span><span class="o">=</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Iteration = </span><span class="si">%i</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">iteration</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div>
+
+    <span class="c1"># The neural network get_indicators.</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temp_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_input_layer</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">hidden_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_h</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temp_o</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_layer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias_output_layer</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">output_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_o</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hidden_layer</span><span class="p">,</span> <span class="n">output_layer</span>
+
+<div class="viewcode-block" id="NeuralNetwork.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict value.</span>
+
+<span class="sd">        :param test_data:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+        <span class="n">output</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">output</span><span class="p">)]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+    <span class="c1"># Solvers</span>
+<div class="viewcode-block" id="NeuralNetwork.get_grads"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.get_grads">[docs]</a>    <span class="k">def</span> <span class="nf">get_grads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param error</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Gradient in output layer</span>
+        <span class="n">grad_output</span> <span class="o">=</span> <span class="n">error</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_out_der</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_o</span><span class="p">)</span>
+        <span class="c1"># logger.debug(&#39;Norm of the gradient in output layer = %f&#39;, np.linalg.norm(delta_output))</span>
+
+        <span class="c1"># Gradient in hidden layer</span>
+        <span class="n">grad_hidden</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">grad_output</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation_der</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">temp_h</span><span class="p">)</span>
+        <span class="c1"># logger.debug(&#39;Norm of the gradient in hidden layer = %f&#39;, np.linalg.norm(grad_hidden))</span>
+        <span class="k">return</span> <span class="n">grad_output</span><span class="p">,</span> <span class="n">grad_hidden</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.backpropagation"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.backpropagation">[docs]</a>    <span class="k">def</span> <span class="nf">backpropagation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the weights after the prediction using all data.</span>
+
+<span class="sd">        :param penalty: for NC.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Error</span>
+        <span class="n">hidden_layer</span><span class="p">,</span> <span class="n">output_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">output_layer</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="k">if</span> <span class="n">penalty</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">output_layer</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">+</span> <span class="n">penalty</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Error = </span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">error</span><span class="p">))</span>
+        <span class="c1"># Gradients and dE / dW</span>
+        <span class="n">grad_output</span><span class="p">,</span> <span class="n">grad_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_grads</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">dE_dWeight_output</span><span class="p">,</span> <span class="n">dE_dWeight_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dE_dW</span><span class="p">(</span><span class="n">grad_output</span><span class="o">=</span><span class="n">grad_output</span><span class="p">,</span>
+                                                             <span class="n">hidden_layer</span><span class="o">=</span><span class="n">hidden_layer</span><span class="p">,</span>
+                                                             <span class="n">grad_hidden</span><span class="o">=</span><span class="n">grad_hidden</span><span class="p">,</span>
+                                                             <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">)</span>
+        <span class="c1"># Updates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_weight_output</span><span class="o">=</span><span class="n">dE_dWeight_output</span><span class="p">,</span>
+                    <span class="n">delta_weight_input</span><span class="o">=</span><span class="n">dE_dWeight_input</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.get_dE_dW"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.get_dE_dW">[docs]</a>    <span class="k">def</span> <span class="nf">get_dE_dW</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">,</span> <span class="n">hidden_layer</span><span class="p">,</span> <span class="n">grad_hidden</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute de derivate of the Error respect to the weights.</span>
+
+<span class="sd">        :param grad_output:</span>
+<span class="sd">        :param hidden_layer:</span>
+<span class="sd">        :param grad_hidden:</span>
+<span class="sd">        :param data:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dE_dWeight_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">hidden_layer</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">)</span>
+        <span class="n">dE_dWeight_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">grad_hidden</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dE_dWeight_output</span><span class="p">,</span> <span class="n">dE_dWeight_input</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.get_batches"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.get_batches">[docs]</a>    <span class="k">def</span> <span class="nf">get_batches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">penalty_subset</span> <span class="o">=</span> <span class="n">penalty</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="k">if</span> <span class="n">penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">penalty_subset</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.sgd"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.sgd">[docs]</a>    <span class="k">def</span> <span class="nf">sgd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adjust the weights after the prediction using a few instances</span>
+<span class="sd">        chosen stochastically.</span>
+
+<span class="sd">        :param penalty: for NC.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Choosing stochastically a subset</span>
+        <span class="n">X_subset</span><span class="p">,</span> <span class="n">Y_subset</span><span class="p">,</span> <span class="n">penalty_subset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_batches</span><span class="p">(</span><span class="n">penalty</span><span class="p">)</span>
+        <span class="c1"># Error</span>
+        <span class="n">hidden_layer</span><span class="p">,</span> <span class="n">output_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X_subset</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">output_layer</span> <span class="o">-</span> <span class="n">Y_subset</span> <span class="k">if</span> <span class="n">penalty_subset</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">output_layer</span> <span class="o">-</span> <span class="n">Y_subset</span> <span class="o">+</span> <span class="n">penalty_subset</span>
+        <span class="c1"># Gradients and dE / dW</span>
+        <span class="n">grad_output</span><span class="p">,</span> <span class="n">grad_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_grads</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">dE_dWeight_output</span><span class="p">,</span> <span class="n">dE_dWeight_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dE_dW</span><span class="p">(</span><span class="n">grad_output</span><span class="o">=</span><span class="n">grad_output</span><span class="p">,</span>
+                                                             <span class="n">hidden_layer</span><span class="o">=</span><span class="n">hidden_layer</span><span class="p">,</span>
+                                                             <span class="n">grad_hidden</span><span class="o">=</span><span class="n">grad_hidden</span><span class="p">,</span>
+                                                             <span class="n">data</span><span class="o">=</span><span class="n">X_subset</span><span class="p">)</span>
+        <span class="c1"># Updates</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_weight_output</span><span class="o">=</span><span class="n">dE_dWeight_output</span><span class="p">,</span>
+                    <span class="n">delta_weight_input</span><span class="o">=</span><span class="n">dE_dWeight_input</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NeuralNetwork.update"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_weight_output</span><span class="p">,</span> <span class="n">delta_weight_input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update for back propagation.</span>
+
+<span class="sd">        :param delta_weight_output:</span>
+<span class="sd">        :param delta_weight_input:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Update output layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_output_layer</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">delta_weight_output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span> <span class="o">-=</span> <span class="n">delta_weight_output</span>
+        <span class="c1"># Update hidden layer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bias_input_layer</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">delta_weight_input</span><span class="p">,</span>
+                                         <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hidden_neurons</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span> <span class="o">-=</span> <span class="n">delta_weight_input</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_sign</span><span class="p">(</span><span class="n">dEdW</span><span class="p">,</span> <span class="n">prev_dEdW</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">dEdW</span><span class="p">)</span> <span class="k">if</span> <span class="n">prev_dEdW</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">([</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dEdW</span><span class="p">,</span> <span class="n">prev_dEdW</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">sign</span>
+
+    <span class="k">def</span> <span class="nf">irprop_pos_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dE_dW</span><span class="p">):</span>
+        <span class="n">new_delta</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_eta</span>
+        <span class="n">new_delta</span><span class="p">[</span><span class="n">new_delta</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_delta</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_delta</span>
+        <span class="n">update_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dE_dW</span><span class="p">)</span> <span class="o">*</span> <span class="n">new_delta</span>  <span class="c1"># Update is attached with a minus</span>
+        <span class="k">return</span> <span class="n">new_delta</span><span class="p">,</span> <span class="n">update_weight</span>
+
+    <span class="k">def</span> <span class="nf">irprop_zero_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">dE_dW</span><span class="p">):</span>
+        <span class="n">update_weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">dE_dW</span><span class="p">)</span> <span class="o">*</span> <span class="n">delta</span>
+        <span class="k">return</span> <span class="n">delta</span><span class="p">,</span> <span class="n">update_weight</span>
+
+    <span class="k">def</span> <span class="nf">irprop_neg_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta</span><span class="p">,</span> <span class="n">update_weight</span><span class="p">,</span> <span class="n">diff_error</span><span class="p">):</span>
+        <span class="c1"># Delta</span>
+        <span class="n">new_delta</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">neg_eta</span>
+        <span class="n">new_delta</span><span class="p">[</span><span class="n">new_delta</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_delta</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_delta</span>
+        <span class="c1"># Update Weight</span>
+        <span class="n">new_update_weight</span> <span class="o">=</span> <span class="n">update_weight</span> <span class="k">if</span> <span class="n">diff_error</span> <span class="o">&gt;</span> <span class="mf">0.0</span> \
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">update_weight</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_delta</span><span class="p">,</span> <span class="n">new_update_weight</span>
+
+<div class="viewcode-block" id="NeuralNetwork.irprop"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.nn.NeuralNetwork.irprop">[docs]</a>    <span class="k">def</span> <span class="nf">irprop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Algorithm iRPROP+ implementation.</span>
+
+<span class="sd">        :param penalty:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Error</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">penalty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_batches</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">)</span>
+        <span class="n">hidden_layer</span><span class="p">,</span> <span class="n">output_layer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">output_layer</span> <span class="o">-</span> <span class="n">target</span> <span class="k">if</span> <span class="n">penalty</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">output_layer</span> <span class="o">-</span> <span class="n">target</span> <span class="o">+</span> <span class="n">penalty</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Error = </span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">diff_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_error</span>
+        <span class="c1"># Gradients</span>
+        <span class="n">grad_output</span><span class="p">,</span> <span class="n">grad_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_grads</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">)</span>
+        <span class="n">dE_dWeight_output</span><span class="p">,</span> <span class="n">dE_dWeight_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_dE_dW</span><span class="p">(</span><span class="n">grad_output</span><span class="o">=</span><span class="n">grad_output</span><span class="p">,</span>
+                                                             <span class="n">hidden_layer</span><span class="o">=</span><span class="n">hidden_layer</span><span class="p">,</span>
+                                                             <span class="n">grad_hidden</span><span class="o">=</span><span class="n">grad_hidden</span><span class="p">,</span>
+                                                             <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># # Output layer</span>
+        <span class="n">sign_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sign</span><span class="p">(</span><span class="n">dEdW</span><span class="o">=</span><span class="n">dE_dWeight_output</span><span class="p">,</span>
+                                 <span class="n">prev_dEdW</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dE_dW_pre_output</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_weight</span><span class="p">)</span>
+
+        <span class="c1"># Positive</span>
+        <span class="n">mask_out_pos</span> <span class="o">=</span> <span class="n">sign_out</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">delta_output_pos</span><span class="p">,</span> <span class="n">update_output_pos</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">irprop_pos_condition</span><span class="p">(</span><span class="n">dE_dW</span><span class="o">=</span><span class="n">dE_dWeight_output</span><span class="p">[</span><span class="n">mask_out_pos</span><span class="p">],</span>
+                                      <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span><span class="p">[</span><span class="n">mask_out_pos</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span><span class="p">[</span><span class="n">mask_out_pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_output_pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_output</span><span class="p">[</span><span class="n">mask_out_pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_output_pos</span>
+
+        <span class="c1"># Zero</span>
+        <span class="n">mask_out_zero</span> <span class="o">=</span> <span class="n">sign_out</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">delta_output_zero</span><span class="p">,</span> <span class="n">update_output_zero</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">irprop_zero_condition</span><span class="p">(</span><span class="n">dE_dW</span><span class="o">=</span><span class="n">dE_dWeight_output</span><span class="p">[</span><span class="n">mask_out_zero</span><span class="p">],</span>
+                                       <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span><span class="p">[</span><span class="n">mask_out_zero</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span><span class="p">[</span><span class="n">mask_out_zero</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_output_zero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_output</span><span class="p">[</span><span class="n">mask_out_zero</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_output_zero</span>
+
+        <span class="c1"># Negative</span>
+        <span class="n">mask_out_neg</span> <span class="o">=</span> <span class="n">sign_out</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">delta_output_neg</span><span class="p">,</span> <span class="n">update_output_neg</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">irprop_neg_condition</span><span class="p">(</span><span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span><span class="p">[</span><span class="n">mask_out_neg</span><span class="p">],</span>
+                                      <span class="n">update_weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_output</span><span class="p">[</span><span class="n">mask_out_neg</span><span class="p">],</span>
+                                      <span class="n">diff_error</span><span class="o">=</span><span class="n">diff_error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_output</span><span class="p">[</span><span class="n">mask_out_neg</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_output_neg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_output</span><span class="p">[</span><span class="n">mask_out_neg</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_output_neg</span>
+
+        <span class="c1"># self.output_weight += self.update_output</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dE_dW_pre_output</span> <span class="o">=</span> <span class="n">dE_dWeight_output</span>
+ 
+        <span class="c1"># # Hidden layer</span>
+        <span class="n">sign_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sign</span><span class="p">(</span><span class="n">dEdW</span><span class="o">=</span><span class="n">dE_dWeight_input</span><span class="p">,</span>
+                                 <span class="n">prev_dEdW</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dE_dW_pre_input</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_input</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_weight</span><span class="p">)</span>
+
+        <span class="c1"># Positive</span>
+        <span class="n">mask_in_pos</span> <span class="o">=</span> <span class="n">sign_in</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">delta_input_pos</span><span class="p">,</span> <span class="n">update_input_pos</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">irprop_pos_condition</span><span class="p">(</span><span class="n">dE_dW</span><span class="o">=</span><span class="n">dE_dWeight_input</span><span class="p">[</span><span class="n">mask_in_pos</span><span class="p">],</span>
+                                      <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span><span class="p">[</span><span class="n">mask_in_pos</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span><span class="p">[</span><span class="n">mask_in_pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_input_pos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_input</span><span class="p">[</span><span class="n">mask_in_pos</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_input_pos</span>
+
+        <span class="c1"># Zero</span>
+        <span class="n">mask_in_zero</span> <span class="o">=</span> <span class="n">sign_in</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">delta_input_zero</span><span class="p">,</span> <span class="n">update_input_zero</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">irprop_zero_condition</span><span class="p">(</span><span class="n">dE_dW</span><span class="o">=</span><span class="n">dE_dWeight_input</span><span class="p">[</span><span class="n">mask_in_zero</span><span class="p">],</span>
+                                       <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span><span class="p">[</span><span class="n">mask_in_zero</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span><span class="p">[</span><span class="n">mask_in_zero</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_input_zero</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_input</span><span class="p">[</span><span class="n">mask_in_zero</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_input_zero</span>
+
+        <span class="c1"># Negative</span>
+        <span class="n">mask_in_neg</span> <span class="o">=</span> <span class="n">sign_in</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">delta_input_neg</span><span class="p">,</span> <span class="n">update_input_neg</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">irprop_neg_condition</span><span class="p">(</span><span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span><span class="p">[</span><span class="n">mask_in_neg</span><span class="p">],</span>
+                                      <span class="n">update_weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_input</span><span class="p">[</span><span class="n">mask_in_neg</span><span class="p">],</span>
+                                      <span class="n">diff_error</span><span class="o">=</span><span class="n">diff_error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_input</span><span class="p">[</span><span class="n">mask_in_neg</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta_input_neg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_input</span><span class="p">[</span><span class="n">mask_in_neg</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_input_neg</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dE_dW_pre_input</span> <span class="o">=</span> <span class="n">dE_dWeight_input</span>
+
+        <span class="c1"># # Update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">delta_weight_output</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_output</span><span class="p">,</span>
+                    <span class="n">delta_weight_input</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_input</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Carlos Perales
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

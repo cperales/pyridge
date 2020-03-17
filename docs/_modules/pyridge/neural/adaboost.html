@@ -164,15 +164,9 @@
     <span class="n">positiveness</span> <span class="o">=</span> <span class="nb">float</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">classification</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">classification</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_function_classification</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">in</span> <span class="n">classification_adaboost</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;This algorithm cannot be set &#39;</span>
-                                 <span class="s1">&#39;for regression problems&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">error_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_function_regression</span>
+        <span class="k">if</span> <span class="n">classification</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;This algorithm cannot be set &#39;</span>
+                             <span class="s1">&#39;for regression problems&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">positiveness</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">classification</span><span class="o">=</span><span class="n">classification</span><span class="p">)</span>
 
@@ -247,7 +241,7 @@
 
         <span class="k">return</span> <span class="n">output_weight_s</span></div>
 
-<div class="viewcode-block" id="AdaBoostELM.error_function_classification"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.AdaBoostELM.error_function_classification">[docs]</a>    <span class="k">def</span> <span class="nf">error_function_classification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="AdaBoostELM.error_function"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.AdaBoostELM.error_function">[docs]</a>    <span class="k">def</span> <span class="nf">error_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param f_pred:</span>
@@ -256,16 +250,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_decoder</span><span class="p">(</span><span class="n">f_pred</span><span class="p">)</span>
         <span class="n">error_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">error_vector</span></div>
-
-<div class="viewcode-block" id="AdaBoostELM.error_function_regression"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.AdaBoostELM.error_function_regression">[docs]</a>    <span class="k">def</span> <span class="nf">error_function_regression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">        :param f_pred:</span>
-<span class="sd">        :param y:</span>
-<span class="sd">        :return:</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">error_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f_pred</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="k">return</span> <span class="n">error_vector</span></div>
 
 <div class="viewcode-block" id="AdaBoostELM.get_indicator"><a class="viewcode-back" href="../../../algorithms.html#pyridge.neural.AdaBoostELM.get_indicator">[docs]</a>    <span class="k">def</span> <span class="nf">get_indicator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">):</span>

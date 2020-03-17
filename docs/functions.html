@@ -204,10 +204,9 @@ the dataset is.</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyridge.util.activation.sigmoid_derivative">
-<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">sigmoid_derivative</code><span class="sig-paren">(</span><em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#sigmoid_derivative"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.sigmoid_derivative" title="Permalink to this definition">¶</a></dt>
-<dd><p>Derivate of the sigmoid function.
-We assume y is already sigmoided.</p>
+<dt id="pyridge.util.activation.sigmoid_der">
+<code class="sig-prename descclassname">pyridge.util.activation.</code><code class="sig-name descname">sigmoid_der</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/activation.html#sigmoid_der"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.activation.sigmoid_der" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derivative of the sigmoid function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>y</strong> – </p>
@@ -356,8 +355,7 @@ according to the classifier.</p></li>
 <dl class="function">
 <dt id="pyridge.util.metric.diversity">
 <code class="sig-prename descclassname">pyridge.util.metric.</code><code class="sig-name descname">diversity</code><span class="sig-paren">(</span><em class="sig-param">clf</em>, <em class="sig-param">pred_data=None</em>, <em class="sig-param">real_targ=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/util/metric.html#diversity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.util.metric.diversity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Implemented directly from MATLAB, not pythonic.
-TODO: rewrite.</p>
+<dd><p>Implemented directly from MATLAB, not pythonic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -380,8 +378,8 @@ TODO: rewrite.</p>
 generic test function is used for different algorithms and cross-validation
 hyperparameters.</p>
 <dl class="function">
-<dt id="pyridge.experiment.test.test_fold">
-<code class="sig-prename descclassname">pyridge.experiment.test.</code><code class="sig-name descname">test_fold</code><span class="sig-paren">(</span><em class="sig-param">folder_dataset='data/iris', train_dataset='train_iris.0', test_dataset='test_iris.0', algorithm='ELM', metric_list=['accuracy', 'rmse'], metric_cross='accuracy', hyperparameter={'activation': ['sigmoid'], 'hidden_neurons': [1000], 'reg': [0.001, 0.01, 0.1, 1, 10, 100, 1000]}, classification=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/experiment/test.html#test_fold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.experiment.test.test_fold" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.experiment.check.check_fold">
+<code class="sig-prename descclassname">pyridge.experiment.check.</code><code class="sig-name descname">check_fold</code><span class="sig-paren">(</span><em class="sig-param">folder_dataset='data/iris', train_dataset='train_iris.0', test_dataset='test_iris.0', sep='\\s+', algorithm='ELM', metric_list=['accuracy', 'rmse'], metric_cross='accuracy', hyperparameter=None, classification=True, autoencoder=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/experiment/check.html#check_fold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.experiment.check.check_fold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -389,12 +387,15 @@ hyperparameters.</p>
 <li><p><strong>folder_dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>train_dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>test_dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
+<li><p><strong>sep</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>metric_list</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – </p></li>
 <li><p><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
 <li><p><strong>metric_cross</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>classification</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – True if we want a classification;
-False if we are looking for a linear.</p></li>
+False if we are looking for a regression.</p></li>
+<li><p><strong>autoencoder</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – True if we want autoencoder test;
+False if we are looking for a classic supervised test.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -404,8 +405,8 @@ False if we are looking for a linear.</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyridge.experiment.test.test_algorithm">
-<code class="sig-prename descclassname">pyridge.experiment.test.</code><code class="sig-name descname">test_algorithm</code><span class="sig-paren">(</span><em class="sig-param">folder='data/', dataset='iris', algorithm='ELM', metric_list=['accuracy', 'rmse'], hyperparameter={'activation': ['sigmoid'], 'hidden_neurons': [1000], 'reg': [0.001, 0.01, 0.1, 1, 10, 100, 1000]}, classification=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/experiment/test.html#test_algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.experiment.test.test_algorithm" title="Permalink to this definition">¶</a></dt>
+<dt id="pyridge.experiment.check.check_algorithm">
+<code class="sig-prename descclassname">pyridge.experiment.check.</code><code class="sig-name descname">check_algorithm</code><span class="sig-paren">(</span><em class="sig-param">folder</em>, <em class="sig-param">dataset</em>, <em class="sig-param">algorithm</em>, <em class="sig-param">metric_list</em>, <em class="sig-param">hyperparameter</em>, <em class="sig-param">metric_cross=None</em>, <em class="sig-param">classification=True</em>, <em class="sig-param">autoencoder=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyridge/experiment/check.html#check_algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyridge.experiment.check.check_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Testing easily a predictor along all the folds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -414,9 +415,12 @@ False if we are looking for a linear.</p></li>
 <li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>metric_list</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><em>list</em></a>) – </p></li>
+<li><p><strong>metric_cross</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#str" title="(in Python v3.5)"><em>str</em></a>) – </p></li>
 <li><p><strong>hyperparameter</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#dict" title="(in Python v3.5)"><em>dict</em></a>) – </p></li>
 <li><p><strong>classification</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – True if we want a classification;
-False if we are looking for a linear.</p></li>
+False if we are looking for a regression.</p></li>
+<li><p><strong>autoencoder</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/functions.html#bool" title="(in Python v3.5)"><em>bool</em></a>) – True if we want autoencoder test;
+False if we are looking for a classic supervised test.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
