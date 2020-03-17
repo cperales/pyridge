@@ -36,7 +36,7 @@ def rmse(clf, pred_data, real_targ):
     return np.mean(rmse_vec)
 
 
-def disagreement(clf, pred_data=None, real_targ=None, S=None):
+def disagreement(clf, pred_data, real_targ, S):
     """
     For Bagging Stepwise ELM Ensemble.
 
@@ -46,15 +46,10 @@ def disagreement(clf, pred_data=None, real_targ=None, S=None):
     :param S:
     :return:
     """
-    if S is None:
-        S = clf.output_weight.shape[0]
     acc_matrix = np.empty((pred_data.shape[0], S))
     for s in range(S):
         prediction_s = clf.predict(pred_data, s).ravel()
-        try:
-            acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=np.float)
-        except Exception as e:
-            raise ValueError(e)
+        acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=np.float)
     Q = np.empty((S, S))
     for i in range(S - 1):
         for j in range(i + 1, S):
@@ -104,23 +99,6 @@ def diversity(clf, pred_data=None, real_targ=None):
                     div += div_step
                     count += 1
     return div / float(count)
-
-
-def accuracy_min(clf, pred_data, real_targ):
-    """
-
-    :param clf:
-    :param pred_data:
-    :param real_targ:
-    :return:
-    """
-    labels = np.unique(real_targ)
-    label_min = labels[np.argmin(labels)]
-    real_label_min = real_targ == label_min
-    pred_targ = clf.predict(pred_data)
-    pred_label_min = pred_targ == label_min
-    acc_min = np.mean(pred_label_min == real_label_min)
-    return acc_min
 
 
 metric_dict = {
