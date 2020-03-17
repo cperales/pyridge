@@ -11,4 +11,4 @@ def test_adaboost():
                                 dataset='iris',
                                 algorithm='AdaBoostELM',
                                 hyperparameter=hyperparameter,
-                                metric_list=['accuracy', 'rmse'])
+                                metric_list=['accuracy'])

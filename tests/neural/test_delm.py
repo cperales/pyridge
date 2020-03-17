@@ -7,11 +7,9 @@ def test_diverse_elm():
                           'div': [10 ** i for i in range(-1, 2)],
                           'hidden_neurons': [10],
                           'size': [5]}
-    algorithm = 'DiverseELM'
-
     value_dict = test_algorithm(folder='data',
                                 dataset='iris',
-                                algorithm=algorithm,
+                                algorithm='DiverseELM',
                                 hyperparameter=hyperparameter_div,
                                 metric_list=['accuracy', 'rmse', 'diversity'])
 
@@ -22,11 +20,9 @@ def test_diverse_elm_regression():
                           'div': [10 ** i for i in range(-1, 2)],
                           'hidden_neurons': [10],
                           'size': [5]}
-    algorithm = 'DiverseELM'
-
     value_dict = test_algorithm(folder='data_regression',
                                 dataset='housing',
-                                algorithm=algorithm,
+                                algorithm='DiverseELM',
                                 hyperparameter=hyperparameter_div,
                                 metric_list=['rmse', 'diversity'],
                                 classification=False)

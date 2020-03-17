@@ -6,11 +6,9 @@ def test_boosting_ridge():
                             'reg': [10 ** i for i in range(-1, 2)],
                             'hidden_neurons': [10],
                             'size': [5]}
-    algorithm = 'BoostingRidgeELM'
-
     value_dict = test_algorithm(folder='data',
                                 dataset='iris',
-                                algorithm=algorithm,
+                                algorithm='BoostingRidgeELM',
                                 hyperparameter=hyperparameter_boost,
                                 metric_list=['accuracy', 'rmse'])
 
@@ -20,11 +18,9 @@ def test_boosting_ridge_elm_regression():
                             'reg': [10 ** i for i in range(-1, 2)],
                             'hidden_neurons': [10],
                             'size': [5]}
-    algorithm = 'BoostingRidgeELM'
-
     value_dict = test_algorithm(folder='data_regression',
                                 dataset='housing',
-                                algorithm=algorithm,
+                                algorithm='BoostingRidgeELM',
                                 hyperparameter=hyperparameter_boost,
                                 metric_list=['rmse'],
                                 classification=False)

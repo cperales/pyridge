@@ -1,5 +1,4 @@
 from pyridge.experiment.test import test_algorithm
-import logging
 
 
 def test_adaboost_nc():
@@ -8,9 +7,8 @@ def test_adaboost_nc():
                           'hidden_neurons': [10],
                           'lambda_': [0.5, 1.0, 5.0],
                           'size': [5]}
-
     value_dict = test_algorithm(folder='data',
                                 dataset='iris',
                                 algorithm='AdaBoostNCELM',
                                 hyperparameter=hyperparameter_anc,
-                                metric_list=['accuracy', 'rmse'])
+                                metric_list=['accuracy'])
