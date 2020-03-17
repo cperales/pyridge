@@ -49,7 +49,7 @@ To deactivate, just write ```deactivate```.
 
 ## Algorithms
 
-Right now, there are the following algorithms programmed:
+List of algorithms implemented:
 
 ### Kernel algorithms (or Ridge classification)
 
@@ -62,6 +62,16 @@ Right now, there are the following algorithms programmed:
 * Bagging ELM (BaggingELM) [5]
 * Diverse ELM (DiverseELM) [6]
 * Regularized Ensemble ELM (RegularizedEnsembleELM) [7]
+* PCA ELM [10]
+* PCA LDA ELM [11]
+* Sobol ELM [12]
+* Paralell Layer ELM [13]
+
+
+### Negative Correlation algorithms
+* Negative Correlation ELM [8]
+* Negative Corelation with Neural Networks [9]
+
 
 ## Code documentation
 
@@ -126,3 +136,30 @@ Pérez-Rodríguez, F., & Fernández-Navarro, F.
 (2019, June). Regularized Ensemble Neural Networks models in the
 Extreme Learning Machine framework. In Neurocomputing (DOI: 10.1016/j.neucom.2019.06.040)
 
+[8]: Perales-González, C., Carbonero-Ruz, M., Pérez-Rodríguez, J.,
+Becerra-Alonso, D., & Fernández-Navarro, F. 
+(2020, March). Negative correlation learning in the extreme learning machine framework.
+In Neural Comput & Applic (DOI: 10.1007/s00521-020-04788-9)
+
+[9]: Wang, S., Chen, H., & Yao, X. (2010, July). 
+Negative correlation learning for classification ensembles. 
+In The 2010 International Joint Conference on Neural Networks (IJCNN) (pp. 1-8). IEEE.
+
+[10]: Castaño, A., Fernández-Navarro, F., & Hervás-Martínez, C. (2013).
+PCA-ELM: a robust and pruned extreme learning machine approach
+based on principal component analysis.
+Neural processing letters, 37(3), 377-392.
+
+[11]: Castaño, A., Fernández-Navarro, F., Riccardi, A., & Hervás-Martínez, C. (2016).
+Enforcement of the principal component analysis–extreme learning machine
+algorithm by linear discriminant analysis.
+Neural Computing and Applications, 27(6), 1749-1760.
+
+[12]: Cervellera, C., & Macciò, D. (2015). 
+Low-discrepancy points for deterministic assignment of hidden 
+weights in extreme learning machines. IEEE transactions on neural networks 
+and learning systems, 27(4), 891-896.
+
+[13]: Henríquez, P. A., & Ruz, G. A. (2017). 
+Extreme learning machine with a deterministic assignment of hidden 
+weights in two parallel layers. Neurocomputing, 226, 109-116.

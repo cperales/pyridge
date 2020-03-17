@@ -21,19 +21,19 @@ class Predictor(object):
     Y = None
     output_weight = None
 
-    def __init__(self, classification: bool = True):
-        logger.debug('{} instanced'.format(self.__name__))
+    def __init__(self, classification: bool = True, logging: bool = True):
         self.__classification__ = classification  # Default it works as a classifier
         if self.__classification__ is False:  # It works as a regressor
             self.label_encoder = id_encoder
             self.label_decoder = id_decoder
-            self.t: int = 1
             self.target_manager = self.target_regression
             self.predict = self.predict_regressor
         else:
             self.label_binarizer_ = LabelBinarizer(neg_label=0, pos_label=1)
             self.target_manager = self.target_classification
             self.predict = self.predict_classifier
+        # if logging is True:
+        #     logger.debug('{} instanced'.format(self.__name__))
 
     def instance_param_(self, train_data, train_target, parameter):
         """
@@ -59,6 +59,7 @@ class Predictor(object):
         :return:
         """
         self.Y = self.label_encoder(train_target)
+        self.t = self.Y.shape[1]
 
     def target_classification(self, train_target):
         """

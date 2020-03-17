@@ -1,1 +1,1 @@
-from .test import test_fold, create_logger
+from .check import check_fold, check_algorithm, create_logger

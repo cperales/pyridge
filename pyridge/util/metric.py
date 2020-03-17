@@ -36,26 +36,7 @@ def rmse(clf, pred_data, real_targ):
     return np.mean(rmse_vec)
 
 
-def rmse_train(clf):
-    """
-
-    :param clf:
-    :param pred_data:
-    :param real_targ:
-    :return:
-    """
-    real_j_targ = clf.label_encoder(clf.train_target)
-    ind_matrix = np.sum([clf.alpha[s] * np.dot(clf.h_matrix,
-                                                           clf.output_weight[s])
-                                     for s in range(clf.size)], axis=0)
-
-    rmse_vec = [np.linalg.norm(real_row - ind_row)
-                for ind_row, real_row in
-                zip(ind_matrix, real_j_targ)]
-    return np.mean(rmse_vec)
-
-
-def disagreement(clf, pred_data=None, real_targ=None, S=None):
+def disagreement(clf, pred_data, real_targ, S):
     """
     For Bagging Stepwise ELM Ensemble.
 
@@ -65,15 +46,10 @@ def disagreement(clf, pred_data=None, real_targ=None, S=None):
     :param S:
     :return:
     """
-    if S is None:
-        S = clf.output_weight.shape[0]
     acc_matrix = np.empty((pred_data.shape[0], S))
     for s in range(S):
         prediction_s = clf.predict(pred_data, s).ravel()
-        try:
-            acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=np.float)
-        except Exception as e:
-            raise ValueError(e)
+        acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=np.float)
     Q = np.empty((S, S))
     for i in range(S - 1):
         for j in range(i + 1, S):
@@ -98,7 +74,6 @@ def disagreement(clf, pred_data=None, real_targ=None, S=None):
 def diversity(clf, pred_data=None, real_targ=None):
     """
     Implemented directly from MATLAB, not pythonic.
-    TODO: rewrite.
 
     :param clf: Predictor.
     :param pred_data: Not used.
@@ -130,12 +105,13 @@ metric_dict = {
     'accuracy': accuracy,
     'rmse': rmse,
     'diversity': diversity,
+    'accuracy_min': accuracy_min,
 }
 
 
 def loss(clf, pred_data, real_targ, metric='accuracy'):
     """
-    It is used for cross validation.
+    Inverse of the accuracy. It is used for cross validation.
 
     :param clf: classifier with predict method.
     :param pred_data: array of the targets

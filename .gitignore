@@ -34,7 +34,7 @@ build/
 *.pyc
 
 # Coverage
-.coverage
+.coverage*
 htmlcov/
 
 # Sphinx

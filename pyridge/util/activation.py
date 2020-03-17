@@ -12,22 +12,185 @@ def sigmoid(x):
     return expit(x)
 
 
-def sigmoid_derivative(y):
+def sigmoid_der(x):
     """
-    Derivate of the sigmoid function.
-    We assume y is already sigmoided.
+    Derivative of the sigmoid function.
 
     :param y:
     :return:
     """
-    return y * (1.0 - y)
+    return sigmoid(x) * (1.0 - sigmoid(x))
 
 
-activation_dict = {'sin': np.sin,
-                   'relu': lambda x: np.maximum(x, 0.0),
-                   'hard': lambda x: np.array(x > 0.0, dtype=float),
-                   # 'sigmoid': lambda x: 1.0/(1.0 + np.exp(-x))
-                   'sigmoid': sigmoid}  # Faster for matrices
+def leaky_relu(x, alpha=0.01):
+    """
+    Leaky rectified linear unit.
+
+    :param x:
+    :param float alpha: (optional) value of leak.
+    :return:
+    """
+    return np.maximum(alpha * x, x)
+
+
+def relu(x):
+    """
+    Rectified linear unit.
+
+    :param x:
+    :param float alpha: (optional) value of leak.
+    :return:
+    """
+    return np.maximum(0.0, x)
+
+
+def leaky_relu_der(x, alpha=0.01):
+    """
+    Derivative of leaky relu.
+
+    :param x:
+    :param float alpha: (optional) value of leak.
+    :return:
+    """
+    y = np.ones_like(x)
+    y[x > 0] = alpha
+    return y
+
+
+def tanh(x):
+    """
+    Hyperbolic tangent
+
+    :param x:
+    :return:
+    """
+    return np.tanh(x)
+
+
+def arctan(x):
+    """
+    Tan^-1
+    :param x:
+    :return:
+    """
+    return np.arctan(x)
+
+
+def tanh_der(x):
+    """
+    Derivative of the hyperbolic tangent function.
+
+    :param x:
+    :return:
+    """
+    return 1.0 - np.power(tanh(x), 2)
+
+
+def linear(x):
+    """
+    Linear function.
+
+    :param x:
+    :return:
+    """
+    return x
+
+
+def linear_der(x):
+    """
+    Derivate of the linear function.
+
+    :param x:
+    :return:
+    """
+    return 1.0
+
+
+def soft_plus(x):
+    """
+    Soft plus function.
+
+    :param x:
+    :return:
+    """
+    return np.log(1.0 + np.exp(x))
+
+
+def soft_plus_der(x):
+    """
+    Soft plus function.
+
+    :param x:
+    :return:
+    """
+    return np.power(1.0 + np.exp(-x), -1)
+
+
+def selu(x, lambda_=1.0507, alpha=1.67326):
+    """
+    Scaled exponential linear unit.
+
+    :param x:
+    :param float lambda_:
+    :param float alpha:
+    :return:
+    """
+    a = x
+    a[x < 0.0] = alpha * (np.exp(a[x < 0.0]) - 1.0)
+    return lambda_ * a
+
+
+def sinc(x):
+    """
+    Sinc function.
+
+    :param x:
+    :return:
+    """
+    return np.sinc(x)
+
+
+def gaussian(x):
+    """
+
+    :param x:
+    :return:
+    """
+    return np.exp(- np.power(x, 2))
+
+
+# Activation dict for Neural Network with their derivatives
+nn_activation_dict = {
+    'sigmoid': {'activation': sigmoid,
+                'derivative': sigmoid_der},
+    'sin': {'activation': np.sin,
+            'derivative': np.cos},
+    'leaky_relu': {'activation': leaky_relu,
+                   'derivative': leaky_relu_der},
+    'tanh': {'activation': tanh,
+             'derivative': tanh_der},
+    'linear': {'activation': linear,
+               'derivative': linear_der},
+    'soft_plus': {'activation': soft_plus,
+                  'derivative': soft_plus_der}
+}
+
+# Activation dict for ELM
+activation_dict = {
+    'sin': np.sin,
+    'cos': np.cos,
+    'relu': relu,
+    'leaky_relu': leaky_relu,
+    'hard': lambda x: np.array(x > 0.0, dtype=float),
+    'linear': linear,
+    'tanh': tanh,
+    'sigmoid': sigmoid,
+    'sinc': sinc,
+    'gaussian': gaussian,
+    'selu': selu,
+    'arctan': arctan,
+    'soft_plus': soft_plus,
+}
 
 
 def linear_kernel(gamma: float = 1.0, X=None, Y=None):

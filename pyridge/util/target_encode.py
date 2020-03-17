@@ -8,7 +8,10 @@ def id_encoder(T):
 
     :param T: array of the targets.
     """
-    return np.array(T, dtype=np.float).reshape(T.shape[0], 1)
+    if len(T.shape) == 1:
+        return np.array(T, dtype=np.float).reshape(T.shape[0], 1)
+    else:
+        return T
 
 
 def id_decoder(T):
