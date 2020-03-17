@@ -1,8 +1,8 @@
 import numpy as np
 from ..generic.kernel import KernelMethod, kernel_dict
 from functools import partial
-import logging
 from ..util import solver
+import logging
 
 logger = logging.getLogger('pyridge')
 

@@ -27,10 +27,12 @@ def prepare_data(folder,
                        header=None)
 
     file_matrix = file.values
-
     file_matrix_t = file_matrix.transpose()
     target = file_matrix_t[-1].transpose()
     data = file_matrix_t[:-1].transpose()
+
+    # target = file[file.columns[-1]].values
+    # data = file[file.columns[:-1]].values
 
     if isinstance(scaler, str):
         scaler = scaler_dict[scaler.lower()].fit(data)

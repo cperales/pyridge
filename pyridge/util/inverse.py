@@ -121,3 +121,103 @@ def np_solve_pinv(a, b):
     """
     x_solve_pinv = np.dot(np.linalg.pinv(a), b)
     return x_solve_pinv
+
+
+def cov_n(h):
+    """
+    Personal implementation of covariance matrix,
+    which result is np.cov(h) * ( N_j - 1 )
+
+    :param matrix:
+    :return:
+    """
+    final_dim = h.shape[1]
+    cov_matrix = np.empty((final_dim, final_dim))
+    for row in range(final_dim):
+        for column in range(final_dim):
+            if row == column:  # Diag
+                h_d = h[:, row]
+                value = np.sum(np.power(h_d - np.mean(h_d), 2))
+            else:
+                h_d = h[:, row]
+                h_i = h[:, column]
+                value = np.sum((h_d - np.mean(h_d)) * (h_i - np.mean(h_i)))
+            cov_matrix[row, column] = value
+    return cov_matrix
+
+
+def cov_pen(h_j, h_no_j):
+    """
+    Personal implementation of covariance matrix with penalization.
+
+    :param h_j:
+    :param h_no_j:
+    :return:
+    """
+    final_dim = h_j.shape[1]
+    cov_matrix = np.empty((final_dim, final_dim))
+    for row in range(final_dim):
+        for column in range(final_dim):
+            h_d = h_j[:, row]
+            h_d_no_j = h_no_j[:, row]
+            a = h_d - np.mean(h_d)
+            if row == column:  # Diag
+                value = np.dot(a.T, a) + np.dot(h_d_no_j.T, h_d_no_j)
+            else:
+                h_i = h_j[:, column]
+                h_i_no_j = h_no_j[:, column]
+                b = h_i - np.mean(h_i)
+                value = np.dot(a.T, b) + np.dot(h_d_no_j.T, h_i_no_j)
+            cov_matrix[row, column] = value
+    return cov_matrix
+
+
+def check_symmetric(matrix):
+    """
+
+    :param matrix:
+    :return:
+    """
+    return np.isclose(matrix, matrix.T).all()
+
+
+def get_matrix_j(h_j):
+    """
+
+    :param h_j:
+    :param h_no_j:
+    :return:
+    """
+    final_dim = h_j.shape[1]
+    cov_matrix = np.empty((final_dim, final_dim))
+    for row in range(final_dim):
+        for column in range(final_dim):
+            if row == column:  # Diag
+                h_d = h_j[:, row]
+                value = np.sum(np.power(h_d - np.mean(h_d), 2))
+            else:
+                h_d = h_j[:, row]
+                h_i = h_j[:, column]
+                value = np.sum((h_d - np.mean(h_d)) * (h_i - np.mean(h_i)))
+            cov_matrix[row, column] = value
+    return cov_matrix
+
+
+def get_matrix_no_j(h_no_j):
+    """
+
+    :param h_no_j:
+    :return:
+    """
+    final_dim = h_no_j.shape[1]
+    matrix = np.empty((final_dim, final_dim))
+    for row in range(final_dim):
+        if row == column:  # Diag
+            h_d = h_j[:, row]
+            value = np.sum(h_d * h_d)
+        else:
+            h_d = h_j[:, row]
+            h_i = h_j[:, column]
+            value = np.sum(h_d * h_i)
+        matrix[row, column] = value
+    return matrix

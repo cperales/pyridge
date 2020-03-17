@@ -36,25 +36,6 @@ def rmse(clf, pred_data, real_targ):
     return np.mean(rmse_vec)
 
 
-def rmse_train(clf):
-    """
-
-    :param clf:
-    :param pred_data:
-    :param real_targ:
-    :return:
-    """
-    real_j_targ = clf.label_encoder(clf.train_target)
-    ind_matrix = np.sum([clf.alpha[s] * np.dot(clf.h_matrix,
-                                                           clf.output_weight[s])
-                                     for s in range(clf.size)], axis=0)
-
-    rmse_vec = [np.linalg.norm(real_row - ind_row)
-                for ind_row, real_row in
-                zip(ind_matrix, real_j_targ)]
-    return np.mean(rmse_vec)
-
-
 def disagreement(clf, pred_data=None, real_targ=None, S=None):
     """
     For Bagging Stepwise ELM Ensemble.
@@ -98,7 +79,6 @@ def disagreement(clf, pred_data=None, real_targ=None, S=None):
 def diversity(clf, pred_data=None, real_targ=None):
     """
     Implemented directly from MATLAB, not pythonic.
-    TODO: rewrite.
 
     :param clf: Predictor.
     :param pred_data: Not used.
@@ -126,16 +106,34 @@ def diversity(clf, pred_data=None, real_targ=None):
     return div / float(count)
 
 
+def accuracy_min(clf, pred_data, real_targ):
+    """
+
+    :param clf:
+    :param pred_data:
+    :param real_targ:
+    :return:
+    """
+    labels = np.unique(real_targ)
+    label_min = labels[np.argmin(labels)]
+    real_label_min = real_targ == label_min
+    pred_targ = clf.predict(pred_data)
+    pred_label_min = pred_targ == label_min
+    acc_min = np.mean(pred_label_min == real_label_min)
+    return acc_min
+
+
 metric_dict = {
     'accuracy': accuracy,
     'rmse': rmse,
     'diversity': diversity,
+    'accuracy_min': accuracy_min,
 }
 
 
 def loss(clf, pred_data, real_targ, metric='accuracy'):
     """
-    It is used for cross validation.
+    Inverse of the accuracy. It is used for cross validation.
 
     :param clf: classifier with predict method.
     :param pred_data: array of the targets
