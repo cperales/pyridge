@@ -8,6 +8,7 @@ setup(
     author_email="cperales@uloyola.es",
     packages=['pyridge',
               'pyridge.experiment',
+              'pyridge.preprocess',
               'pyridge.util',
               'pyridge.generic',
               'pyridge.kernel',
