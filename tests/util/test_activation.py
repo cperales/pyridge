@@ -1,4 +1,3 @@
-from pyridge import algorithm_dict
 from pyridge.util.activation import activation_dict, nn_activation_dict
 from pyridge.experiment.check import check_algorithm
 
