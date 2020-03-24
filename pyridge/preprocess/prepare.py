@@ -66,4 +66,3 @@ def scale_values(scaler, values):
     else:
         scaled_values = scaler.transform(values)
     return scaler, scaled_values
-
