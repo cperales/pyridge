@@ -1,9 +1,9 @@
-from .linear import LinearRegressor
+from .linear import RidgeRegressor
 import numpy as np
 from ..util import solver
 
 
-class BoostingRidgeRegressor(LinearRegressor):
+class BoostingRidgeRegressor(RidgeRegressor):
     """
     Boosting Ridge ensemble applied to Linear Regressor.
     """
@@ -31,8 +31,7 @@ class BoostingRidgeRegressor(LinearRegressor):
             self.output_weight[s] = self.fit_step(x=train_data,
                                                   y_mu=y_mu)
             # y_mu updated
-            mu = self.get_indicator(train_data)
-            y_mu -= mu
+            y_mu -= self.get_indicator(train_data)
         self.output_weight[np.isnan(self.output_weight)] = 0.0
 
     def fit_step(self, x, y_mu=None):

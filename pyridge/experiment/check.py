@@ -117,15 +117,17 @@ def check_fold(folder_dataset='data/iris',
     :return: a dictionary, with the metrics.
     """
     # Data
-    train_data, train_target, scaler = \
+    train_data, train_target, data_scaler, target_scaler = \
         prepare_data(folder=folder_dataset,
                      dataset=train_dataset,
-                     sep=sep)
-    test_data, test_target, _ = prepare_data(folder=folder_dataset,
-                                             dataset=test_dataset,
-                                             sep=sep,
-                                             scaler=scaler)
-
+                     sep=sep,
+                     classification=classification)
+    test_data, test_target, _, _ = prepare_data(folder=folder_dataset,
+                                                dataset=test_dataset,
+                                                sep=sep,
+                                                data_scaler=data_scaler,
+                                                classification=classification,
+                                                target_scaler=target_scaler)
     if autoencoder is True:
         train_target = train_data
         test_target = train_target
@@ -225,13 +227,15 @@ def check_hyperparameter_sensitivity(folder,
         for train_k_dataset, test_k_dataset in k_datasets:
             logger.debug('Fold %s', train_k_dataset.split('.')[-1])
             # Load data
-            train_k_data, train_k_target, scaler = \
+            train_k_data, train_k_target, data_k_scaler, target_k_scaler = \
                 prepare_data(folder=folder_dataset,
-                             dataset=train_k_dataset)
-            test_k_data, test_k_target, _ = \
-                prepare_data(folder=folder_dataset,
-                             dataset=test_k_dataset,
-                             scaler=scaler)
+                             dataset=train_k_dataset,
+                             classification=classification)
+            test_k_data, test_k_target, _, _ = prepare_data(folder=folder_dataset,
+                                                            dataset=test_k_dataset,
+                                                            data_scaler=data_k_scaler,
+                                                            classification=classification,
+                                                            target_scaler=target_k_scaler)
             for r in range(repetitions):
                 logger.debug('Repetition %i', r)
                 # TRAIN

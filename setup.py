@@ -3,11 +3,12 @@ from setuptools import setup
 setup(
     name="pyridge",
     description="Python Ridge-ELM Classifier",
-    version="3.1",
+    version="3.1.1",
     author="Carlos Perales",
     author_email="cperales@uloyola.es",
     packages=['pyridge',
               'pyridge.experiment',
+              'pyridge.preprocess',
               'pyridge.util',
               'pyridge.generic',
               'pyridge.kernel',

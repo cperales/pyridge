@@ -105,7 +105,6 @@ metric_dict = {
     'accuracy': accuracy,
     'rmse': rmse,
     'diversity': diversity,
-    'accuracy_min': accuracy_min,
 }
 
 

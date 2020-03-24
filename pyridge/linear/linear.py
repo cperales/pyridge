@@ -3,11 +3,11 @@ import numpy as np
 from ..util import solver
 
 
-class LinearRegressor(Predictor):
+class RidgeRegressor(Predictor):
     """
     Ridge regressor.
     """
-    __name__ = 'Ridge regressor'
+    __name__ = 'Ridge Regressor'
 
     def fit(self, train_data, train_target, parameter):
         """
