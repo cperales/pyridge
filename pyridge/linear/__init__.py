@@ -1,11 +1,11 @@
-from .linear import LinearRegressor
+from .linear import RidgeRegressor
 from .boosting import BoostingRidgeRegressor
 from .ols import OLS
 
 linear_dict = {
     'OrdinaryLeastSquares': OLS,
     'OLS': OLS,
-    'LinearRegressor': LinearRegressor,
-    'RidgeRegressor': LinearRegressor,
+    'LinearRegressor': RidgeRegressor,
+    'RidgeRegressor': RidgeRegressor,
     'BoostingRidge': BoostingRidgeRegressor,
 }
