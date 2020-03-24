@@ -22,6 +22,15 @@ def test_standard_scaler():
                                X_1,
                                atol=10 ** (-14))
 
+    X_std_scaler = scaler.get_params()['std_']
+    np.testing.assert_allclose(np.std(X, axis=0),
+                               X_std_scaler,
+                               atol=10 ** (-14))
+    X_mean_scaler = scaler.get_params()['mean_']
+    np.testing.assert_allclose(np.mean(X, axis=0),
+                               X_mean_scaler,
+                               atol=10 ** (-14))
+
 
 def test_min_max_scaler():
     scaler = scaler_dict['min_max']()
@@ -43,6 +52,17 @@ def test_min_max_scaler():
                                X_1,
                                atol=10 ** (-14))
 
+    X_min = np.min(X, axis=0)
+    X_min_scaler = scaler.get_params()['min_']
+    np.testing.assert_allclose(X_min,
+                               X_min_scaler,
+                               atol=10 ** (-14))
+    X_max = np.max(X, axis=0)
+    X_max_scaler = scaler.get_params()['max_']
+    np.testing.assert_allclose(X_max,
+                               X_max_scaler,
+                               atol=10 ** (-14))
+
 
 def test_log_scaler():
     scaler = scaler_dict['log']()
@@ -57,4 +77,10 @@ def test_log_scaler():
     X_1 = scaler.inverse_transform(X_scaled)
     np.testing.assert_allclose(X,
                                X_1,
+                               atol=10 ** (-14))
+
+    X_min = np.min(X, axis=0)
+    X_min_scaler = scaler.get_params()['min_']
+    np.testing.assert_allclose(X_min,
+                               X_min_scaler,
                                atol=10 ** (-14))
