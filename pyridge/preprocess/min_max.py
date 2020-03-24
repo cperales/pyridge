@@ -15,8 +15,8 @@ class MinMaxScaler(Scaler):
         return {'min_': self.min_, 'max_': self.max_}
 
     def fit(self, values):
-        self.min_ = values.min()
-        self.max_ = values.max()
+        self.min_ = np.min(values, axis=0)
+        self.max_ = np.max(values, axis=0)
 
     def transform(self, values):
         return (values - self.min_) / (self.max_ - self.min_)

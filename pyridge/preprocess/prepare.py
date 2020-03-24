@@ -2,11 +2,13 @@ import os
 import pandas as pd
 from .min_max import MinMaxScaler
 from .standard import StandardScaler
+from .log import LogScaler
 
 
 scaler_dict = {
     'min_max': MinMaxScaler,
-    'standard': StandardScaler
+    'standard': StandardScaler,
+    'log': LogScaler,
 }
 
 
