@@ -165,8 +165,8 @@ nn_activation_dict = {
                 'derivative': sigmoid_der},
     'sin': {'activation': np.sin,
             'derivative': np.cos},
-    'leaky_relu': {'activation': leaky_relu,
-                   'derivative': leaky_relu_der},
+    # 'leaky_relu': {'activation': leaky_relu,  # It works bad
+    #                'derivative': leaky_relu_der},
     'tanh': {'activation': tanh,
              'derivative': tanh_der},
     'linear': {'activation': linear,
