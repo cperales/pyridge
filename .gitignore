@@ -4,6 +4,7 @@ data/
 data_regression/
 .idea/
 __pycache__/
+.ipynb_checkpoints/
 
 # Installation
 *egg-info/
