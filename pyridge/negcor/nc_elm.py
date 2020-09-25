@@ -17,6 +17,8 @@ class NegativeCorrelationELM(TensorELM):
     inv_left = None
     right = None
     I = None
+    # For plotting
+    list_norm = list
 
     def fit(self, train_data, train_target, parameter: dict):
         """
@@ -42,7 +44,9 @@ class NegativeCorrelationELM(TensorELM):
         beta_prev = np.copy(self.output_weight)
 
         # Multiple ELMs
+        self.list_norm = list()
         norm = self.t * self.hidden_neurons * self.n
+        # self.list_norm.append(norm)
         iter_: int = 0
         while norm > _TOL_ and iter_ < self.max_iter_:
             F = self.get_f()
@@ -51,6 +55,7 @@ class NegativeCorrelationELM(TensorELM):
                                                      for j in range(self.t)]).T
                                            for s in range(self.size)])
             norm = np.abs(beta_prev - self.output_weight).sum()
+            self.list_norm.append(norm)
             beta_prev = np.copy(self.output_weight)
             iter_ += 1
 
