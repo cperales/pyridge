@@ -20,7 +20,7 @@ Main motivation of this repository is translating from MATLAB to Python 3 what
 [I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science
 in [Universidad Loyola Andalucía](https://www.uloyola.es/en/research/departments/quantitative-methods-department).
 
-Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/PyRidge/).
+Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/pyridge/).
 
 ## Install
 
