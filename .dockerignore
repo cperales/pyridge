@@ -1,0 +1,8 @@
+# Data
+data/
+data_regression/
+
+# Environments
+env/
+.vscode/
+*egg-info/
