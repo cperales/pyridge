@@ -1,6 +1,6 @@
 # PyRidge
 
-[![Build Status](https://travis-ci.com/cperales/pyridge.svg?branch=master)](https://travis-ci.org/cperales/pyridge)
+[![Build Status](https://app.travis-ci.com/cperales/pyridge.svg?branch=master)](https://app.travis-ci.com/github/cperales/pyridge)
 [![Coverage Status](https://coveralls.io/repos/github/cperales/pyridge/badge.svg?branch=master)](https://coveralls.io/github/cperales/pyridge?branch=master)
 
 This repository contains some supervised machine learning algorithms from the family of Ridge Classification,
