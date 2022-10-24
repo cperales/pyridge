@@ -84,8 +84,8 @@ sphinx-build docs/source docs/
 
 ## Data
 
-Some data can be downloaded [here for classification](https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip) and
-[here for regression](https://www.dropbox.com/s/xvan4n74w690rg9/data_regression.zip).
+Some data can be downloaded [here for classification](https://www.dropbox.com/s/c5p3fg0x8selqqv/data.zip)  and
+[here for regression](https://www.dropbox.com/s/6en0h3pxv8pbaj5/data_regression.zip).
 In order to run the tests, `data` and `data_regression` folders should be in main directory.
 
 Also, repository [uci-download-process](https://github.com/cperales/uci-download-process)

@@ -28,7 +28,6 @@ def sp_solve(a, b):
                           lower=False,
                           overwrite_a=True,
                           overwrite_b=True,
-                          debug=None,
                           check_finite=False,
                           transposed=False,
                           assume_a='sym')

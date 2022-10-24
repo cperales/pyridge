@@ -29,8 +29,8 @@ WORKDIR /repo/
 RUN pip3 install -e .
 
 # Test PyRidge with examples
-RUN wget https://www.dropbox.com/s/jj5zmr4hza3jd8d/data.zip && unzip data
-RUN wget https://www.dropbox.com/s/xvan4n74w690rg9/data_regression.zip && unzip data_regression.zip 
+RUN wget https://www.dropbox.com/s/c5p3fg0x8selqqv/data.zip && unzip data
+RUN wget https://www.dropbox.com/s/6en0h3pxv8pbaj5/data_regression.zip && unzip data_regression.zip 
 RUN pytest
 RUN rm -rf data && rm -rf data_regression
 
