@@ -19,7 +19,7 @@ setup(
     zip_safe=False,
     install_requires=['numpy',
                       'pandas',
-                      'sklearn',
+                      'scikit-learn',
                       'scipy',
                       'pymongo',
                       'cvxopt',
