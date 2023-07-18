@@ -71,7 +71,7 @@ class Predictor(object):
         self.label_decoder = self.label_binarizer_.inverse_transform
 
         self.labels = np.unique(self.train_target).shape[0]
-        self.Y = self.label_encoder(train_target).astype(np.float)
+        self.Y = self.label_encoder(train_target).astype(float)
         self.t = self.Y.shape[1]
 
     def get_indicator(self, test_data):

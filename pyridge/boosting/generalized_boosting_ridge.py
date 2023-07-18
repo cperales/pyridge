@@ -44,7 +44,7 @@ class GeneralizedBRELM(BoostingRidgeELM):
         :return:
         """
         h_matrix = np.array([self.get_h_s_matrix(data=data, s=s)
-                             for s in range(self.size)], dtype=np.float)
+                             for s in range(self.size)], dtype=float)
         return h_matrix
 
     def fit(self, train_data, train_target, parameter):

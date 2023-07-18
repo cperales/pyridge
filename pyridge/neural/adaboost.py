@@ -1,4 +1,4 @@
-from .boosting import BoostingRidgeELM
+from ..boosting import BoostingRidgeELM
 from ..util import solver
 import numpy as np
 
@@ -102,7 +102,7 @@ class AdaBoostELM(BoostingRidgeELM):
         :return: error_vector
         """
         y_pred = self.label_decoder(f_pred)
-        error_vector = np.array(np.invert(y_pred == y), dtype=np.float)
+        error_vector = np.array(np.invert(y_pred == y), dtype=float)
         return error_vector
 
     def get_indicator(self, test_data):

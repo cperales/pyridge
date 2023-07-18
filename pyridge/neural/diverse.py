@@ -1,4 +1,4 @@
-from .boosting import BoostingRidgeELM
+from ..boosting import BoostingRidgeELM
 import numpy as np
 from ..util import solver
 

@@ -8,8 +8,8 @@ class MinMaxScaler(Scaler):
     sklearn but avoiding shape restrictions.
     """
     def __init__(self):
-        self.min_: np.float
-        self.max_: np.float
+        self.min_: float
+        self.max_: float
 
     def get_params(self):
         return {'min_': self.min_, 'max_': self.max_}

@@ -8,7 +8,7 @@ class LogScaler(Scaler):
     scaler.
     """
     def __init__(self):
-        self.min_: np.float
+        self.min_: float
 
     def get_params(self):
         return {'min_': self.min_}

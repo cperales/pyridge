@@ -8,8 +8,8 @@ class StandardScaler(Scaler):
     sklearn but avoiding shape restrictions.
     """
     def __init__(self):
-        self.mean_: np.float
-        self.std_: np.float
+        self.mean_: float
+        self.std_: float
 
     def get_params(self):
         return {'mean_': self.mean_, 'std_': self.std_}

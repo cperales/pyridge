@@ -14,7 +14,7 @@ def accuracy(clf, pred_data, real_targ):
     :return:
     """
     pred_targ = clf.predict(pred_data)
-    comp = np.array((pred_targ == real_targ), dtype=np.float)
+    comp = np.array((pred_targ == real_targ), dtype=float)
     acc = np.mean(comp)
     return acc
 
@@ -49,7 +49,7 @@ def disagreement(clf, pred_data, real_targ, S):
     acc_matrix = np.empty((pred_data.shape[0], S))
     for s in range(S):
         prediction_s = clf.predict(pred_data, s).ravel()
-        acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=np.float)
+        acc_matrix[:, s] = np.array((prediction_s == real_targ), dtype=float)
     Q = np.empty((S, S))
     for i in range(S - 1):
         for j in range(i + 1, S):

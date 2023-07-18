@@ -9,7 +9,7 @@ def id_encoder(T):
     :param T: array of the targets.
     """
     if len(T.shape) == 1:
-        return np.array(T, dtype=np.float).reshape(T.shape[0], 1)
+        return np.array(T, dtype=float).reshape(T.shape[0], 1)
     else:
         return T
 
@@ -22,7 +22,7 @@ def id_decoder(T):
     :param T:
     :return:
     """
-    return np.array(T, dtype=np.float).ravel()
+    return np.array(T, dtype=float).ravel()
 
 
 """
