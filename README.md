@@ -16,8 +16,8 @@ due to the accusations of plagiarism (see more [here](https://github.com/scikit-
 some actual research is done by applying ensemble techniques to Ridge Classification ([3, 4]), thus some some papers
 are used for implementing algorithms.
 
-Main motivation of this repository is translating from MATLAB to Python 3 what
-[I am](https://www.linkedin.com/in/carlos-perales-cperales/) doing in my PhD in Data Science
+Main motivation of this repository is collecting the ML algorithms from my research while
+[I was](https://www.linkedin.com/in/carlos-perales-cperales/) doing my PhD in Data Science
 in [Universidad Loyola Andalucía](https://www.uloyola.es/en/research/departments/quantitative-methods-department).
 
 Documentation and examples are in progress, but some part is available [here](https://cperales.github.io/pyridge/).
@@ -35,7 +35,7 @@ python setup.py install
 It is recommended to install the framework in a virtual environment
 
 ```bash
-virtualenv -p python3 env
+virtualenv -p python3.9 env
 ```
 
 In order to activate the virtual environment
@@ -66,6 +66,7 @@ List of algorithms implemented:
 * PCA LDA ELM [11]
 * Sobol ELM [12]
 * Paralell Layer ELM [13]
+* Boosting Ridge ELM [14]
 
 
 ### Negative Correlation algorithms
@@ -96,10 +97,10 @@ could help you to download some examples from [UCI dataset](https://archive.ics.
 You can run a test for every algorithm, just simply
 
 ```bash
-python test/test_coverage.py
+pytest
 ```
 
-By default, logging level is set to `DEBUG`.
+By default, logging level is set to `INFO`.
 
 
 ## Bibliography
@@ -163,3 +164,7 @@ and learning systems, 27(4), 891-896.
 [13]: Henríquez, P. A., & Ruz, G. A. (2017). 
 Extreme learning machine with a deterministic assignment of hidden 
 weights in two parallel layers. Neurocomputing, 226, 109-116.
+
+[14]: Yangjun, R., Xiaoguang, S., Huyuan, S., Lijuan, S., & Xin, W. (2012, June).
+Boosting ridge extreme learning machine.
+2012 IEEE Symposium on Robotics and Applications (ISRA) (pp. 881-884). IEEE.
