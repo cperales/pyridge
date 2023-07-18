@@ -1,4 +1,4 @@
-from .elm import ELM
+from ..neural.elm import ELM
 import numpy as np
 from ..util import solver
 
@@ -16,7 +16,6 @@ class BoostingRidgeELM(ELM):
         """
         Use some train (data and target) and parameter to
         fit the classifier and construct the rules.
-
         :param numpy.array train_data: data with features.
         :param numpy.array train_target: targets in j codification.
         :param dict parameter:
@@ -40,13 +39,12 @@ class BoostingRidgeELM(ELM):
     def fit_step(self, h_matrix, s: int,  y_mu=None):
         """
         Each  step of the fit process.
-
         :param h_matrix:
         :param int s: element of the ensemble.
         :param y_mu:
         :return:
         """
-        izq = np.eye(h_matrix.shape[1]) / self.reg + np.dot(h_matrix.T, h_matrix)
+        izq = np.eye(h_matrix.shape[1]) * self.reg + np.dot(h_matrix.T, h_matrix)
         der = np.dot(h_matrix.T, y_mu)
         output_weight_s = solver(a=izq, b=der)
         return output_weight_s
@@ -56,7 +54,6 @@ class BoostingRidgeELM(ELM):
         Once instanced, classifier can predict test target
         from test data, using some mathematical rules.
         Valid for other ensembles.
-
         :param numpy.array test_data: array like.
         :return: f(X) vector.
         """
